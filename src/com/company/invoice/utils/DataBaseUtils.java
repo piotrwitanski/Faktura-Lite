@@ -2,6 +2,7 @@ package com.company.invoice.utils;
 
 import com.company.invoice.db.DataBase;
 import com.company.invoice.dto.Customer;
+import com.company.invoice.dto.Product;
 import com.company.invoice.dto.User;
 
 public class DataBaseUtils {
@@ -34,6 +35,19 @@ public class DataBaseUtils {
         dataBase.open();
 
         dataBase.addStatement(user);
+
+        dataBase.close();
+    }
+
+    /**
+     * Adding new Product to database
+     * @param product dto for database
+     */
+    public void addProductToDB(Product product) {
+
+        dataBase.open();
+
+        dataBase.addStatement(product);
 
         dataBase.close();
     }

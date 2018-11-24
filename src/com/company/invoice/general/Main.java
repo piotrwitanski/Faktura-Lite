@@ -1,9 +1,11 @@
 package com.company.invoice.general;
 
 import com.company.invoice.dto.Customer;
+import com.company.invoice.dto.Product;
 import com.company.invoice.dto.User;
 import com.company.invoice.tools.UserProperties;
 import com.company.invoice.utils.CustomerUtils;
+import com.company.invoice.utils.ProductUtils;
 import com.company.invoice.utils.UserUtils;
 
 import java.io.File;
@@ -48,6 +50,15 @@ public class Main {
 
         UserUtils userUtils = new UserUtils();
 //        userUtils.addUserToDB(user);
+
+        //add Product to DB
+        Product product = new Product();
+        product.setName("USŁUGA");
+        ProductUtils productUtils = new ProductUtils();
+//        productUtils.addProductToDB(product);
+
+        product.setName("DOJAZD");
+//        productUtils.addProductToDB(product);
 
     }
 

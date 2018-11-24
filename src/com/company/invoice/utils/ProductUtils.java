@@ -1,20 +1,19 @@
 package com.company.invoice.utils;
 
-import com.company.invoice.dto.User;
+import com.company.invoice.dto.Product;
 
-import static com.company.invoice.dictionaries.Errors.*;
+import static com.company.invoice.dictionaries.Errors.DATABASE_ERROR;
 
-public class UserUtils {
-
+public class ProductUtils {
     private DataBaseUtils dataBaseUtils;
 
-    public UserUtils() {
+    public ProductUtils() {
         this.dataBaseUtils = new DataBaseUtils();
     }
 
-    public void addUserToDB(User user) {
+    public void addProductToDB(Product product) {
         try{
-            dataBaseUtils.addUserToDB(user);
+            dataBaseUtils.addProductToDB(product);
         }
         catch(Exception e) {
             System.out.println(DATABASE_ERROR + e.getMessage());

@@ -1,6 +1,6 @@
 package com.company.invoice.dto;
 
-public class Service {
+public class Product {
     private int id;
     private String name;
 

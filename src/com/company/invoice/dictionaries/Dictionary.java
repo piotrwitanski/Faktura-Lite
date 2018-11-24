@@ -23,4 +23,9 @@ public class Dictionary {
     public static final String COLUMN_USER_POST_CODE = "post_code";
     public static final String COLUMN_USER_NIP = "NIP";
 
+    public static final String TABLE_PRODUCT = "service";
+    public static final String COLUMN_PRODUCT_ID = "id";
+    public static final String COLUMN_PRODUCT_NAME = "name";
+
+
 }
