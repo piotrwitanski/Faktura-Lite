@@ -1,0 +1,8 @@
+#User properties
+#Sat Nov 24 13:17:26 CET 2018
+User\ name=Cris Smith
+NIP=654321
+Phone\ number=123456789
+Street=Something
+City=Warsaw
+Postcode=445-829
