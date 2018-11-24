@@ -1,15 +1,16 @@
 package com.company.invoice.db;
 
 import com.company.invoice.dto.Customer;
+import com.company.invoice.dto.Invoice;
 import com.company.invoice.dto.Product;
 import com.company.invoice.dto.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.company.invoice.dictionaries.Dictionary.*;
+import static com.company.invoice.dictionaries.Errors.SELECT_DB_ERROR;
 
 public class DataBase {
     private Connection conn;
@@ -65,7 +66,7 @@ public class DataBase {
                     ")" +
                     "VALUES(NULL" + ", '" + customer.getName()  +
                             "', '" + customer.getCity() + "', '"  + customer.getStreet() + "', '"  +
-                            customer.getPostCode() + "', " + customer.getNIP() + ")");
+                            customer.getPostCode() + "', '" + customer.getNIP() + "')");
         }
         catch (SQLException e)
         {
@@ -90,7 +91,7 @@ public class DataBase {
                     ")" +
                     "VALUES(NULL" + ", '" + user.getName()  +
                     "', '" + user.getCity() + "', '"  + user.getStreet() + "', '"  +
-                    user.getPostCode() + "', " + user.getNIP() + ")");
+                    user.getPostCode() + "', '" + user.getNIP() + "')");
         }
         catch (SQLException e)
         {
@@ -114,6 +115,92 @@ public class DataBase {
         catch (SQLException e)
         {
             System.out.println("Add statement ERROR: " + e.getMessage());
+        }
+    }
+
+    public void addStatement(Invoice invoice) {
+        try(Statement statement = conn.createStatement()){
+
+            statement.execute("INSERT INTO " + TABLE_INVOICE +
+                    " (" + COLUMN_INVOICE_ID + ", " +
+                    COLUMN_INVOICE_CUSTOMER_ID + ", " +
+                    COLUMN_INVOICE_USER_ID + ", " +
+                    COLUMN_INVOICE_INVOICE_DATE + ", " +
+                    COLUMN_INVOICE_ISSUE_DATE +
+                    ")" +
+                    "VALUES(NULL" +  ", '" + invoice.getCustomerId() + "', '" +
+                    invoice.getUserId() + "', '" + invoice.getInvoiceDate() + "', '" +
+                    invoice.getIssueDate() + "')");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Add statement ERROR: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Downloading Customers List from database.
+     * @return customerGroup with all db customer list or NULL when there is problem with database
+     */
+    public List<Customer> downloadCustomers() {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM customer")){
+
+
+
+            List<Customer> customerGroup = new ArrayList<>();
+            while(result.next())
+            {
+                Customer customer = new Customer();
+                customer.setId(result.getInt(COLUMN_CUSTOMER_ID));
+                customer.setName(result.getString(COLUMN_CUSTOMER_NAME));
+                customer.setCity(result.getString(COLUMN_CUSTOMER_CITY));
+                customer.setStreet(result.getString(COLUMN_CUSTOMER_STREET));
+                customer.setPostCode(result.getString(COLUMN_CUSTOMER_POST_CODE));
+                customer.setNIP(result.getString(COLUMN_CUSTOMER_NIP));
+
+                customerGroup.add(customer);
+            }
+
+            return customerGroup;
+        }
+        catch(SQLException e)
+        {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Downloading Users List from database.
+     * @return userGroup with all db userr list or NULL when there is problem with database
+     */
+    public List<User> downloadUsers() {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM user")){
+
+
+
+            List<User> userGroup = new ArrayList<>();
+            while(result.next())
+            {
+                User user = new User();
+                user.setId(result.getInt(COLUMN_USER_ID));
+                user.setName(result.getString(COLUMN_USER_NAME));
+                user.setCity(result.getString(COLUMN_USER_CITY));
+                user.setStreet(result.getString(COLUMN_USER_STREET));
+                user.setPostCode(result.getString(COLUMN_USER_POST_CODE));
+                user.setNIP(result.getString(COLUMN_USER_NIP));
+
+                userGroup.add(user);
+            }
+
+            return userGroup;
+        }
+        catch(SQLException e)
+        {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
         }
     }
 }

@@ -2,6 +2,8 @@ package com.company.invoice.utils;
 
 import com.company.invoice.dto.Customer;
 
+import java.util.List;
+
 import static com.company.invoice.dictionaries.Errors.*;
 
 public class CustomerUtils {
@@ -13,7 +15,6 @@ public class CustomerUtils {
     }
 
     public void addCustomerToDB(Customer customer) {
-
         try {
             dataBaseUtils.addCustomerToDB(customer);
         }
@@ -22,5 +23,16 @@ public class CustomerUtils {
         }
     }
 
+    public List<Customer> downloadCustomersFromDB() {
+        try {
+            List<Customer> customers = dataBaseUtils.downloadCustomersFromDB();
+            return customers;
+        }
+        catch(Exception e) {
+            System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
+            return null;
+        }
+
+    }
 
 }

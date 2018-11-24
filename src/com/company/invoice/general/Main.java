@@ -1,6 +1,7 @@
 package com.company.invoice.general;
 
 import com.company.invoice.dto.Customer;
+import com.company.invoice.dto.Invoice;
 import com.company.invoice.dto.Product;
 import com.company.invoice.dto.User;
 import com.company.invoice.tools.UserProperties;
@@ -9,6 +10,7 @@ import com.company.invoice.utils.ProductUtils;
 import com.company.invoice.utils.UserUtils;
 
 import java.io.File;
+import java.util.List;
 
 public class Main {
 
@@ -27,11 +29,11 @@ public class Main {
 
         //add Customer to DB
         Customer customer = new Customer();
-        customer.setName("Peter New");
+        customer.setName("Adam New");
         customer.setCity("Warsaw");
         customer.setPostCode("94-39");
         customer.setStreet("Something");
-        customer.setNIP(123456);
+        customer.setNIP("335-35435-23");
 
         System.out.println("Customer:\n" + customer);
 
@@ -40,11 +42,11 @@ public class Main {
 
         //add User to DB
         User user = new User();
-        user.setName("Cris Smith");
+        user.setName("Adam Smith");
         user.setCity("Warsaw");
         user.setPostCode("445-829");
         user.setStreet("Something");
-        user.setNIP(654321);
+        user.setNIP("334-243-234-343");
 
         System.out.println("User:\n" + user);
 
@@ -59,6 +61,25 @@ public class Main {
 
         product.setName("DOJAZD");
 //        productUtils.addProductToDB(product);
+
+        //download Customers from DB
+        List<Customer> customers = customerUtils.downloadCustomersFromDB();
+        for(Customer customerDB : customers) {
+            System.out.println("--------------------------------------------------------------------");
+            System.out.println(customerDB);
+            System.out.println("--------------------------------------------------------------------");
+
+        }
+
+        //download Users from DB
+        List<User> users = userUtils.downloadUsersFromDB();
+        for(User userDB : users) {
+            System.out.println("--------------------------------------------------------------------");
+            System.out.println(userDB);
+            System.out.println("--------------------------------------------------------------------");
+        }
+        //add Invoice to DB
+        Invoice invoice = new Invoice();
 
     }
 

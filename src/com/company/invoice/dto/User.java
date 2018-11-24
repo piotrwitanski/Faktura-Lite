@@ -6,7 +6,7 @@ public class User {
     private String city;
     private String street;
     private String postCode;
-    private int NIP;
+    private String NIP;
 
     public int getId() {
         return id;
@@ -48,11 +48,11 @@ public class User {
         this.postCode = postCode;
     }
 
-    public int getNIP() {
+    public String getNIP() {
         return NIP;
     }
 
-    public void setNIP(int NIP) {
+    public void setNIP(String NIP) {
         this.NIP = NIP;
     }
 

@@ -3,8 +3,8 @@ package com.company.invoice.dto;
 public class Invoice {
     private int id;
     private int customerId;
-    private int sellerId;
-    private String sellDate;
+    private int userId;
+    private String invoiceDate; //sell date
     private String issueDate;
 
     public int getId() {
@@ -23,20 +23,20 @@ public class Invoice {
         this.customerId = customerId;
     }
 
-    public int getSellerId() {
-        return sellerId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setSellerId(int sellerId) {
-        this.sellerId = sellerId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getSellDate() {
-        return sellDate;
+    public String getInvoiceDate() {
+        return invoiceDate;
     }
 
-    public void setSellDate(String sellDate) {
-        this.sellDate = sellDate;
+    public void setInvoiceDate(String invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
 
     public String getIssueDate() {

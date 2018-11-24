@@ -27,5 +27,19 @@ public class Dictionary {
     public static final String COLUMN_PRODUCT_ID = "id";
     public static final String COLUMN_PRODUCT_NAME = "name";
 
+    public static final String TABLE_INVOICE = "invoice";
+    public static final String COLUMN_INVOICE_ID = "id";
+    public static final String COLUMN_INVOICE_CUSTOMER_ID = "customer_id";
+    public static final String COLUMN_INVOICE_USER_ID = "user_id";
+    public static final String COLUMN_INVOICE_INVOICE_DATE = "invoice_date";
+    public static final String COLUMN_INVOICE_ISSUE_DATE = "issue_date";
+
+    public static final String TABLE_ITEM = "item";
+    public static final String COLUMN_ITEM_ID = "id";
+    public static final String COLUMN_ITEM_INVOICE_ID = "invoice_id";
+    public static final String COLUMN_ITEM_NAME = "name";
+    public static final String COLUMN_ITEM_QUANTITY = "quantity";
+    public static final String COLUMN_ITEM_PRICE = "price";
+    public static final String COLUMN_ITEM_VAT = "vat";
 
 }
