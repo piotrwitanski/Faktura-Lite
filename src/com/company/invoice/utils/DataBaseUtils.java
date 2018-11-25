@@ -1,10 +1,7 @@
 package com.company.invoice.utils;
 
 import com.company.invoice.db.DataBase;
-import com.company.invoice.dto.Customer;
-import com.company.invoice.dto.Invoice;
-import com.company.invoice.dto.Product;
-import com.company.invoice.dto.User;
+import com.company.invoice.dto.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,11 +63,20 @@ public class DataBaseUtils {
         dataBase.close();
     }
 
+    public void addItemToDB(Item item) {
+
+        dataBase.open();
+
+        dataBase.addStatement(item);
+
+        dataBase.close();
+    }
+
     /**
      * Transfer Customer List
      * @return customers List
      */
-    public List<Customer> downloadCustomersFromDB() {
+    public List<Customer> downloadCustomers() {
 
         dataBase.open();
 
@@ -81,7 +87,7 @@ public class DataBaseUtils {
         return customers;
     }
 
-    public List<User> downloadUsersFromDB() {
+    public List<User> downloadUsers() {
 
         dataBase.open();
 
@@ -90,5 +96,27 @@ public class DataBaseUtils {
         dataBase.close();
 
         return users;
+    }
+
+    public List<Product> downloadProducts() {
+
+        dataBase.open();
+
+        List<Product> products = dataBase.downloadProducts();
+
+        dataBase.close();
+
+        return products;
+    }
+
+    public List<Invoice> downloadInvoices() {
+
+        dataBase.open();
+
+        List<Invoice> invoices = dataBase.downloadInvoices();
+
+        dataBase.close();
+
+        return invoices;
     }
 }

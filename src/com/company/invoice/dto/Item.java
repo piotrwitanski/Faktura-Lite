@@ -5,7 +5,8 @@ public class Item {
     private int invoiceId;
     private String name;
     private int quantity;
-    private int price;
+    private double priceBrutto;
+    private double priceNetto;
     private int vat;
 
     public int getId() {
@@ -40,12 +41,25 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public int getPrice() {
-        return price;
+    public double getPriceBrutto() {
+        return priceBrutto;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public double getPriceNetto() {
+        return priceNetto;
+    }
+
+    public int getDBPriceNetto() {
+        return (int)this.priceNetto;
+    }
+
+    public int getDBPriceBrutto() {
+        return (int)this.priceBrutto * 100;
+    }
+
+    public void setPriceBrutto(double priceBrutto) {
+        this.priceBrutto = priceBrutto;
+        this.priceNetto = this.priceBrutto * (1.0 - ((double)this.vat / 100));
     }
 
     public int getVat() {

@@ -23,9 +23,9 @@ public class CustomerUtils {
         }
     }
 
-    public List<Customer> downloadCustomersFromDB() {
+    public List<Customer> downloadCustomers() {
         try {
-            List<Customer> customers = dataBaseUtils.downloadCustomersFromDB();
+            List<Customer> customers = dataBaseUtils.downloadCustomers();
             return customers;
         }
         catch(Exception e) {

@@ -23,9 +23,9 @@ public class UserUtils {
         }
     }
 
-    public List<User> downloadUsersFromDB() {
+    public List<User> downloadUsers() {
         try {
-            List<User> users = dataBaseUtils.downloadUsersFromDB();
+            List<User> users = dataBaseUtils.downloadUsers();
             return users;
         }
         catch(Exception e) {

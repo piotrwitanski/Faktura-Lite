@@ -1,9 +1,6 @@
 package com.company.invoice.db;
 
-import com.company.invoice.dto.Customer;
-import com.company.invoice.dto.Invoice;
-import com.company.invoice.dto.Product;
-import com.company.invoice.dto.User;
+import com.company.invoice.dto.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -108,9 +105,14 @@ public class DataBase {
 
             statement.execute("INSERT INTO " + TABLE_PRODUCT +
                     " (" + COLUMN_PRODUCT_ID + ", " +
-                    COLUMN_PRODUCT_NAME +
+                    COLUMN_PRODUCT_NAME + ", " +
+                    COLUMN_PRODUCT_PRICE_BRUTTO + ", " +
+                    COLUMN_PRODUCT_PRICE_NETTO+ ", " +
+                    COLUMN_PRODUCT_VAT +
                     ")" +
-                    "VALUES(NULL" +  ", '" + product.getName()  + "')");
+                    "VALUES(NULL" +  ", '" + product.getName() + "', " +
+                    product.getDBPriceBrutto() + ", " + product.getDBPriceNetto() + ", " +
+                    product.getVat() + ")");
         }
         catch (SQLException e)
         {
@@ -118,6 +120,10 @@ public class DataBase {
         }
     }
 
+    /**
+     * Adding new Invoice to database
+     * @param invoice transfer data to table invoice from database
+     */
     public void addStatement(Invoice invoice) {
         try(Statement statement = conn.createStatement()){
 
@@ -128,9 +134,32 @@ public class DataBase {
                     COLUMN_INVOICE_INVOICE_DATE + ", " +
                     COLUMN_INVOICE_ISSUE_DATE +
                     ")" +
-                    "VALUES(NULL" +  ", '" + invoice.getCustomerId() + "', '" +
-                    invoice.getUserId() + "', '" + invoice.getInvoiceDate() + "', '" +
+                    "VALUES(NULL" +  ", " + invoice.getCustomerId() + ", " +
+                    invoice.getUserId() + ", '" + invoice.getInvoiceDate() + "', '" +
                     invoice.getIssueDate() + "')");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Add statement ERROR: " + e.getMessage());
+        }
+    }
+
+    public void addStatement(Item item) {
+        try(Statement statement = conn.createStatement()){
+
+            statement.execute("INSERT INTO " + TABLE_ITEM +
+                    " (" + COLUMN_ITEM_ID + ", " +
+                    COLUMN_ITEM_INVOICE_ID + ", " +
+                    COLUMN_ITEM_NAME + ", " +
+                    COLUMN_ITEM_QUANTITY + ", " +
+                    COLUMN_ITEM_PRICE_BRUTTO + ", " +
+                    COLUMN_ITEM_PRICE_NETTO + ", " +
+                    COLUMN_ITEM_VAT +
+                    ")" +
+                    "VALUES(NULL" +  ", " + item.getInvoiceId() + ", '" +
+                    item.getName() + "', " + item.getQuantity() + ", " +
+                    item.getDBPriceBrutto() + ", " + item.getDBPriceNetto() + ", " +
+                    item.getVat() + ")");
         }
         catch (SQLException e)
         {
@@ -144,11 +173,9 @@ public class DataBase {
      */
     public List<Customer> downloadCustomers() {
         try(Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM customer")){
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_CUSTOMER)){
 
-
-
-            List<Customer> customerGroup = new ArrayList<>();
+            List<Customer> customerList = new ArrayList<>();
             while(result.next())
             {
                 Customer customer = new Customer();
@@ -159,10 +186,10 @@ public class DataBase {
                 customer.setPostCode(result.getString(COLUMN_CUSTOMER_POST_CODE));
                 customer.setNIP(result.getString(COLUMN_CUSTOMER_NIP));
 
-                customerGroup.add(customer);
+                customerList.add(customer);
             }
 
-            return customerGroup;
+            return customerList;
         }
         catch(SQLException e)
         {
@@ -173,15 +200,13 @@ public class DataBase {
 
     /**
      * Downloading Users List from database.
-     * @return userGroup with all db userr list or NULL when there is problem with database
+     * @return userGroup with all db users list or NULL when there is problem with database
      */
     public List<User> downloadUsers() {
         try(Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM user")){
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_USER)){
 
-
-
-            List<User> userGroup = new ArrayList<>();
+            List<User> userList = new ArrayList<>();
             while(result.next())
             {
                 User user = new User();
@@ -192,10 +217,65 @@ public class DataBase {
                 user.setPostCode(result.getString(COLUMN_USER_POST_CODE));
                 user.setNIP(result.getString(COLUMN_USER_NIP));
 
-                userGroup.add(user);
+                userList.add(user);
             }
 
-            return userGroup;
+            return userList;
+        }
+        catch(SQLException e)
+        {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Downloading Products List from database.
+     * @return
+     */
+    public List<Product> downloadProducts() {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PRODUCT)){
+
+            List<Product> productList = new ArrayList<>();
+            while(result.next())
+            {
+                Product product = new Product();
+                product.setId(result.getInt(COLUMN_PRODUCT_ID));
+                product.setName(result.getString(COLUMN_PRODUCT_NAME));
+                product.setDBPriceBrutto(result.getInt(COLUMN_PRODUCT_PRICE_BRUTTO));
+                product.setDBPriceNetto(result.getInt(COLUMN_PRODUCT_PRICE_NETTO));
+                product.setVat(result.getInt(COLUMN_PRODUCT_VAT));
+                productList.add(product);
+            }
+
+            return productList;
+        }
+        catch(SQLException e)
+        {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
+    public List<Invoice> downloadInvoices() {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_INVOICE)){
+
+            List<Invoice> invoiceList = new ArrayList<>();
+            while(result.next())
+            {
+                Invoice invoice = new Invoice();
+                invoice.setId(result.getInt(COLUMN_CUSTOMER_ID));
+                invoice.setCustomerId(result.getInt(COLUMN_INVOICE_CUSTOMER_ID));
+                invoice.setUserId(result.getInt(COLUMN_INVOICE_USER_ID));
+                invoice.setInvoiceDate(result.getString(COLUMN_INVOICE_INVOICE_DATE));
+                invoice.setIssueDate(result.getString(COLUMN_INVOICE_ISSUE_DATE));
+
+                invoiceList.add(invoice);
+            }
+
+            return invoiceList;
         }
         catch(SQLException e)
         {
