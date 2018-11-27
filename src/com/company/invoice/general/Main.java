@@ -98,10 +98,10 @@ public class Main {
         //add item to DB
         Item item = new Item();
         item.setInvoiceId(1);
-        item.setName("Usługa");
-        item.setQuantity(10);
+        item.setName("Usługa 1");
+        item.setQuantity(5);
         item.setVat(23);
-        item.setPriceBrutto(100);
+        item.setPriceBrutto(300);
 
         ItemUtils itemUtils = new ItemUtils();
 //        itemUtils.addItemToDB(item);
@@ -119,6 +119,14 @@ public class Main {
         for(Invoice invoiceDB : invoices) {
             System.out.println("--------------------------------------------------------------------");
             System.out.println(invoiceDB);
+            System.out.println("--------------------------------------------------------------------");
+        }
+
+        //download Items form DB
+        List<Item> items = itemUtils.downloadItems(1);
+        for(Item itemDB : items) {
+            System.out.println("--------------------------------------------------------------------");
+            System.out.println(itemDB);
             System.out.println("--------------------------------------------------------------------");
         }
 

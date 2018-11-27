@@ -23,8 +23,7 @@ public class DataBase {
             conn = DriverManager.getConnection(CONNECTION_STRING);
             return true;
         }
-        catch(SQLException e)
-        {
+        catch(SQLException e) {
             System.out.println("Couldn't connect to database" + e.getMessage());
             return false;
         }
@@ -39,8 +38,7 @@ public class DataBase {
             if(conn != null)
                 conn.close();
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             System.out.println("Couldn't close connection:" + e.getMessage());
         }
     }
@@ -65,8 +63,7 @@ public class DataBase {
                             "', '" + customer.getCity() + "', '"  + customer.getStreet() + "', '"  +
                             customer.getPostCode() + "', '" + customer.getNIP() + "')");
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
         }
     }
@@ -90,8 +87,7 @@ public class DataBase {
                     "', '" + user.getCity() + "', '"  + user.getStreet() + "', '"  +
                     user.getPostCode() + "', '" + user.getNIP() + "')");
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
         }
     }
@@ -114,8 +110,7 @@ public class DataBase {
                     product.getDBPriceBrutto() + ", " + product.getDBPriceNetto() + ", " +
                     product.getVat() + ")");
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
         }
     }
@@ -138,8 +133,7 @@ public class DataBase {
                     invoice.getUserId() + ", '" + invoice.getInvoiceDate() + "', '" +
                     invoice.getIssueDate() + "')");
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
         }
     }
@@ -161,23 +155,21 @@ public class DataBase {
                     item.getDBPriceBrutto() + ", " + item.getDBPriceNetto() + ", " +
                     item.getVat() + ")");
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
         }
     }
 
     /**
      * Downloading Customers List from database.
-     * @return customerGroup with all db customer list or NULL when there is problem with database
+     * @return customerList with all db customer list or {@code null} when there is a problem with database
      */
     public List<Customer> downloadCustomers() {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_CUSTOMER)){
 
             List<Customer> customerList = new ArrayList<>();
-            while(result.next())
-            {
+            while(result.next()) {
                 Customer customer = new Customer();
                 customer.setId(result.getInt(COLUMN_CUSTOMER_ID));
                 customer.setName(result.getString(COLUMN_CUSTOMER_NAME));
@@ -191,8 +183,7 @@ public class DataBase {
 
             return customerList;
         }
-        catch(SQLException e)
-        {
+        catch(SQLException e) {
             System.out.println(SELECT_DB_ERROR + e.getMessage());
             return null;
         }
@@ -200,15 +191,14 @@ public class DataBase {
 
     /**
      * Downloading Users List from database.
-     * @return userGroup with all db users list or NULL when there is problem with database
+     * @return userList with all db users  or {@code null} when there is a problem with database
      */
     public List<User> downloadUsers() {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_USER)){
 
             List<User> userList = new ArrayList<>();
-            while(result.next())
-            {
+            while(result.next()) {
                 User user = new User();
                 user.setId(result.getInt(COLUMN_USER_ID));
                 user.setName(result.getString(COLUMN_USER_NAME));
@@ -222,8 +212,7 @@ public class DataBase {
 
             return userList;
         }
-        catch(SQLException e)
-        {
+        catch(SQLException e) {
             System.out.println(SELECT_DB_ERROR + e.getMessage());
             return null;
         }
@@ -231,15 +220,14 @@ public class DataBase {
 
     /**
      * Downloading Products List from database.
-     * @return
+     * @return productList with all db products or {@code null} when there is a problem with database
      */
     public List<Product> downloadProducts() {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PRODUCT)){
 
             List<Product> productList = new ArrayList<>();
-            while(result.next())
-            {
+            while(result.next()) {
                 Product product = new Product();
                 product.setId(result.getInt(COLUMN_PRODUCT_ID));
                 product.setName(result.getString(COLUMN_PRODUCT_NAME));
@@ -251,8 +239,7 @@ public class DataBase {
 
             return productList;
         }
-        catch(SQLException e)
-        {
+        catch(SQLException e) {
             System.out.println(SELECT_DB_ERROR + e.getMessage());
             return null;
         }
@@ -263,8 +250,7 @@ public class DataBase {
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_INVOICE)){
 
             List<Invoice> invoiceList = new ArrayList<>();
-            while(result.next())
-            {
+            while(result.next()) {
                 Invoice invoice = new Invoice();
                 invoice.setId(result.getInt(COLUMN_CUSTOMER_ID));
                 invoice.setCustomerId(result.getInt(COLUMN_INVOICE_CUSTOMER_ID));
@@ -277,8 +263,39 @@ public class DataBase {
 
             return invoiceList;
         }
-        catch(SQLException e)
-        {
+        catch(SQLException e) {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Downloading itemList from database for specific invoice number
+     * @param invoiceId indicate which item should be downloaded from database
+     * @return list of Items that match the invoice id or {@code null} when there is a problem with database
+     */
+    public List<Item> downloadItems(int invoiceId) {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_ITEM +
+                                                        " WHERE " + COLUMN_ITEM_INVOICE_ID + " = " + invoiceId)){
+
+            List<Item> itemList = new ArrayList<>();
+            while(result.next()) {
+                Item item = new Item();
+                item.setId(result.getInt(COLUMN_ITEM_ID));
+                item.setInvoiceId(result.getInt(COLUMN_ITEM_INVOICE_ID));
+                item.setName(result.getString(COLUMN_ITEM_NAME));
+                item.setQuantity(result.getInt(COLUMN_ITEM_QUANTITY));
+                item.setDBPriceBrutto(result.getInt(COLUMN_ITEM_PRICE_BRUTTO));
+                item.setDBPriceNetto(result.getInt(COLUMN_ITEM_PRICE_NETTO));
+                item.setVat(result.getInt(COLUMN_ITEM_VAT));
+
+                itemList.add(item);
+            }
+
+            return itemList;
+        }
+        catch(SQLException e) {
             System.out.println(SELECT_DB_ERROR + e.getMessage());
             return null;
         }

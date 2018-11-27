@@ -119,4 +119,15 @@ public class DataBaseUtils {
 
         return invoices;
     }
+
+    public List<Item> downloadItems(int invoiceId) {
+
+        dataBase.open();
+
+        List<Item> items = dataBase.downloadItems(invoiceId);
+
+        dataBase.close();
+
+        return items;
+    }
 }
