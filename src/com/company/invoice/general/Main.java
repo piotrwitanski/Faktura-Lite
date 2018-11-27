@@ -98,10 +98,10 @@ public class Main {
         //add item to DB
         Item item = new Item();
         item.setInvoiceId(1);
-        item.setName("Usługa 1");
+        item.setName("Naprawa");
         item.setQuantity(5);
         item.setVat(23);
-        item.setPriceBrutto(300);
+        item.setPriceBrutto(500);
 
         ItemUtils itemUtils = new ItemUtils();
 //        itemUtils.addItemToDB(item);

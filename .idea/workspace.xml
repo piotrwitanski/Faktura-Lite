@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f6c3bf7-2202-4a7e-b742-7b65ef07ae4d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/invoice/db/DataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/invoice/db/DataBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/invoice/dto/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/invoice/dto/Item.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/invoice/general/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/invoice/general/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/invoice/utils/DataBaseUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/invoice/utils/DataBaseUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/invoice/utils/ItemUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/invoice/utils/ItemUtils.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/invoice/general/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
+            <state relative-caret-position="238">
+              <caret line="100" column="29" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -40,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataBase.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DataBase.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/invoice/db/DataBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="284" selection-start-line="284" selection-end-line="284" />
+            <state relative-caret-position="289">
+              <caret line="283" selection-start-line="283" selection-end-line="283" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -52,20 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JDBC3ResultSet.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/sqlite-jdbc-3.23.1.jar!/org/sqlite/jdbc3/JDBC3ResultSet.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DataBaseUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/invoice/utils/DataBaseUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="689">
-              <caret line="127" selection-start-line="127" selection-end-line="127" />
+            <state relative-caret-position="364">
+              <caret line="130" selection-start-line="130" selection-end-line="130" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,8 +63,8 @@
       <file leaf-file-name="ItemUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/invoice/utils/ItemUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+            <state relative-caret-position="442">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,8 +75,8 @@
       <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/invoice/dto/Item.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="774">
-              <caret line="86" column="112" selection-start-line="86" selection-start-column="112" selection-end-line="86" selection-end-column="112" />
+            <state relative-caret-position="177">
+              <caret line="54" column="41" selection-start-line="54" selection-start-column="41" selection-end-line="54" selection-end-column="41" />
               <folding>
                 <element signature="e#531#532#0" expanded="true" />
                 <element signature="e#558#559#0" expanded="true" />
@@ -97,6 +84,8 @@
                 <element signature="e#854#855#0" expanded="true" />
                 <element signature="e#909#910#0" expanded="true" />
                 <element signature="e#962#963#0" expanded="true" />
+                <element signature="e#956#957#0" expanded="true" />
+                <element signature="e#999#1000#0" expanded="true" />
                 <element signature="e#971#972#0" expanded="true" />
                 <element signature="e#1005#1006#0" expanded="true" />
                 <element signature="e#1322#1323#0" expanded="true" />
@@ -114,15 +103,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Customer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/invoice/dto/Customer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="58" column="4" selection-start-line="58" selection-start-column="4" selection-end-line="63" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -321,7 +301,7 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32943678" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32943678" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
@@ -331,7 +311,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3995749" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3995749" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -374,38 +354,17 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/invoice/db/DataBase.java</url>
-          <line>281</line>
-          <properties />
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/invoice/db/DataBase.java</url>
-          <line>283</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/company/invoice/utils/DataBaseUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/invoice/utils/UserUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -496,6 +455,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -574,6 +536,8 @@
             <element signature="e#854#855#0" expanded="true" />
             <element signature="e#909#910#0" expanded="true" />
             <element signature="e#962#963#0" expanded="true" />
+            <element signature="e#956#957#0" expanded="true" />
+            <element signature="e#999#1000#0" expanded="true" />
             <element signature="e#971#972#0" expanded="true" />
             <element signature="e#1005#1006#0" expanded="true" />
             <element signature="e#1322#1323#0" expanded="true" />
@@ -711,6 +675,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -777,26 +744,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/invoice/utils/DataBaseUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="689">
-          <caret line="127" selection-start-line="127" selection-end-line="127" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/invoice/utils/ItemUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/invoice/utils/CustomerUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -807,10 +754,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/sqlite-jdbc-3.23.1.jar!/org/sqlite/jdbc3/JDBC3ResultSet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="266" selection-start-line="266" selection-end-line="266" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/sqlite-jdbc-3.23.1.jar!/org/sqlite/jdbc4/JDBC4ResultSet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/invoice/utils/DataBaseUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="130" selection-start-line="130" selection-end-line="130" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/invoice/utils/ItemUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/invoice/db/DataBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="283" selection-start-line="283" selection-end-line="283" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/invoice/dto/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="86" column="112" selection-start-line="86" selection-start-column="112" selection-end-line="86" selection-end-column="112" />
+        <state relative-caret-position="177">
+          <caret line="54" column="41" selection-start-line="54" selection-start-column="41" selection-end-line="54" selection-end-column="41" />
           <folding>
             <element signature="e#531#532#0" expanded="true" />
             <element signature="e#558#559#0" expanded="true" />
@@ -818,6 +809,8 @@
             <element signature="e#854#855#0" expanded="true" />
             <element signature="e#909#910#0" expanded="true" />
             <element signature="e#962#963#0" expanded="true" />
+            <element signature="e#956#957#0" expanded="true" />
+            <element signature="e#999#1000#0" expanded="true" />
             <element signature="e#971#972#0" expanded="true" />
             <element signature="e#1005#1006#0" expanded="true" />
             <element signature="e#1322#1323#0" expanded="true" />
@@ -828,25 +821,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/invoice/general/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/sqlite-jdbc-3.23.1.jar!/org/sqlite/jdbc3/JDBC3ResultSet.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/invoice/db/DataBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="284" selection-start-line="284" selection-end-line="284" />
+        <state relative-caret-position="238">
+          <caret line="100" column="29" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -52,7 +52,7 @@ public class Item {
     }
 
     public int getDBPriceNetto() {
-        return (int)this.priceNetto;
+        return (int)this.priceNetto * 100;
     }
 
     public double getPriceBrutto() {
