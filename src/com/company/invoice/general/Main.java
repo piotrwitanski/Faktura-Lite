@@ -1,6 +1,7 @@
 package com.company.invoice.general;
 
 import com.company.invoice.dto.*;
+import com.company.invoice.tools.PDFCreator;
 import com.company.invoice.tools.UserProperties;
 import com.company.invoice.utils.*;
 import org.joda.time.DateTime;
@@ -129,6 +130,10 @@ public class Main {
             System.out.println(itemDB);
             System.out.println("--------------------------------------------------------------------");
         }
+
+        //create pdf
+        PDFCreator pdfCreator = new PDFCreator();
+        pdfCreator.createPdf("Invoice.pdf");
 
     }
 
