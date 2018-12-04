@@ -46,4 +46,21 @@ public class Dictionary {
     public static final String COLUMN_ITEM_PRICE_NETTO = "price_netto";
     public static final String COLUMN_ITEM_VAT = "vat";
 
+    //Invoice
+    public static final String INVOICE = "Faktura";
+    public static final String NUMBER = "L.p.";
+    public static final String NAME = "Nazwa";
+    public static final String QUANTITY = "Ilość";
+    public static final String UNIT_OF_MEASURE = "j.m.";
+    public static final String PRICE_NETTO = "Cena netto";
+    public static final String VALUE_NETTO = "Wartość netto";
+    public static final String VAT = "VAT [%]";
+    public static final String VAT_PRICE = "Wartość VAT";
+    public static final String PRICE_BRUTTO = "Wartość brutto";
+
+    public static final String PERCENTAGE = "%";
+    public static final String NETTO = "NETTO";
+    public static final String BRUTTO = "BRUTTO";
+    public static final String VAT_VALUE = "VAT";
+
 }

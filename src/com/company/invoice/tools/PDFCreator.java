@@ -9,10 +9,15 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static com.company.invoice.dictionaries.Dictionary.*;
+import static com.company.invoice.dictionaries.Errors.PDF_ERROR;
+
 public class PDFCreator {
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
             Font.BOLD);
     private Font normalFont = new Font(Font.FontFamily.TIMES_ROMAN, 8);
+    private Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 8,
+            Font.BOLD);
 
     public void createPdf(String filename){
         //*TODO add bigger font size
@@ -29,36 +34,65 @@ public class PDFCreator {
             PdfPTable namesTable = new PdfPTable(3);
             namesTable.setWidths(new int[] {6, 1, 6});
             namesTable.setWidthPercentage(100);
-            createCustomerSellerTable(document, namesTable);
+            createCustomerSellerTable(namesTable);
+            addRowCustomerSeller(namesTable, "PROBUILD Cris Smith", "Frank Murphy");
+            addRowCustomerSeller(namesTable, "45-900 Cracow, Street 34/12", "45-900 Warsaw, Street 56/3");
+            addRowCustomerSeller(namesTable, "NIP: 453-5454-545", "NIP: 343-323-434");
+
+            document.add(namesTable);
             addEmptyLine(document, 2);
 
-            PdfPTable itemTable = new PdfPTable(8);
-            itemTable.setWidths(new int[]{1, 3, 1, 1, 2, 1, 2, 2});
+            PdfPTable itemTable = new PdfPTable(9);
+            itemTable.setWidths(new int[] {1, 3, 1, 1, 2, 2, 1, 2, 2});
             itemTable.setWidthPercentage(100);
-            createItemTitleTable(document, itemTable);
-            createItemTablePositions(document, itemTable);
+            createItemTitleTable(itemTable);
+            addItemTablePositions(itemTable);
 
             document.add(itemTable);
+            addEmptyLine(document, 2);
+
+            PdfPTable summaryTable = new PdfPTable(4);
+            summaryTable.setWidths(new int[] {2, 2, 2, 2});
+            summaryTable.setWidthPercentage(50);
+            summaryTable.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            createSummaryTable(summaryTable);
+            addSummaryValues(summaryTable, "23", "200", "70", "270", 0, normalFont);
+            addSummaryValues(summaryTable, "23", "200", "70", "270", 0, normalFont);
+            addSummaryValues(summaryTable, "", "400", "140", "540", 1, boldFont);
+
+            document.add(summaryTable);
             document.close();
         }
         catch(DocumentException | IOException e) {
-            System.out.println("PDF exception" +e.getMessage());
+            System.out.println(PDF_ERROR +e.getMessage());
         }
     }
 
+    /**
+     * This method add title for PDF page
+     * @param document
+     * @throws DocumentException
+     */
     private void addTitle(Document document) throws DocumentException {
-        document.add(new Paragraph("Faktura 01/11/2018", titleFont));
+        //*TODO date and invoice number will be added from db
+        document.add(new Paragraph(INVOICE + " 01/11/2018", titleFont));
     }
 
+    /**
+     * This method adding date in right top corner of the pdf page
+     * @param document
+     * @param title is used to add date description
+     * @param date specify date
+     * @throws DocumentException
+     */
     private void addDateTable(Document document, String title, String date) throws DocumentException {
         PdfPTable table = new PdfPTable(1);
-
 
         table.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.setWidthPercentage(20);
         PdfPCell titleCell = new PdfPCell(new Phrase(title, normalFont));
         titleCell.setBorder(Rectangle.TOP);
-        titleCell.setBackgroundColor(new BaseColor(232, 230, 229));
+//        titleCell.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(titleCell);
 
         PdfPCell cell = new PdfPCell(new Phrase(date, normalFont));
@@ -69,115 +103,94 @@ public class PDFCreator {
         document.add(table);
     }
 
-    private void createItemTitleTable(Document document, PdfPTable table) throws DocumentException, IOException {
+    private void createItemTitleTable(PdfPTable table) throws DocumentException, IOException {
         BaseFont bf = BaseFont.createFont("arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font font = new Font(bf, 8, Font.BOLD);
 
-        PdfPCell lp = new PdfPCell(new Phrase("L.p.", font));
+        PdfPCell lp = new PdfPCell(new Phrase(NUMBER, font));
         lp.setRowspan(2);
         lp.setFixedHeight(25);
-        lp.setBorder(Rectangle.LEFT | Rectangle.TOP);
-        lp.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(lp);
 
-        PdfPCell name = new PdfPCell(new Phrase("Nazwa", font));
+        PdfPCell name = new PdfPCell(new Phrase(NAME, font));
         name.setRowspan(2);
-        name.setBorder(Rectangle.LEFT | Rectangle.TOP);
-        name.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(name);
 
-        PdfPCell quantity = new PdfPCell(new Phrase("Ilość", font));
+        PdfPCell quantity = new PdfPCell(new Phrase(QUANTITY, font));
         quantity.setRowspan(2);
-        quantity.setBorder(Rectangle.LEFT | Rectangle.TOP);
-        quantity.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(quantity);
 
-        PdfPCell unitOfMeasure = new PdfPCell(new Phrase("j.m.", font));
+        PdfPCell unitOfMeasure = new PdfPCell(new Phrase(UNIT_OF_MEASURE, font));
         unitOfMeasure.setRowspan(2);
-        unitOfMeasure.setBorder(Rectangle.LEFT | Rectangle.TOP);
-        unitOfMeasure.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(unitOfMeasure);
 
-        PdfPCell priceNetto = new PdfPCell(new Phrase("Wartość netto", font));
+        PdfPCell priceNetto = new PdfPCell(new Phrase(PRICE_NETTO, font));
         priceNetto.setRowspan(2);
-        priceNetto.setBorder(Rectangle.LEFT | Rectangle.TOP);
-        priceNetto.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(priceNetto);
 
-        PdfPCell vat = new PdfPCell(new Phrase("VAT [%]", font));
+        PdfPCell valueNetto = new PdfPCell(new Phrase(VALUE_NETTO, font));
+        valueNetto.setRowspan(2);
+        table.addCell(valueNetto);
+
+        PdfPCell vat = new PdfPCell(new Phrase(VAT, font));
         vat.setRowspan(2);
-        vat.setBorder(Rectangle.LEFT | Rectangle.TOP);
-        vat.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(vat);
 
-        PdfPCell vatPrice = new PdfPCell(new Phrase("Wartość VAT", font));
+        PdfPCell vatPrice = new PdfPCell(new Phrase(VAT_PRICE, font));
         vatPrice.setRowspan(2);
-        vatPrice.setBorder(Rectangle.LEFT | Rectangle.TOP);
-        vatPrice.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(vatPrice);
 
-        PdfPCell priceBrutto = new PdfPCell(new Phrase("Wartość brutto", font));
+        PdfPCell priceBrutto = new PdfPCell(new Phrase(PRICE_BRUTTO, font));
         priceBrutto.setRowspan(2);
-        priceBrutto.setBorder(Rectangle.LEFT | Rectangle.TOP | Rectangle.RIGHT);
-        priceBrutto.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(priceBrutto);
+
+//        document.add(table);
     }
 
-    private void createItemTablePositions(Document document, PdfPTable table) {
-        //*TODO close Item table with BOTTOM border
+    private void addItemTablePositions(PdfPTable table) throws DocumentException {
+        //*TODO download values from DB
         PdfPCell f1 = new PdfPCell(new Phrase("1", normalFont));
-        f1.setBorder(Rectangle.LEFT);
-        f1.setBackgroundColor(BaseColor.WHITE);
         table.addCell(f1);
 
         PdfPCell f2 = new PdfPCell(new Phrase("Usluga", normalFont));
-        f2.setBorder(Rectangle.LEFT);
-        f2.setBackgroundColor(BaseColor.WHITE);
         table.addCell(f2);
 
         PdfPCell f3 = new PdfPCell(new Phrase("10", normalFont));
-        f3.setBorder(Rectangle.LEFT);
-        f3.setBackgroundColor(BaseColor.WHITE);
         table.addCell(f3);
 
         PdfPCell f4 = new PdfPCell(new Phrase("szt.", normalFont));
-        f4.setBackgroundColor(BaseColor.WHITE);
-        f4.setBorder(Rectangle.LEFT);
         table.addCell(f4);
 
         PdfPCell f5 = new PdfPCell(new Phrase("2300.98", normalFont));
-        f5.setBorder(Rectangle.LEFT);
-        f5.setBackgroundColor(BaseColor.WHITE);
         f5.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(f5);
 
-        PdfPCell f6 = new PdfPCell(new Phrase("23%", normalFont));
-        f6.setBorder(Rectangle.LEFT);
-        f6.setBackgroundColor(BaseColor.WHITE);
+        PdfPCell f6 = new PdfPCell(new Phrase("2300.98", normalFont));
         f6.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(f6);
 
-        PdfPCell f7 = new PdfPCell(new Phrase("505,45", normalFont));
-        f7.setBorder(Rectangle.LEFT);
-        f7.setBackgroundColor(BaseColor.WHITE);
+        PdfPCell f7 = new PdfPCell(new Phrase("23%", normalFont));
         f7.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(f7);
 
-        PdfPCell f8 = new PdfPCell(new Phrase("2704,11", normalFont));
-        f8.setBorder(Rectangle.LEFT | Rectangle.RIGHT);
-        f8.setBackgroundColor(BaseColor.WHITE);
+        PdfPCell f8 = new PdfPCell(new Phrase("505,45", normalFont));
         f8.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(f8);
+
+        PdfPCell f9 = new PdfPCell(new Phrase("2704,11", normalFont));
+        f9.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(f9);
+
+//        document.add(table);
     }
 
-    private void createCustomerSellerTable(Document document, PdfPTable table) throws IOException, DocumentException {
+    private void createCustomerSellerTable(PdfPTable table) throws IOException, DocumentException {
         BaseFont bf = BaseFont.createFont("arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font font = new Font(bf, 8, Font.BOLD);
 
 
         PdfPCell sellerCell = new PdfPCell(new Phrase("Sprzedawca", font));
         sellerCell.setBorder(Rectangle.TOP);
-        sellerCell.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(sellerCell);
 
         PdfPCell emptyCell = new PdfPCell((new Phrase("")));
@@ -186,10 +199,81 @@ public class PDFCreator {
 
         PdfPCell customerCell = new PdfPCell(new Phrase("Nabywca", font));
         customerCell.setBorder(Rectangle.TOP);
-        customerCell.setBackgroundColor(new BaseColor(232, 230, 229));
         table.addCell(customerCell);
 
-        document.add(table);
+//        document.add(table);
+    }
+
+    private void addRowCustomerSeller(PdfPTable table, String seller, String customer) throws IOException, DocumentException {
+        BaseFont bf = BaseFont.createFont("arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        Font font = new Font(bf, 8);
+
+        PdfPCell sellerCell = new PdfPCell(new Phrase(seller, font));
+        sellerCell.setBorder(Rectangle.NO_BORDER);
+        table.addCell(sellerCell);
+
+        PdfPCell emptyCell = new PdfPCell(new Phrase(""));
+        emptyCell.setBorder(Rectangle.NO_BORDER);
+        table.addCell(emptyCell);
+
+        PdfPCell customerCell = new PdfPCell(new Phrase(customer, font));
+        customerCell.setBorder(Rectangle.NO_BORDER);
+        table.addCell(customerCell);
+
+    }
+
+    private void createSummaryTable(PdfPTable table) {
+        PdfPCell percentageCell = new PdfPCell(new Phrase(PERCENTAGE, boldFont));
+        percentageCell.setBorder(Rectangle.NO_BORDER);
+        percentageCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(percentageCell);
+
+        PdfPCell nettoCell = new PdfPCell(new Phrase(NETTO, boldFont));
+        nettoCell.setBorder(Rectangle.NO_BORDER);
+        nettoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(nettoCell);
+
+        PdfPCell vatCell = new PdfPCell(new Phrase(VAT_VALUE, boldFont));
+        vatCell.setBorder(Rectangle.NO_BORDER);
+        vatCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(vatCell);
+
+        PdfPCell bruttoCell = new PdfPCell(new Phrase(BRUTTO, boldFont));
+        bruttoCell.setBorder(Rectangle.NO_BORDER);
+        bruttoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(bruttoCell);
+
+    }
+
+    /**
+     * Method to add summary table for invoice
+     * @param table
+     * @param percentage
+     * @param netto
+     * @param vat
+     * @param brutto
+     * @param cellBorder 0 -> without border; 1 -> top border; {@link Rectangle}
+     */
+    private void addSummaryValues(PdfPTable table, String percentage, String netto, String vat, String brutto, int cellBorder, Font font) {
+        PdfPCell percentageCell = new PdfPCell(new Phrase(percentage, font));
+        percentageCell.setBorder(cellBorder);
+        percentageCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(percentageCell);
+
+        PdfPCell nettoCell = new PdfPCell(new Phrase(netto, font));
+        nettoCell.setBorder(cellBorder);
+        nettoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(nettoCell);
+
+        PdfPCell vatCell = new PdfPCell(new Phrase(vat, font));
+        vatCell.setBorder(cellBorder);
+        vatCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(vatCell);
+
+        PdfPCell bruttoCell = new PdfPCell(new Phrase(brutto, font));
+        bruttoCell.setBorder(cellBorder);
+        bruttoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(bruttoCell);
     }
 
     private void addEmptyLine(Document document, int emptyLines) throws DocumentException {
