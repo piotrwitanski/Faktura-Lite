@@ -87,6 +87,17 @@ public class DataBaseUtils {
         return customers;
     }
 
+    public Customer downloadCustomer(int customerId) {
+
+        dataBase.open();
+
+        Customer customer = dataBase.downloadCustomer(customerId);
+
+        dataBase.close();
+
+        return customer;
+    }
+
     public List<User> downloadUsers() {
 
         dataBase.open();
@@ -96,6 +107,17 @@ public class DataBaseUtils {
         dataBase.close();
 
         return users;
+    }
+
+    public User downloadUser(int userId) {
+
+        dataBase.open();
+
+        User user = dataBase.downloadUser(userId);
+
+        dataBase.close();
+
+        return user;
     }
 
     public List<Product> downloadProducts() {
@@ -118,6 +140,17 @@ public class DataBaseUtils {
         dataBase.close();
 
         return invoices;
+    }
+
+    public Invoice downloadInvoice(int invoiceId) {
+
+         dataBase.open();
+
+         Invoice invoice = dataBase.downloadInvoice(invoiceId);
+
+         dataBase.close();
+
+         return invoice;
     }
 
     public List<Item> downloadItems(int invoiceId) {

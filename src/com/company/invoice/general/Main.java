@@ -7,9 +7,7 @@ import com.company.invoice.utils.*;
 import org.joda.time.DateTime;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
@@ -52,9 +50,10 @@ public class Main {
 
         //add Product to DB
         Product product = new Product();
-        product.setName("USŁUGA2");
+        product.setName("KOMPUTER");
         product.setVat(23);
-        product.setPriceBrutto(100);
+        product.setPriceBrutto(1000);
+        product.setUnitOfMeasure("szt.");
         ProductUtils productUtils = new ProductUtils();
 //        productUtils.addProductToDB(product);
 
@@ -84,6 +83,12 @@ public class Main {
         String todayDate = dtToday.toString("dd-MM-yyyy");
         String invoiceDate = dtInvoice.toString("dd-MM-yyyy");
 
+        List<String> list = Arrays.asList(todayDate.split("-"));
+
+        for (String s : list) {
+            System.out.println(s);
+        }
+
         System.out.println(todayDate);
         System.out.println(invoiceDate);
         //add Invoice to DB
@@ -98,11 +103,12 @@ public class Main {
 
         //add item to DB
         Item item = new Item();
-        item.setInvoiceId(1);
-        item.setName("Naprawa");
-        item.setQuantity(5);
+        item.setInvoiceId(2);
+        item.setName("KOMPUTER");
+        item.setQuantity(6);
         item.setVat(23);
-        item.setPriceBrutto(500);
+        item.setPriceBrutto(5000);
+        item.setUnitOfMeasure("szt.");
 
         ItemUtils itemUtils = new ItemUtils();
 //        itemUtils.addItemToDB(item);
@@ -131,9 +137,20 @@ public class Main {
             System.out.println("--------------------------------------------------------------------");
         }
 
+        List<Item> items1 = itemUtils.downloadItems(2);
+        for(Item itemDB : items1) {
+            System.out.println("--------------------------------------------------------------------");
+            System.out.println(itemDB);
+            System.out.println("--------------------------------------------------------------------");
+        }
+
         //create pdf
         PDFCreator pdfCreator = new PDFCreator();
-        pdfCreator.createPdf("Invoice.pdf");
+        invoice = invoiceUtils.downloadInvoice(2);
+        customer = customerUtils.downloadCustomer(invoice.getCustomerId());
+        user = userUtils.downloadUser(invoice.getUserId());
+        items = itemUtils.downloadItems(invoice.getId());
+        pdfCreator.createPdf("Invoice.pdf", customer, invoice, items, user);
 
     }
 

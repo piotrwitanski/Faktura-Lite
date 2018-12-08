@@ -6,6 +6,7 @@ public class Product {
     private double priceBrutto;
     private double priceNetto;
     private int vat;
+    private String unitOfMeasure;
 
     public int getId() {
         return id;
@@ -60,9 +61,17 @@ public class Product {
         this.vat = vat;
     }
 
+    public void setUnitOfMeasure(String unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
+    public String getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
     @Override
     public String toString() {
         return "Name: " + this.name +
-                "\nPrice Brutto: " + this.priceBrutto + " Price Netto: " + this.priceNetto + " VAT: " + this.vat;
+                "\nPrice Brutto: " + this.priceBrutto + " Price Netto: " + this.priceNetto + " VAT: " + this.vat + " UoM: " + this.unitOfMeasure;
     }
 }

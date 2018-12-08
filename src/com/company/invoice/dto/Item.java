@@ -8,6 +8,7 @@ public class Item {
     private double priceBrutto;
     private double priceNetto;
     private int vat;
+    private String unitOfMeasure;
 
     public int getId() {
         return id;
@@ -80,10 +81,18 @@ public class Item {
         this.vat = vat;
     }
 
+    public String getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
+    public void setUnitOfMeasure(String unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
     @Override
     public String toString() {
         return "Item Id: " + this.id + " Invoice Id: " + this.invoiceId +
                 "\nName: " + this.name + " quantity: " + this.quantity +
-                " price Brutto: " + this.priceBrutto + " price Netto: " + this.priceNetto + " VAT: " + this.vat;
+                " price Brutto: " + this.priceBrutto + " price Netto: " + this.priceNetto + " VAT: " + this.vat + " UoM: " + this.unitOfMeasure;
     }
 }

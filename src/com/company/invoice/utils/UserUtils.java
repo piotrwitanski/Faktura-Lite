@@ -33,4 +33,15 @@ public class UserUtils {
             return null;
         }
     }
+
+    public User downloadUser(int userId) {
+        try {
+            User user = dataBaseUtils.downloadUser(userId);
+            return user;
+        }
+        catch(Exception e) {
+            System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
 }

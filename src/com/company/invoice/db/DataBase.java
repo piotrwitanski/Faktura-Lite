@@ -104,11 +104,12 @@ public class DataBase {
                     COLUMN_PRODUCT_NAME + ", " +
                     COLUMN_PRODUCT_PRICE_BRUTTO + ", " +
                     COLUMN_PRODUCT_PRICE_NETTO+ ", " +
-                    COLUMN_PRODUCT_VAT +
+                    COLUMN_PRODUCT_VAT + ", " +
+                    COLUMN_PRODUCT_UNIT_OF_MEASURE +
                     ")" +
                     "VALUES(NULL" +  ", '" + product.getName() + "', " +
                     product.getDBPriceBrutto() + ", " + product.getDBPriceNetto() + ", " +
-                    product.getVat() + ")");
+                    product.getVat() + ", '" + product.getUnitOfMeasure() + "')");
         }
         catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
@@ -148,12 +149,13 @@ public class DataBase {
                     COLUMN_ITEM_QUANTITY + ", " +
                     COLUMN_ITEM_PRICE_BRUTTO + ", " +
                     COLUMN_ITEM_PRICE_NETTO + ", " +
-                    COLUMN_ITEM_VAT +
+                    COLUMN_ITEM_VAT + ", " +
+                    COLUMN_ITEM_UNIT_OF_MEASURE +
                     ")" +
                     "VALUES(NULL" +  ", " + item.getInvoiceId() + ", '" +
                     item.getName() + "', " + item.getQuantity() + ", " +
                     item.getDBPriceBrutto() + ", " + item.getDBPriceNetto() + ", " +
-                    item.getVat() + ")");
+                    item.getVat() + ", '" + item.getUnitOfMeasure() + "')");
         }
         catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
@@ -182,6 +184,34 @@ public class DataBase {
             }
 
             return customerList;
+        }
+        catch(SQLException e) {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Method download one Cutomer from database for Invoice
+     * @param customerId specify which customerId we want download from database
+     * @return Customer
+     */
+    public Customer downloadCustomer(int customerId) {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_CUSTOMER +
+                                                        " WHERE " + COLUMN_CUSTOMER_ID + " = " + customerId)){
+            Customer customer = new Customer();
+
+            while(result.next()) {
+                customer.setId(result.getInt(COLUMN_CUSTOMER_ID));
+                customer.setName(result.getString(COLUMN_CUSTOMER_NAME));
+                customer.setCity(result.getString(COLUMN_CUSTOMER_CITY));
+                customer.setStreet(result.getString(COLUMN_CUSTOMER_STREET));
+                customer.setPostCode(result.getString(COLUMN_CUSTOMER_POST_CODE));
+                customer.setNIP(result.getString(COLUMN_CUSTOMER_NIP));
+            }
+
+            return customer;
         }
         catch(SQLException e) {
             System.out.println(SELECT_DB_ERROR + e.getMessage());
@@ -219,6 +249,35 @@ public class DataBase {
     }
 
     /**
+     * Method download User from database for Invoice
+     * @param userId specify which user we want to download
+     * @return User
+     */
+    public User downloadUser(int userId) {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_USER +
+                    " WHERE " + COLUMN_USER_ID + " = " + userId)){
+            User user = new User();
+
+            while(result.next()) {
+                user.setId(result.getInt(COLUMN_USER_ID));
+                user.setName(result.getString(COLUMN_USER_NAME));
+                user.setCity(result.getString(COLUMN_USER_CITY));
+                user.setStreet(result.getString(COLUMN_USER_STREET));
+                user.setPostCode(result.getString(COLUMN_USER_POST_CODE));
+                user.setNIP(result.getString(COLUMN_USER_NIP));
+            }
+
+            return user;
+        }
+        catch(SQLException e) {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+
+    }
+
+    /**
      * Downloading Products List from database.
      * @return productList with all db products or {@code null} when there is a problem with database
      */
@@ -234,6 +293,7 @@ public class DataBase {
                 product.setDBPriceBrutto(result.getInt(COLUMN_PRODUCT_PRICE_BRUTTO));
                 product.setDBPriceNetto(result.getInt(COLUMN_PRODUCT_PRICE_NETTO));
                 product.setVat(result.getInt(COLUMN_PRODUCT_VAT));
+                product.setUnitOfMeasure(result.getString(COLUMN_PRODUCT_UNIT_OF_MEASURE));
                 productList.add(product);
             }
 
@@ -269,6 +329,29 @@ public class DataBase {
         }
     }
 
+    public Invoice downloadInvoice(int invoiceId) {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_INVOICE +
+                    " WHERE " + COLUMN_INVOICE_ID + " = " + invoiceId)){
+
+            Invoice invoice = new Invoice();
+
+            while(result.next()) {
+                invoice.setId(result.getInt(COLUMN_INVOICE_ID));
+                invoice.setCustomerId(result.getInt(COLUMN_INVOICE_CUSTOMER_ID));
+                invoice.setUserId(result.getInt(COLUMN_INVOICE_USER_ID));
+                invoice.setInvoiceDate(result.getString(COLUMN_INVOICE_INVOICE_DATE));
+                invoice.setIssueDate(result.getString(COLUMN_INVOICE_ISSUE_DATE));
+            }
+
+            return invoice;
+        }
+        catch(SQLException e) {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
     /**
      * Downloading itemList from database for specific invoice number
      * @param invoiceId indicate which item should be downloaded from database
@@ -289,6 +372,7 @@ public class DataBase {
                 item.setDBPriceBrutto(result.getInt(COLUMN_ITEM_PRICE_BRUTTO));
                 item.setDBPriceNetto(result.getInt(COLUMN_ITEM_PRICE_NETTO));
                 item.setVat(result.getInt(COLUMN_ITEM_VAT));
+                item.setUnitOfMeasure(result.getString(COLUMN_ITEM_UNIT_OF_MEASURE));
 
                 itemList.add(item);
             }

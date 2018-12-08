@@ -35,4 +35,15 @@ public class CustomerUtils {
 
     }
 
+    public Customer downloadCustomer(int customerId) {
+        try {
+            Customer customer = dataBaseUtils.downloadCustomer(customerId);
+            return customer;
+        }
+        catch(Exception e) {
+            System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
 }

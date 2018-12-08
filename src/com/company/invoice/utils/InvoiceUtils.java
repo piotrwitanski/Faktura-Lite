@@ -34,4 +34,15 @@ public class InvoiceUtils {
             return null;
         }
     }
+
+    public Invoice downloadInvoice(int invoiceId) {
+        try {
+            Invoice invoice = dataBaseUtils.downloadInvoice(invoiceId);
+            return invoice;
+        }
+        catch(Exception e) {
+            System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
 }

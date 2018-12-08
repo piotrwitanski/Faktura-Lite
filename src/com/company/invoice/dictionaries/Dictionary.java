@@ -29,6 +29,7 @@ public class Dictionary {
     public static final String COLUMN_PRODUCT_PRICE_BRUTTO = "price_brutto";
     public static final String COLUMN_PRODUCT_PRICE_NETTO = "price_netto";
     public static final String COLUMN_PRODUCT_VAT = "vat";
+    public static final String COLUMN_PRODUCT_UNIT_OF_MEASURE = "unit_of_measure";
 
     public static final String TABLE_INVOICE = "invoice";
     public static final String COLUMN_INVOICE_ID = "id";
@@ -45,6 +46,7 @@ public class Dictionary {
     public static final String COLUMN_ITEM_PRICE_BRUTTO = "price_brutto";
     public static final String COLUMN_ITEM_PRICE_NETTO = "price_netto";
     public static final String COLUMN_ITEM_VAT = "vat";
+    public static final String COLUMN_ITEM_UNIT_OF_MEASURE = "unit_of_measure";
 
     //Invoice
     public static final String INVOICE = "Faktura";
@@ -62,5 +64,8 @@ public class Dictionary {
     public static final String NETTO = "NETTO";
     public static final String BRUTTO = "BRUTTO";
     public static final String VAT_VALUE = "VAT";
+    public static final String SELLER = "Sprzedawca";
+    public static final String BUYER = "Nabywca";
+    public static final String DOTS = "...............................................................................";
 
 }
