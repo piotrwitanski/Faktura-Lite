@@ -128,7 +128,8 @@ public class DataBase {
                     COLUMN_INVOICE_CUSTOMER_ID + ", " +
                     COLUMN_INVOICE_USER_ID + ", " +
                     COLUMN_INVOICE_INVOICE_DATE + ", " +
-                    COLUMN_INVOICE_ISSUE_DATE +
+                    COLUMN_INVOICE_ISSUE_DATE + ", " +
+                    COLUMN_INVOICE_PAYMENT_ID +
                     ")" +
                     "VALUES(NULL" +  ", " + invoice.getCustomerId() + ", " +
                     invoice.getUserId() + ", '" + invoice.getInvoiceDate() + "', '" +
@@ -156,6 +157,26 @@ public class DataBase {
                     item.getName() + "', " + item.getQuantity() + ", " +
                     item.getDBPriceBrutto() + ", " + item.getDBPriceNetto() + ", " +
                     item.getVat() + ", '" + item.getUnitOfMeasure() + "')");
+        }
+        catch (SQLException e) {
+            System.out.println("Add statement ERROR: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Method for adding payment to database
+     * @param payment
+     */
+    public void addStatement(Payment payment) {
+        try(Statement statement = conn.createStatement()){
+
+            statement.execute("INSERT INTO " + TABLE_PAYMENT +
+                    " (" + COLUMN_PAYMENT_ID + ", " +
+                    COLUMN_PAYMENT_NAME + ", " +
+                    COLUMN_PAYMENT_CURRENCY +
+                    ")" +
+                    "VALUES(NULL" + ", '" +
+                    payment.getName() + "', '" + payment.getCurrency() + "')");
         }
         catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
@@ -317,6 +338,7 @@ public class DataBase {
                 invoice.setUserId(result.getInt(COLUMN_INVOICE_USER_ID));
                 invoice.setInvoiceDate(result.getString(COLUMN_INVOICE_INVOICE_DATE));
                 invoice.setIssueDate(result.getString(COLUMN_INVOICE_ISSUE_DATE));
+                invoice.setPaymentId(result.getInt(COLUMN_INVOICE_PAYMENT_ID));
 
                 invoiceList.add(invoice);
             }
@@ -342,6 +364,7 @@ public class DataBase {
                 invoice.setUserId(result.getInt(COLUMN_INVOICE_USER_ID));
                 invoice.setInvoiceDate(result.getString(COLUMN_INVOICE_INVOICE_DATE));
                 invoice.setIssueDate(result.getString(COLUMN_INVOICE_ISSUE_DATE));
+                invoice.setPaymentId(result.getInt(COLUMN_INVOICE_PAYMENT_ID));
             }
 
             return invoice;
@@ -378,6 +401,54 @@ public class DataBase {
             }
 
             return itemList;
+        }
+        catch(SQLException e) {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Downloading Payment List from database.
+     * @return paymentList with all db payments or {@code null} when there is a problem with database
+     */
+    public List<Payment> downloadPayments() {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PAYMENT)){
+
+            List<Payment> paymentList = new ArrayList<>();
+            while(result.next()) {
+                Payment payment = new Payment();
+                payment.setId(result.getInt(COLUMN_PAYMENT_ID));
+                payment.setName(result.getString(COLUMN_PAYMENT_NAME));
+                payment.setCurrency(result.getString(COLUMN_PAYMENT_CURRENCY));
+
+                paymentList.add(payment);
+            }
+
+            return paymentList;
+        }
+        catch(SQLException e) {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
+    public Payment downloadPayment(int paymentId) {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PAYMENT +
+                    " WHERE " + COLUMN_PAYMENT_ID + " = " + paymentId)){
+
+            Payment payment = new Payment();
+
+            while(result.next()) {
+                payment.setId(result.getInt(COLUMN_PAYMENT_ID));
+                payment.setName(result.getString(COLUMN_PAYMENT_NAME));
+                payment.setCurrency(result.getString(COLUMN_PAYMENT_CURRENCY));
+
+            }
+
+            return payment;
         }
         catch(SQLException e) {
             System.out.println(SELECT_DB_ERROR + e.getMessage());

@@ -72,6 +72,15 @@ public class DataBaseUtils {
         dataBase.close();
     }
 
+    public void addPaymentToDB(Payment payment) {
+
+        dataBase.open();
+
+        dataBase.addStatement(payment);
+
+        dataBase.close();
+    }
+
     /**
      * Transfer Customer List
      * @return customers List
@@ -162,5 +171,27 @@ public class DataBaseUtils {
         dataBase.close();
 
         return items;
+    }
+
+    public List<Payment> downloadPayments() {
+
+        dataBase.open();
+
+        List<Payment> payments = dataBase.downloadPayments();
+
+        dataBase.close();
+
+        return payments;
+    }
+
+    public Payment downloadPayment(int paymentId) {
+
+        dataBase.open();
+
+        Payment payment = dataBase.downloadPayment(paymentId);
+
+        dataBase.close();
+
+        return payment;
     }
 }

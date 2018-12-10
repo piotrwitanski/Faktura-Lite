@@ -1,9 +1,6 @@
 package com.company.invoice.tools;
 
-import com.company.invoice.dto.Customer;
-import com.company.invoice.dto.Invoice;
-import com.company.invoice.dto.Item;
-import com.company.invoice.dto.User;
+import com.company.invoice.dto.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -30,15 +27,18 @@ public class PDFCreator {
     private Invoice invoice;
     private java.util.List<Item> items;
     private User user;
+    private Payment payment;
 
-    public void createPdf(String filename, Customer customer, Invoice invoice, List<Item> items, User user){
+    public void createPdf(String filename, Customer customer, Invoice invoice, List<Item> items, User user, Payment payment){
         //*TODO add bigger font size
+        //*TODO add Payment table to PDF
         try {
 
             this.customer = customer;
             this.invoice = invoice;
             this.items = items;
             this.user = user;
+            this.payment = payment;
 
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(filename));

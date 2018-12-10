@@ -37,6 +37,7 @@ public class Dictionary {
     public static final String COLUMN_INVOICE_USER_ID = "user_id";
     public static final String COLUMN_INVOICE_INVOICE_DATE = "invoice_date";
     public static final String COLUMN_INVOICE_ISSUE_DATE = "issue_date";
+    public static final String COLUMN_INVOICE_PAYMENT_ID = "payment_id";
 
     public static final String TABLE_ITEM = "item";
     public static final String COLUMN_ITEM_ID = "id";
@@ -47,6 +48,11 @@ public class Dictionary {
     public static final String COLUMN_ITEM_PRICE_NETTO = "price_netto";
     public static final String COLUMN_ITEM_VAT = "vat";
     public static final String COLUMN_ITEM_UNIT_OF_MEASURE = "unit_of_measure";
+
+    public static final String TABLE_PAYMENT = "payment";
+    public static final String COLUMN_PAYMENT_ID = "id";
+    public static final String COLUMN_PAYMENT_NAME = "name";
+    public static final String COLUMN_PAYMENT_CURRENCY = "currency";
 
     //Invoice
     public static final String INVOICE = "Faktura";

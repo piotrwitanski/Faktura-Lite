@@ -144,13 +144,23 @@ public class Main {
             System.out.println("--------------------------------------------------------------------");
         }
 
+        //add Payment to DB
+        Payment payment = new Payment();
+        payment.setName("PRZELEW");
+        payment.setCurrency("PLN");
+
+        PaymentUtils paymentUtils = new PaymentUtils();
+//        paymentUtils.addPaymentToDB(payment);
+        
+
         //create pdf
         PDFCreator pdfCreator = new PDFCreator();
         invoice = invoiceUtils.downloadInvoice(2);
         customer = customerUtils.downloadCustomer(invoice.getCustomerId());
         user = userUtils.downloadUser(invoice.getUserId());
         items = itemUtils.downloadItems(invoice.getId());
-        pdfCreator.createPdf("Invoice.pdf", customer, invoice, items, user);
+        payment = paymentUtils.downloadPayment(invoice.getPaymentId());
+        pdfCreator.createPdf("Invoice.pdf", customer, invoice, items, user, payment);
 
     }
 

@@ -6,6 +6,7 @@ public class Invoice {
     private int userId;
     private String invoiceDate; //sell date
     private String issueDate;
+    private int paymentId;
 
     public int getId() {
         return id;
@@ -47,9 +48,17 @@ public class Invoice {
         this.issueDate = issueDate;
     }
 
+    public int getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
+    }
+
     @Override
     public String toString() {
         return "Invoice NO: " + this.id +
-                "\nCustomer id: " + this.customerId + " Invoice date: " + this.invoiceDate + " Issue date: " + this.issueDate;
+                "\nCustomer id: " + this.customerId + " Invoice date: " + this.invoiceDate + " Issue date: " + this.issueDate + " Payment id: " + this.paymentId;
     }
 }
