@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
+<BorderPane fx:id="sellBorderPane" fx:controller="com.company.invoice.ui.Controller"
+            xmlns:fx="http://javafx.com/fxml">
+    <top>
+        <VBox>
+            <HBox>
+                <Button text="Dodaj" contentDisplay="TOP" onAction="#showNewInvoiceDialog">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/table/RowInsertAfter24.gif"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button text="Edytuj" contentDisplay="TOP">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/table/RowInsertBefore24.gif"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button text="Usuń" contentDisplay="TOP">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/table/RowDelete24.gif"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+            <ComboBox>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Faktura"/>
+                        <String fx:value="Faktura korygująca"/>
+                    </FXCollections>
+                </items>
+                <value>
+                    <String fx:value="Faktura"/>
+                </value>
+            </ComboBox>
+        </VBox>
+
+
+
+
+    </top>
+    <center>
+        <TableView fx:id="invoiceTable">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+            <!--*TODO think how to add all this position from Invoice class-->
+            <columns>
+                <TableColumn text="Typ">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="invoiceType"/>
+                        <!--*TODO add invoiceType to database-->
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Numer">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="invoiceNumber"/>
+                        <!--TODO add invoiceNumber to database-->
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Data wystawienia">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="issueDate"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Nazwa kontrahenta">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="customerName"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Wartość Netto">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="nettoValue"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Wartość Brutto">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="bruttoValue"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Wartość VAT">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="vatValue"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Waluta">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="payment"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

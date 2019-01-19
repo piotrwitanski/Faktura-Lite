@@ -1,0 +1,74 @@
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Text?>
+<DialogPane fx:controller="com.company.invoice.ui.ServiceController"
+            xmlns:fx="http://javafx.com/fxml">
+    <headerText>
+
+    </headerText>
+    <content>
+        <VBox>
+            <GridPane hgap="10" vgap="10">
+                <Label text="Typ" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Usługa"/>
+                            <String fx:value="Towar"/>
+                        </FXCollections>
+                    </items>
+                    <value>
+                        <String fx:value="Usługa"/>
+                    </value>
+                </ComboBox>
+                <Label text="Nazwa" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                <Label text="Symbol" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+                <TextField GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+
+                <Label text="Jednostka" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="1">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="szt."/>
+                            <String fx:value="godz."/>
+                        </FXCollections>
+                    </items>
+                    <value>
+                        <String fx:value="godz."/>
+                    </value>
+                </ComboBox>
+                <Label text="Stawka VAT" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                <Label text="Waluta" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
+                <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="5">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="PLN"/>
+                        </FXCollections>
+                    </items>
+                    <value>
+                        <String fx:value="PLN"/>
+                    </value>
+                </ComboBox>
+
+                <ComboBox fx:id="comboBox" GridPane.rowIndex="3" GridPane.columnIndex="0">
+                    <items>
+                        <FXCollections fx:id="testList" fx:factory="observableArrayList">
+                            <String fx:value="Test"/>
+                        </FXCollections>
+                    </items>
+                    <value>
+                        <String fx:value="Test"/>
+                    </value>
+                </ComboBox>
+            </GridPane>
+        </VBox>
+    </content>
+</DialogPane>
