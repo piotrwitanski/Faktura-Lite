@@ -7,6 +7,8 @@ public class Invoice {
     private String invoiceDate; //sell date
     private String issueDate;
     private int paymentId;
+    private String invoiceType;
+    private String invoiceNumber;
 
     public int getId() {
         return id;
@@ -54,6 +56,22 @@ public class Invoice {
 
     public void setPaymentId(int paymentId) {
         this.paymentId = paymentId;
+    }
+
+    public String getInvoiceType() {
+        return invoiceType;
+    }
+
+    public void setInvoiceType(String invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
     }
 
     @Override

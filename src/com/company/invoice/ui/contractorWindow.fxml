@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.Image?>
 <?import java.lang.String?>
-<BorderPane fx:id="contractorBorderPane" fx:controller="com.company.invoice.ui.Controller"
+<BorderPane fx:id="contractorBorderPane" fx:controller="com.company.invoice.ui.ContractorTabController"
             xmlns:fx="http://javafx.com/fxml">
     <top>
         <VBox>
@@ -64,19 +64,17 @@
                 </TableColumn>
                 <TableColumn text="Nr domu">
                     <cellValueFactory>
-                        <PropertyValueFactory property="homeNumber"/>
-                        <!--TODO add to database position homeNumber-->
+                        <PropertyValueFactory property="houseNumber"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Nr lokalu">
                     <cellValueFactory>
                         <PropertyValueFactory property="apartmentNumber"/>
-                        <!--TODO add to database position apartmentNumber-->
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Kod">
                     <cellValueFactory>
-                        <PropertyValueFactory property="post_code"/>
+                        <PropertyValueFactory property="postCode"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="NIP">

@@ -57,11 +57,16 @@ public class DataBase {
                     COLUMN_CUSTOMER_CITY + ", " +
                     COLUMN_CUSTOMER_STREET + ", " +
                     COLUMN_CUSTOMER_POST_CODE + ", " +
-                    COLUMN_CUSTOMER_NIP +
+                    COLUMN_CUSTOMER_NIP + ", " +
+                    COLUMN_CUSTOMER_HOUSE_NUMBER + ", " +
+                    COLUMN_CUSTOMER_APARTMENT_NUMBER + ", " +
+                    COLUMN_CUSTOMER_BANK_ACCOUNT +
                     ")" +
                     "VALUES(NULL" + ", '" + customer.getName()  +
                             "', '" + customer.getCity() + "', '"  + customer.getStreet() + "', '"  +
-                            customer.getPostCode() + "', '" + customer.getNIP() + "')");
+                            customer.getPostCode() + "', '" + customer.getNIP() + "', " +
+                            customer.getHouseNumber() + ", " + customer.getApartmentNumber() + ", '" +
+                            customer.getBankAccount() + "')");
         }
         catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
@@ -105,11 +110,13 @@ public class DataBase {
                     COLUMN_PRODUCT_PRICE_BRUTTO + ", " +
                     COLUMN_PRODUCT_PRICE_NETTO+ ", " +
                     COLUMN_PRODUCT_VAT + ", " +
-                    COLUMN_PRODUCT_UNIT_OF_MEASURE +
+                    COLUMN_PRODUCT_UNIT_OF_MEASURE + ", " +
+                    COLUMN_PRODUCT_TYPE +
                     ")" +
                     "VALUES(NULL" +  ", '" + product.getName() + "', " +
                     product.getDBPriceBrutto() + ", " + product.getDBPriceNetto() + ", " +
-                    product.getVat() + ", '" + product.getUnitOfMeasure() + "')");
+                    product.getVat() + ", '" + product.getUnitOfMeasure() + "', '" +
+                    product.getType() +"')");
         }
         catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
@@ -125,15 +132,19 @@ public class DataBase {
 
             statement.execute("INSERT INTO " + TABLE_INVOICE +
                     " (" + COLUMN_INVOICE_ID + ", " +
+                    COLUMN_INVOICE_NUMBER + ", " +
+                    COLUMN_INVOICE_TYPE + ", " +
                     COLUMN_INVOICE_CUSTOMER_ID + ", " +
                     COLUMN_INVOICE_USER_ID + ", " +
                     COLUMN_INVOICE_INVOICE_DATE + ", " +
                     COLUMN_INVOICE_ISSUE_DATE + ", " +
                     COLUMN_INVOICE_PAYMENT_ID +
                     ")" +
-                    "VALUES(NULL" +  ", " + invoice.getCustomerId() + ", " +
+                    "VALUES(NULL" + ", '" +
+                    invoice.getInvoiceNumber() + "', '" + invoice.getInvoiceType() + "', " +
+                    invoice.getCustomerId() + ", " +
                     invoice.getUserId() + ", '" + invoice.getInvoiceDate() + "', '" +
-                    invoice.getIssueDate() + "')");
+                    invoice.getIssueDate() + "', " + invoice.getPaymentId() + ")");
         }
         catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
@@ -200,6 +211,9 @@ public class DataBase {
                 customer.setStreet(result.getString(COLUMN_CUSTOMER_STREET));
                 customer.setPostCode(result.getString(COLUMN_CUSTOMER_POST_CODE));
                 customer.setNIP(result.getString(COLUMN_CUSTOMER_NIP));
+                customer.setHouseNumber(result.getInt(COLUMN_CUSTOMER_HOUSE_NUMBER));
+                customer.setApartmentNumber(result.getInt(COLUMN_CUSTOMER_APARTMENT_NUMBER));
+                customer.setBankAccount(result.getString(COLUMN_CUSTOMER_BANK_ACCOUNT));
 
                 customerList.add(customer);
             }
@@ -230,6 +244,10 @@ public class DataBase {
                 customer.setStreet(result.getString(COLUMN_CUSTOMER_STREET));
                 customer.setPostCode(result.getString(COLUMN_CUSTOMER_POST_CODE));
                 customer.setNIP(result.getString(COLUMN_CUSTOMER_NIP));
+                customer.setHouseNumber(result.getInt(COLUMN_CUSTOMER_HOUSE_NUMBER));
+                customer.setApartmentNumber(result.getInt(COLUMN_CUSTOMER_APARTMENT_NUMBER));
+                customer.setBankAccount(result.getString(COLUMN_CUSTOMER_BANK_ACCOUNT));
+
             }
 
             return customer;
@@ -315,6 +333,7 @@ public class DataBase {
                 product.setDBPriceNetto(result.getInt(COLUMN_PRODUCT_PRICE_NETTO));
                 product.setVat(result.getInt(COLUMN_PRODUCT_VAT));
                 product.setUnitOfMeasure(result.getString(COLUMN_PRODUCT_UNIT_OF_MEASURE));
+                product.setType(result.getString(COLUMN_PRODUCT_TYPE));
                 productList.add(product);
             }
 
@@ -339,6 +358,8 @@ public class DataBase {
                 invoice.setInvoiceDate(result.getString(COLUMN_INVOICE_INVOICE_DATE));
                 invoice.setIssueDate(result.getString(COLUMN_INVOICE_ISSUE_DATE));
                 invoice.setPaymentId(result.getInt(COLUMN_INVOICE_PAYMENT_ID));
+                invoice.setInvoiceNumber(result.getString(COLUMN_INVOICE_NUMBER));
+                invoice.setInvoiceType(result.getString(COLUMN_INVOICE_TYPE));
 
                 invoiceList.add(invoice);
             }
@@ -365,6 +386,8 @@ public class DataBase {
                 invoice.setInvoiceDate(result.getString(COLUMN_INVOICE_INVOICE_DATE));
                 invoice.setIssueDate(result.getString(COLUMN_INVOICE_ISSUE_DATE));
                 invoice.setPaymentId(result.getInt(COLUMN_INVOICE_PAYMENT_ID));
+                invoice.setInvoiceNumber(result.getString(COLUMN_INVOICE_NUMBER));
+                invoice.setInvoiceType(result.getString(COLUMN_INVOICE_TYPE));
             }
 
             return invoice;

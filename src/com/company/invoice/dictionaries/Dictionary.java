@@ -14,6 +14,9 @@ public class Dictionary {
     public static final String COLUMN_CUSTOMER_STREET = "street";
     public static final String COLUMN_CUSTOMER_POST_CODE = "post_code";
     public static final String COLUMN_CUSTOMER_NIP = "NIP";
+    public static final String COLUMN_CUSTOMER_HOUSE_NUMBER = "house_number";
+    public static final String COLUMN_CUSTOMER_APARTMENT_NUMBER = "apartment_number";
+    public static final String COLUMN_CUSTOMER_BANK_ACCOUNT = "bank_account";
 
     public static final String TABLE_USER = "user";
     public static final String COLUMN_USER_ID = "id";
@@ -30,6 +33,7 @@ public class Dictionary {
     public static final String COLUMN_PRODUCT_PRICE_NETTO = "price_netto";
     public static final String COLUMN_PRODUCT_VAT = "vat";
     public static final String COLUMN_PRODUCT_UNIT_OF_MEASURE = "unit_of_measure";
+    public static final String COLUMN_PRODUCT_TYPE = "type";
 
     public static final String TABLE_INVOICE = "invoice";
     public static final String COLUMN_INVOICE_ID = "id";
@@ -38,6 +42,8 @@ public class Dictionary {
     public static final String COLUMN_INVOICE_INVOICE_DATE = "invoice_date";
     public static final String COLUMN_INVOICE_ISSUE_DATE = "issue_date";
     public static final String COLUMN_INVOICE_PAYMENT_ID = "payment_id";
+    public static final String COLUMN_INVOICE_NUMBER = "invoice_number";
+    public static final String COLUMN_INVOICE_TYPE = "invoice_type";
 
     public static final String TABLE_ITEM = "item";
     public static final String COLUMN_ITEM_ID = "id";

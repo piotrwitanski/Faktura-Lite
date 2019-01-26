@@ -25,7 +25,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
 
         UserProperties userProperties = new UserProperties();
@@ -41,11 +40,14 @@ public class Main extends Application {
 
         //add Customer to DB
         Customer customer = new Customer();
-        customer.setName("Adam New");
+        customer.setName("Peter Newone");
         customer.setCity("Warsaw");
         customer.setPostCode("94-39");
         customer.setStreet("Something");
         customer.setNIP("335-35435-23");
+        customer.setHouseNumber(24);
+        customer.setApartmentNumber(10);
+        customer.setBankAccount("10-1000-2222-3333-4444-4444");
 
 
         CustomerUtils customerUtils = new CustomerUtils();
@@ -65,10 +67,11 @@ public class Main extends Application {
 
         //add Product to DB
         Product product = new Product();
-        product.setName("KOMPUTER");
+        product.setName("KOMPUTER3");
         product.setVat(23);
         product.setPriceBrutto(1000);
         product.setUnitOfMeasure("szt.");
+        product.setType("Towar");
         ProductUtils productUtils = new ProductUtils();
 //        productUtils.addProductToDB(product);
 
@@ -106,12 +109,16 @@ public class Main extends Application {
 
         System.out.println(todayDate);
         System.out.println(invoiceDate);
+
         //add Invoice to DB
         Invoice invoice = new Invoice();
         invoice.setCustomerId(customers.get(0).getId());
         invoice.setUserId(users.get(0).getId());
         invoice.setIssueDate(todayDate);
         invoice.setInvoiceDate(invoiceDate);
+        invoice.setPaymentId(2);
+        invoice.setInvoiceNumber("01/01/2019");
+        invoice.setInvoiceType("Faktura");
 
         InvoiceUtils invoiceUtils = new InvoiceUtils();
 //        invoiceUtils.addInvoiceToDB(invoice);

@@ -7,6 +7,7 @@ public class Product {
     private double priceNetto;
     private int vat;
     private String unitOfMeasure;
+    private String type;
 
     public int getId() {
         return id;
@@ -67,6 +68,14 @@ public class Product {
 
     public String getUnitOfMeasure() {
         return unitOfMeasure;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

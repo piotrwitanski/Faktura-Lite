@@ -7,6 +7,9 @@ public class Customer {
     private String street;
     private String postCode;
     private String NIP;
+    private int houseNumber;
+    private int apartmentNumber;
+    private String bankAccount;
 
     public int getId() {
         return id;
@@ -54,6 +57,30 @@ public class Customer {
 
     public void setNIP(String NIP) {
         this.NIP = NIP;
+    }
+
+    public int getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(int houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public int getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public void setApartmentNumber(int apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
     @Override

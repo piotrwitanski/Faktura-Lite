@@ -10,7 +10,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.collections.FXCollections?>
-<BorderPane fx:id="sellBorderPane" fx:controller="com.company.invoice.ui.Controller"
+<BorderPane fx:id="sellBorderPane" fx:controller="com.company.invoice.ui.InvoiceTabController"
             xmlns:fx="http://javafx.com/fxml">
     <top>
         <VBox>
@@ -100,7 +100,7 @@
                 </TableColumn>
                 <TableColumn text="Waluta">
                     <cellValueFactory>
-                        <PropertyValueFactory property="payment"/>
+                        <PropertyValueFactory property="currency"/>
                     </cellValueFactory>
                 </TableColumn>
             </columns>

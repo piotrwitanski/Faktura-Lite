@@ -29,7 +29,7 @@
                 <tabs>
                     <Tab text="FAKTUROWANIE">
                         <content>
-                            <fx:include fx:id="sell" source="invoiceWindow.fxml"/>
+                            <fx:include fx:id="invoice" source="invoiceWindow.fxml"/>
                         </content>
                     </Tab>
 
