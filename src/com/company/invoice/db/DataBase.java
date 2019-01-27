@@ -86,11 +86,16 @@ public class DataBase {
                     COLUMN_USER_CITY + ", " +
                     COLUMN_USER_STREET + ", " +
                     COLUMN_USER_POST_CODE + ", " +
-                    COLUMN_USER_NIP +
+                    COLUMN_USER_NIP + ", " +
+                    COLUMN_USER_HOUSE_NUMBER + ", " +
+                    COLUMN_USER_APARTMENT_NUMBER + ", " +
+                    COLUMN_USER_BANK_ACCOUNT +
                     ")" +
                     "VALUES(NULL" + ", '" + user.getName()  +
                     "', '" + user.getCity() + "', '"  + user.getStreet() + "', '"  +
-                    user.getPostCode() + "', '" + user.getNIP() + "')");
+                    user.getPostCode() + "', '" + user.getNIP() + "', " +
+                    user.getHouseNumber() + ", " + user.getApartmentNumber() + ", '" +
+                    user.getBankAccount() + "')");
         }
         catch (SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
@@ -157,6 +162,7 @@ public class DataBase {
             statement.execute("INSERT INTO " + TABLE_ITEM +
                     " (" + COLUMN_ITEM_ID + ", " +
                     COLUMN_ITEM_INVOICE_ID + ", " +
+                    COLUMN_ITEM_TYPE + ", " +
                     COLUMN_ITEM_NAME + ", " +
                     COLUMN_ITEM_QUANTITY + ", " +
                     COLUMN_ITEM_PRICE_BRUTTO + ", " +
@@ -164,7 +170,7 @@ public class DataBase {
                     COLUMN_ITEM_VAT + ", " +
                     COLUMN_ITEM_UNIT_OF_MEASURE +
                     ")" +
-                    "VALUES(NULL" +  ", " + item.getInvoiceId() + ", '" +
+                    "VALUES(NULL" +  ", " + item.getInvoiceId() + ", '" + item.getType() + "', '" +
                     item.getName() + "', " + item.getQuantity() + ", " +
                     item.getDBPriceBrutto() + ", " + item.getDBPriceNetto() + ", " +
                     item.getVat() + ", '" + item.getUnitOfMeasure() + "')");
@@ -275,6 +281,9 @@ public class DataBase {
                 user.setStreet(result.getString(COLUMN_USER_STREET));
                 user.setPostCode(result.getString(COLUMN_USER_POST_CODE));
                 user.setNIP(result.getString(COLUMN_USER_NIP));
+                user.setHouseNumber(result.getInt(COLUMN_USER_HOUSE_NUMBER));
+                user.setApartmentNumber(result.getInt(COLUMN_USER_APARTMENT_NUMBER));
+                user.setBankAccount(result.getString(COLUMN_USER_BANK_ACCOUNT));
 
                 userList.add(user);
             }
@@ -413,6 +422,7 @@ public class DataBase {
                 Item item = new Item();
                 item.setId(result.getInt(COLUMN_ITEM_ID));
                 item.setInvoiceId(result.getInt(COLUMN_ITEM_INVOICE_ID));
+                item.setType(result.getString(COLUMN_ITEM_TYPE));
                 item.setName(result.getString(COLUMN_ITEM_NAME));
                 item.setQuantity(result.getInt(COLUMN_ITEM_QUANTITY));
                 item.setDBPriceBrutto(result.getInt(COLUMN_ITEM_PRICE_BRUTTO));

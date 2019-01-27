@@ -58,7 +58,7 @@
                     </value>
                 </ComboBox>
 
-                <ComboBox fx:id="comboBox" GridPane.rowIndex="3" GridPane.columnIndex="0">
+                <ComboBox fx:id="comboBox" GridPane.rowIndex="4" GridPane.columnIndex="0">
                     <items>
                         <FXCollections fx:id="testList" fx:factory="observableArrayList">
                             <String fx:value="Test"/>
@@ -68,6 +68,11 @@
                         <String fx:value="Test"/>
                     </value>
                 </ComboBox>
+
+                <Label text="Cena netto" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                <TextField GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+                <Label text="Cena brutto" GridPane.rowIndex="3" GridPane.columnIndex="4"/>
+                <TextField GridPane.rowIndex="3" GridPane.columnIndex="5"/>
             </GridPane>
         </VBox>
     </content>

@@ -14,6 +14,5 @@ public class ServiceController {
     public void initialize() {
         String cos = comboBox.getSelectionModel().getSelectedItem();
         System.out.println(cos);
-
     }
 }

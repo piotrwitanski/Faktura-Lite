@@ -1,13 +1,7 @@
 package com.company.invoice.ui.datamodel;
 
-import com.company.invoice.dto.Customer;
-import com.company.invoice.dto.Invoice;
-import com.company.invoice.dto.Item;
-import com.company.invoice.dto.Payment;
-import com.company.invoice.utils.CustomerUtils;
-import com.company.invoice.utils.InvoiceUtils;
-import com.company.invoice.utils.ItemUtils;
-import com.company.invoice.utils.PaymentUtils;
+import com.company.invoice.dto.*;
+import com.company.invoice.utils.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,18 +13,22 @@ public class UIData {
 
     private ObservableList<InvoiceModel> invoiceModels;
     private ObservableList<ContractorModel> contractorModels;
+    private ObservableList<ServiceModel> serviceModels;
     private InvoiceUtils invoiceUtils;
     private CustomerUtils customerUtils;
     private ItemUtils itemUtils;
     private PaymentUtils paymentUtils;
+    private ProductUtils productUtils;
 
     private UIData() {
         invoiceUtils = new InvoiceUtils();
         customerUtils = new CustomerUtils();
         itemUtils = new ItemUtils();
         paymentUtils = new PaymentUtils();
+        productUtils = new ProductUtils();
         invoiceModels = FXCollections.observableArrayList();
         contractorModels = FXCollections.observableArrayList();
+        serviceModels = FXCollections.observableArrayList();
     }
 
     public static UIData getInstance() {
@@ -43,6 +41,10 @@ public class UIData {
 
     public ObservableList<ContractorModel> getContractorModels() {
         return contractorModels;
+    }
+
+    public ObservableList<ServiceModel> getServiceModels() {
+        return serviceModels;
     }
 
     public void addInvoiceModel() {
@@ -88,6 +90,21 @@ public class UIData {
             contractorModel.setNIP(customer.getNIP());
 
             contractorModels.add(contractorModel);
+        }
+    }
+
+    public void loadServiceTable() {
+        List<Product> productList = productUtils.downloadProducts();
+        for (Product product : productList) {
+            ServiceModel serviceModel = new ServiceModel();
+
+            serviceModel.setType(product.getType());
+            serviceModel.setName(product.getName());
+            serviceModel.setVat(Integer.toString(product.getVat()));
+            serviceModel.setNettoPrice(Double.toString(product.getPriceNetto()));
+            serviceModel.setBruttoPrice(Double.toString(product.getPriceBrutto()));
+
+            serviceModels.add(serviceModel);
         }
     }
 

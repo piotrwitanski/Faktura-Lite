@@ -26,32 +26,34 @@
         <VBox>
             <GridPane vgap="10" hgap="10">
                 <Label text="Typ dokumentu" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="2">
+                <ComboBox fx:id="typeComboBox" GridPane.rowIndex="0" GridPane.columnIndex="2">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Faktura"/>
                         </FXCollections>
                     </items>
+                    <value>
+                        <String fx:value="Faktura"/>
+                    </value>
                 </ComboBox>
                 <Label text="Data wystawienia:" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
                 <DatePicker fx:id="issueDatePicker" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
 
                 <Label text="Numer" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField text="01/01/2019" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="invoiceNumberTextField" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
                 <Label text="Data sprzedaży:" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
                 <DatePicker fx:id="invoiceDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="5"/>
 
                 <Label text="Nabywca" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="2">
+                <ComboBox fx:id="contractorComboBox" GridPane.rowIndex="2" GridPane.columnIndex="2">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Biuro rachunkowe Tomasz Nowak       039-393-2919"/>
-                            <String fx:value="Nabywca 2         039-293-3232"/>
                             <!--TODO need to download contractor from the db list and display here-->
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <Button text="Dodaj" GridPane.rowIndex="2" GridPane.columnIndex="3">
+                <!--TODO connect this button with adding contractor dialog-->
+                <Button fx:id="addContractorButton" text="Dodaj" GridPane.rowIndex="2" GridPane.columnIndex="3">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/New16.gif"/>
@@ -60,18 +62,15 @@
                 </Button>
 
                 <Label text="Odbiorca faktury" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <CheckBox GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                <!--TODO add option to this checkbox that make different recipient available-->
-                <ComboBox GridPane.rowIndex="3" GridPane.columnIndex="2">
+                <CheckBox fx:id="recipientCheckBox" GridPane.rowIndex="3" GridPane.columnIndex="1" onAction="#chooseRecipient"/>
+                <ComboBox fx:id="recipientComboBox" GridPane.rowIndex="3" GridPane.columnIndex="2">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Biuro rachunkowe Tomasz Nowak       039-393-2919"/>
-                            <String fx:value="Nabywca 2         039-293-3232"/>
-                            <!--TODO need to download contractor from the db list and display here-->
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <Button text="Dodaj" GridPane.rowIndex="3" GridPane.columnIndex="3">
+                <!--TODO connect this button with adding contractor dialog-->
+                <Button fx:id="recipientAddButton" text="Dodaj" GridPane.rowIndex="3" GridPane.columnIndex="3">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/New16.gif"/>
@@ -153,6 +152,7 @@
                 <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="1">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
+                            <!--TODO this should be added to pdf invoice?-->
                             <String fx:value="Gotówka"/>
                             <String fx:value="Przelew"/>
                         </FXCollections>

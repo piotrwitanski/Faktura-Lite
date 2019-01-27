@@ -55,11 +55,14 @@ public class Main extends Application {
 
         //add User to DB
         User user = new User();
-        user.setName("Adam Smith");
-        user.setCity("Warsaw");
-        user.setPostCode("445-829");
+        user.setName("Alan Now");
+        user.setCity("Here");
+        user.setPostCode("445-000");
         user.setStreet("Something");
         user.setNIP("334-243-234-343");
+        user.setHouseNumber(12);
+        user.setApartmentNumber(23);
+        user.setBankAccount("10-2323-3333-4444-5555-4444");
 
 
         UserUtils userUtils = new UserUtils();
@@ -126,11 +129,12 @@ public class Main extends Application {
         //add item to DB
         Item item = new Item();
         item.setInvoiceId(2);
-        item.setName("KOMPUTER");
-        item.setQuantity(6);
+        item.setName("SKANER");
+        item.setQuantity(1);
         item.setVat(23);
-        item.setPriceBrutto(5000);
+        item.setPriceBrutto(2000);
         item.setUnitOfMeasure("szt.");
+        item.setType("TOWAR");
 
         ItemUtils itemUtils = new ItemUtils();
 //        itemUtils.addItemToDB(item);

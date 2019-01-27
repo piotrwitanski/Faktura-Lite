@@ -1,9 +1,12 @@
 package com.company.invoice.ui;
 
+import com.company.invoice.ui.datamodel.ServiceModel;
+import com.company.invoice.ui.datamodel.UIData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -14,7 +17,12 @@ public class ServiceTabController {
     @FXML
     private BorderPane serviceBorderPane;
 
+    @FXML
+    private TableView<ServiceModel> serviceTable;
+
     public void initialize() {
+        UIData.getInstance().loadServiceTable();
+        serviceTable.setItems(UIData.getInstance().getServiceModels());
         System.out.println("Test service");
     }
 

@@ -18,6 +18,9 @@
             <MenuBar>
                 <Menu text="Menu">
                     <items>
+                        <MenuItem text="Dane użytkownika"/>
+                    </items>
+                    <items>
                         <MenuItem text="O programie"/>
                     </items>
                     <items>

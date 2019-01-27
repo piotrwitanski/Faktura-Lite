@@ -25,6 +25,9 @@ public class Dictionary {
     public static final String COLUMN_USER_STREET = "street";
     public static final String COLUMN_USER_POST_CODE = "post_code";
     public static final String COLUMN_USER_NIP = "NIP";
+    public static final String COLUMN_USER_HOUSE_NUMBER = "house_number";
+    public static final String COLUMN_USER_APARTMENT_NUMBER = "apartment_number";
+    public static final String COLUMN_USER_BANK_ACCOUNT = "bank_account";
 
     public static final String TABLE_PRODUCT = "product";
     public static final String COLUMN_PRODUCT_ID = "id";
@@ -54,6 +57,7 @@ public class Dictionary {
     public static final String COLUMN_ITEM_PRICE_NETTO = "price_netto";
     public static final String COLUMN_ITEM_VAT = "vat";
     public static final String COLUMN_ITEM_UNIT_OF_MEASURE = "unit_of_measure";
+    public static final String COLUMN_ITEM_TYPE = "type";
 
     public static final String TABLE_PAYMENT = "payment";
     public static final String COLUMN_PAYMENT_ID = "id";
