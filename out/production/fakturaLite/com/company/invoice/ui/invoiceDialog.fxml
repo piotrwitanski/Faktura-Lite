@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ScrollBar?>
-<DialogPane fx:controller="com.company.invoice.ui.InvoiceController"
+<DialogPane fx:id="invoiceDialogPane" fx:controller="com.company.invoice.ui.InvoiceDialogController"
             xmlns:fx="http://javafx.com/fxml">
     <headerText>
 
@@ -53,7 +53,8 @@
                     </items>
                 </ComboBox>
                 <!--TODO connect this button with adding contractor dialog-->
-                <Button fx:id="addContractorButton" text="Dodaj" GridPane.rowIndex="2" GridPane.columnIndex="3">
+                <!--TODO it's just for test, need to check this solution showNewContractor !!!!!!!!!!-->
+                <Button fx:id="addContractorButton" text="Dodaj" GridPane.rowIndex="2" GridPane.columnIndex="3" onAction="#showNewContractor">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/New16.gif"/>
@@ -99,17 +100,17 @@
                     </TableColumn>
                     <TableColumn text="Cena netto">
                         <cellValueFactory>
-                            <PropertyValueFactory property="price_netto"/>
+                            <PropertyValueFactory property="nettoPrice"/>
                         </cellValueFactory>
                     </TableColumn>
                     <TableColumn text="Wartość netto">
                         <cellValueFactory>
-                            <PropertyValueFactory property="value_netto"/>
+                            <PropertyValueFactory property="nettoValue"/>
                         </cellValueFactory>
                     </TableColumn>
                     <TableColumn text="Wartość brutto">
                         <cellValueFactory>
-                            <PropertyValueFactory property="value_brutto"/>
+                            <PropertyValueFactory property="bruttoValue"/>
                         </cellValueFactory>
                     </TableColumn>
                     <TableColumn text="VAT">
@@ -122,14 +123,14 @@
             <GridPane vgap="5" hgap="10" >
                 <Label text="Razem wartość netto:" GridPane.rowIndex="0" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
                 <!--TODO add value of total netto value-->
-                <Button text="Dodaj towar/usługę" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                <Button text="Dodaj towar/usługę" GridPane.rowIndex="0" GridPane.columnIndex="0" onAction="#showNewItemDialog">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/New16.gif"/>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button text="Edytuj" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                <Button text="Edytuj" GridPane.rowIndex="0" GridPane.columnIndex="1" onAction="#showEditItemDialog">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/Edit16.gif"/>

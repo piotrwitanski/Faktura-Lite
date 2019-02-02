@@ -45,4 +45,15 @@ public class InvoiceUtils {
             return null;
         }
     }
+
+    public String downloadInvoiceMaxId() {
+        try {
+            String invoiceNumber = dataBaseUtils.downloadInvoiceMaxId();
+            return invoiceNumber;
+        }
+        catch (Exception e) {
+            System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
 }

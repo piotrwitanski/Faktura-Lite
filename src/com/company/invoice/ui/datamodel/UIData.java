@@ -103,6 +103,7 @@ public class UIData {
             serviceModel.setVat(Integer.toString(product.getVat()));
             serviceModel.setNettoPrice(Double.toString(product.getPriceNetto()));
             serviceModel.setBruttoPrice(Double.toString(product.getPriceBrutto()));
+            serviceModel.setUnitOfMeasure(product.getUnitOfMeasure());
 
             serviceModels.add(serviceModel);
         }

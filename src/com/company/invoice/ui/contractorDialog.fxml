@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.text.Text?>
-<DialogPane fx:controller="com.company.invoice.ui.ContractorController"
+<DialogPane fx:controller="com.company.invoice.ui.ContractorDialogController"
             xmlns:fx="http://javafx.com/fxml">
     <headerText>
 

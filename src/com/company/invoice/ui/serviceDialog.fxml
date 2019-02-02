@@ -7,7 +7,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.text.Text?>
-<DialogPane fx:controller="com.company.invoice.ui.ServiceController"
+<DialogPane fx:controller="com.company.invoice.ui.ServiceDialogController"
             xmlns:fx="http://javafx.com/fxml">
     <headerText>
 

@@ -70,7 +70,7 @@ public class Main extends Application {
 
         //add Product to DB
         Product product = new Product();
-        product.setName("KOMPUTER3");
+        product.setName("DRUKARKA");
         product.setVat(23);
         product.setPriceBrutto(1000);
         product.setUnitOfMeasure("szt.");
@@ -125,6 +125,9 @@ public class Main extends Application {
 
         InvoiceUtils invoiceUtils = new InvoiceUtils();
 //        invoiceUtils.addInvoiceToDB(invoice);
+
+        //download max invoice number from DB
+        System.out.println("Max number: " + invoiceUtils.downloadInvoiceMaxId());
 
         //add item to DB
         Item item = new Item();

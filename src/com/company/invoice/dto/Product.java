@@ -47,7 +47,8 @@ public class Product {
 
     public void setPriceBrutto(double priceBrutto) {
         this.priceBrutto = priceBrutto;
-        this.priceNetto = this.priceBrutto * (1.0 - ((double)this.vat / 100));
+        this.priceNetto = this.priceBrutto - (this.priceBrutto * (double)this.vat / (100 + (double)this.vat));
+        //*TODO check precision of this method to calculate netto price
     }
 
     public void setDBPriceBrutto(int priceBrutto) {

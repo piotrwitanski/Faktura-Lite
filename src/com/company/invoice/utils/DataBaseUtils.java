@@ -194,4 +194,15 @@ public class DataBaseUtils {
 
         return payment;
     }
+
+    public String downloadInvoiceMaxId() {
+
+        dataBase.open();
+
+        String invoiceNumber = dataBase.downloadInvoiceMaxId();
+
+        dataBase.close();
+
+        return invoiceNumber;
+    }
 }

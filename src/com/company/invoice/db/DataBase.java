@@ -201,6 +201,28 @@ public class DataBase {
     }
 
     /**
+     * Method downloading invoice max number for validation
+     */
+    public String downloadInvoiceMaxId() {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT " + COLUMN_INVOICE_NUMBER +
+                    " FROM " + TABLE_INVOICE +
+                    " WHERE " + COLUMN_INVOICE_ID + " = (SELECT MAX(" + COLUMN_INVOICE_ID + ") FROM " + TABLE_INVOICE + ")")){
+
+            result.next();
+
+            String invoiceNumber = result.getString(COLUMN_INVOICE_NUMBER);
+
+            return invoiceNumber;
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Add statement ERROR: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Downloading Customers List from database.
      * @return customerList with all db customer list or {@code null} when there is a problem with database
      */

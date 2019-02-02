@@ -27,6 +27,7 @@ public class InvoiceTabController {
         invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
     }
 
+    //*TODO it's just for test, need to check this solution !!!!!!!!!!
     @FXML
     public void showNewInvoiceDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -48,11 +49,13 @@ public class InvoiceTabController {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            InvoiceController invoiceController = fxmlLoader.getController();
+            InvoiceDialogController invoiceController = fxmlLoader.getController();
             //*TODO here we need to add code that will get text from invoiceController and save it to specific class e.g. Invoice (but here we need different class for this object)
             Invoice newInvoice = invoiceController.getNewInvoice();
             System.out.println("Invoice added to db");
         }
     }
+
+
 
 }

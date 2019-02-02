@@ -53,8 +53,8 @@ public class ContractorTabController {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            ContractorController contractorController = fxmlLoader.getController();
-            //TODO here we need to add code that takes values from ContractorController to save contractor in db
+            ContractorDialogController contractorController = fxmlLoader.getController();
+            //TODO here we need to add code that takes values from ContractorDialogController to save contractor in db
             System.out.println("Contractor saved in db");
         }
     }

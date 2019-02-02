@@ -32,18 +32,18 @@
                 <tabs>
                     <Tab text="FAKTUROWANIE">
                         <content>
-                            <fx:include fx:id="invoice" source="invoiceWindow.fxml"/>
+                            <fx:include fx:id="invoice" source="invoiceTab.fxml"/>
                         </content>
                     </Tab>
 
                     <Tab text="KONTRAHENCI">
                         <content>
-                            <fx:include fx:id="contractor" source="contractorWindow.fxml"/>
+                            <fx:include fx:id="contractorTabController" source="contractorTab.fxml"/>
                         </content>
                     </Tab>
                     <Tab text="TOWAR/USŁUGA">
                         <content>
-                            <fx:include fx:id="service" source="serviceWindow.fxml"/>
+                            <fx:include fx:id="service" source="serviceTab.fxml"/>
                         </content>
                     </Tab>
                 </tabs>

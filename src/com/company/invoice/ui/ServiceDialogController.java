@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 
-public class ServiceController {
+public class ServiceDialogController {
 
     @FXML
     private ComboBox<String> comboBox;
@@ -14,5 +14,6 @@ public class ServiceController {
     public void initialize() {
         String cos = comboBox.getSelectionModel().getSelectedItem();
         System.out.println(cos);
+
     }
 }

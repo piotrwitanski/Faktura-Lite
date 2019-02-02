@@ -47,8 +47,8 @@ public class ServiceTabController {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            ServiceController serviceController = fxmlLoader.getController();
-            //TODO here we need add code take values from ServiceController and sava them in db
+            ServiceDialogController serviceController = fxmlLoader.getController();
+            //TODO here we need add code take values from ServiceDialogController and sava them in db
             System.out.println("Service or ware saved in database");
         }
     }
