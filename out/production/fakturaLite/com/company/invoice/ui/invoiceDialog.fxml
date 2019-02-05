@@ -48,7 +48,6 @@
                 <ComboBox fx:id="contractorComboBox" GridPane.rowIndex="2" GridPane.columnIndex="2">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <!--TODO need to download contractor from the db list and display here-->
                         </FXCollections>
                     </items>
                 </ComboBox>
@@ -121,49 +120,46 @@
                 </columns>
             </TableView>
             <GridPane vgap="5" hgap="10" >
-                <Label text="Razem wartość netto:" GridPane.rowIndex="0" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
-                <!--TODO add value of total netto value-->
-                <Button text="Dodaj towar/usługę" GridPane.rowIndex="0" GridPane.columnIndex="0" onAction="#showNewItemDialog">
+                <Button text="Dodaj towar/usługę" GridPane.rowIndex="1" GridPane.columnIndex="0" onAction="#showNewItemDialog">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/New16.gif"/>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button text="Edytuj" GridPane.rowIndex="0" GridPane.columnIndex="1" onAction="#showEditItemDialog">
+                <Button text="Edytuj" GridPane.rowIndex="1" GridPane.columnIndex="1" onAction="#showEditItemDialog">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/Edit16.gif"/>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button text="Usuń" GridPane.rowIndex="0" GridPane.columnIndex="3">
+                <Button text="Usuń" GridPane.rowIndex="1" GridPane.columnIndex="3" onAction="#showDeleteItemDialog">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/Delete16.gif"/>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Label text="Razem wartość brutto:" GridPane.rowIndex="1" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
+                <Label fx:id="totalNettoValueLabel" text="Razem wartość netto:" GridPane.rowIndex="1" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
+                <Label fx:id="totalBruttoValueLabel" text="Razem wartość brutto:" GridPane.rowIndex="2" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
 
             </GridPane>
 
             <GridPane vgap="10" hgap="10">
-                <Label text="Płatność" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="1">
+                <Label text="Płatność" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="paymentComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <!--TODO this should be added to pdf invoice?-->
-                            <String fx:value="Gotówka"/>
-                            <String fx:value="Przelew"/>
                         </FXCollections>
                     </items>
                     <value>
                         <String fx:value="Gotówka"/>
                     </value>
                 </ComboBox>
-                <Label text="Wystawił" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="3">
+                <Label text="Wystawił" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="3">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Zygmunt Iksiński"/>
@@ -171,8 +167,8 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <Label text="Waluta" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
-                <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="5">
+                <Label text="Waluta" GridPane.rowIndex="2" GridPane.columnIndex="4"/>
+                <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="5">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="PLN"/>
@@ -183,11 +179,11 @@
                     </value>
                 </ComboBox>
 
-                <Label text="Termin zapłaty" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <DatePicker fx:id="dueDatePicker"  GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="100"/>
+                <Label text="Termin zapłaty" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="dueDatePicker"  GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="100"/>
 
-                <Label text="Rachunek" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <ComboBox GridPane.rowIndex="3" GridPane.columnIndex="1">
+                <Label text="Rachunek" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <ComboBox GridPane.rowIndex="4" GridPane.columnIndex="1">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="1110-3332-33333-3333-333"/>

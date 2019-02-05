@@ -10,12 +10,14 @@ public class ContractorModel {
     private SimpleStringProperty NIP = new SimpleStringProperty("");
     private SimpleStringProperty houseNumber = new SimpleStringProperty("");
     private SimpleStringProperty apartmentNumber = new SimpleStringProperty("");
+    private SimpleStringProperty id = new SimpleStringProperty("");
 
     public ContractorModel() {
 
     }
 
-    public ContractorModel(String name, String city, String street, String postCode, String NIP, String houseNumber, String apartmentNumber) {
+    public ContractorModel(String id, String name, String city, String street, String postCode, String NIP, String houseNumber, String apartmentNumber) {
+        this.id.set(id);
         this.name.set(name);
         this.city.set(city);
         this.street.set(street);
@@ -24,6 +26,19 @@ public class ContractorModel {
         this.houseNumber.set(houseNumber);
         this.apartmentNumber.set(apartmentNumber);
     }
+
+    public String getId() {
+        return id.get();
+    }
+
+    public SimpleStringProperty idProperty() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id.set(id);
+    }
+
     public String getName() {
         return name.get();
     }

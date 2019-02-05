@@ -45,7 +45,6 @@ public class ServiceInvoiceDialogController {
                     nettoPriceTextField.setText(newValue.getNettoPrice());
                     bruttoPriceTextField.setText(newValue.getBruttoPrice());
                     vatTextField.setText(newValue.getVat());
-                    System.out.println(newValue.unitOfMeasureProperty());
                     serviceModel = newValue;
                 }
             }

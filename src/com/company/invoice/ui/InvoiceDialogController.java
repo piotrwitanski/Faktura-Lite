@@ -4,6 +4,7 @@ import com.company.invoice.dto.Invoice;
 import com.company.invoice.dto.Item;
 import com.company.invoice.ui.datamodel.ContractorModel;
 import com.company.invoice.ui.datamodel.ItemModel;
+import com.company.invoice.ui.datamodel.PaymentModel;
 import com.company.invoice.ui.datamodel.UIData;
 import com.company.invoice.utils.InvoiceUtils;
 import com.company.invoice.validators.ValidateDate;
@@ -11,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -27,25 +29,13 @@ public class InvoiceDialogController {
     private ObservableList<ItemModel> itemModels;
 
     @FXML
-    private DatePicker issueDatePicker;
+    private DatePicker issueDatePicker, invoiceDatePicker, dueDatePicker;
 
     @FXML
-    private DatePicker invoiceDatePicker;
-
-    @FXML
-    private DatePicker dueDatePicker;
-
-    @FXML
-    private ComboBox<String> typeComboBox;
+    private ComboBox<String> typeComboBox, contractorComboBox, recipientComboBox, paymentComboBox;
 
     @FXML
     private TextField invoiceNumberTextField;
-
-    @FXML
-    private ComboBox<String> contractorComboBox;
-
-    @FXML
-    private ComboBox<String> recipientComboBox;
 
     @FXML
     private CheckBox recipientCheckBox;
@@ -59,6 +49,9 @@ public class InvoiceDialogController {
     @FXML
     private TableView<ItemModel> itemsTable;
 
+    @FXML
+    private Label totalNettoValueLabel, totalBruttoValueLabel;
+
 
     public InvoiceDialogController() {
         invoiceUtils = new InvoiceUtils();
@@ -68,6 +61,7 @@ public class InvoiceDialogController {
 
 
     public void initialize() {
+        UIData.getInstance().loadPaymentList();
         itemModels = FXCollections.observableArrayList();
         issueDatePicker.setValue(today);
         invoiceDatePicker.setValue(today);
@@ -79,6 +73,7 @@ public class InvoiceDialogController {
         recipientComboBox.setDisable(!recipientCheckBox.isSelected());
         recipientAddButton.setDisable(!recipientCheckBox.isSelected());
         setContractorsAndRecipients();
+        setPayments();
     }
 
     public Invoice getNewInvoice() {
@@ -108,6 +103,15 @@ public class InvoiceDialogController {
         recipientComboBox.setItems(nameList);
     }
 
+    private void setPayments() {
+        ObservableList<PaymentModel> paymentList = UIData.getInstance().getPaymentModels();
+        ObservableList<String> nameList = FXCollections.observableArrayList();
+        for (PaymentModel paymentModel : paymentList) {
+            nameList.add(paymentModel.getName());
+        }
+        paymentComboBox.setItems(nameList);
+    }
+
     @FXML
     public void showNewContractor() {
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -131,7 +135,6 @@ public class InvoiceDialogController {
         if(result.isPresent() && result.get() == ButtonType.OK) {
             ContractorDialogController contractorController = fxmlLoader.getController();
             //TODO here we need to add code that takes values from ContractorDialogController to save contractor in db
-            //TODO here we need also to save items in db
             System.out.println("Contractor saved in db");
         }
     }
@@ -162,7 +165,7 @@ public class InvoiceDialogController {
             ItemModel newItem = serviceInvoiceController.getNewItem();
             itemModels.add(newItem);
             itemsTable.setItems(itemModels);
-            System.out.println("Item added");
+            calculateTotalValue();
         }
     }
 
@@ -201,6 +204,32 @@ public class InvoiceDialogController {
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             serviceDialogController.updateItem(selectedItem);
+            calculateTotalValue();
+        }
+    }
+
+    @FXML
+    public void showDeleteItemDialog() {
+        ItemModel selectedItem = itemsTable.getSelectionModel().getSelectedItem();
+        if(selectedItem == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Brak zaznaczonego przedmiotu");
+            alert.setHeaderText(null);
+            alert.setContentText("Proszę zaznaczyć przedmiot do usunięcia");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Usuwanie przedmiotu");
+        alert.setHeaderText(null);
+        alert.setContentText("Czy jesteś pewny, że chcesz usunąć zaznaczony przedmiot " +
+                            selectedItem.getName());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            itemModels.remove(selectedItem);
+            calculateTotalValue();
         }
     }
 
@@ -217,5 +246,22 @@ public class InvoiceDialogController {
         }
         invoiceNumber = String.format("%02d", day) + "/" + String.format("%02d", today.getMonthValue()) + "/" + today.getYear();
         return invoiceNumber;
+    }
+
+    private void calculateTotalValue() {
+        double totalNettoValue = 0;
+        double totalBruttoValue = 0;
+
+        for (ItemModel itemModel : itemModels) {
+            totalNettoValue += getValue(itemModel.getQuantity(), itemModel.getNettoPrice());
+            totalBruttoValue += getValue(itemModel.getQuantity(), itemModel.getBruttoPrice());
+        }
+
+        totalNettoValueLabel.setText("Razem wartość netto: " + String.format("\t%.2f", totalNettoValue));
+        totalBruttoValueLabel.setText("Razem wartość brutto: " + String.format("\t%.2f", totalBruttoValue));
+    }
+
+    private double getValue(String quantity, String price) {
+        return (Double.parseDouble(quantity) * Double.parseDouble(price));
     }
 }

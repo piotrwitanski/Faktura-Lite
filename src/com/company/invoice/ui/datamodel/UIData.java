@@ -14,6 +14,7 @@ public class UIData {
     private ObservableList<InvoiceModel> invoiceModels;
     private ObservableList<ContractorModel> contractorModels;
     private ObservableList<ServiceModel> serviceModels;
+    private ObservableList<PaymentModel> paymentModels;
     private InvoiceUtils invoiceUtils;
     private CustomerUtils customerUtils;
     private ItemUtils itemUtils;
@@ -29,6 +30,7 @@ public class UIData {
         invoiceModels = FXCollections.observableArrayList();
         contractorModels = FXCollections.observableArrayList();
         serviceModels = FXCollections.observableArrayList();
+        paymentModels = FXCollections.observableArrayList();
     }
 
     public static UIData getInstance() {
@@ -45,6 +47,10 @@ public class UIData {
 
     public ObservableList<ServiceModel> getServiceModels() {
         return serviceModels;
+    }
+
+    public ObservableList<PaymentModel> getPaymentModels() {
+        return paymentModels;
     }
 
     public void addInvoiceModel() {
@@ -81,6 +87,7 @@ public class UIData {
         for(Customer customer : customerList) {
             ContractorModel contractorModel = new ContractorModel();
 
+            contractorModel.setId(Integer.toString(customer.getId()));
             contractorModel.setName(customer.getName());
             contractorModel.setCity(customer.getCity());
             contractorModel.setStreet(customer.getStreet());
@@ -107,6 +114,20 @@ public class UIData {
 
             serviceModels.add(serviceModel);
         }
+    }
+
+    public void loadPaymentList() {
+        List<Payment> paymentList = paymentUtils.downloadPayments();
+        for (Payment payment : paymentList) {
+            PaymentModel paymentModel = new PaymentModel();
+
+            paymentModel.setId(Integer.toString(payment.getId()));
+            paymentModel.setName(payment.getName());
+            paymentModel.setCurrency(payment.getCurrency());
+
+            paymentModels.add(paymentModel);
+        }
+
     }
 
     private double getNettoValue(List<Item> itemsList) {
