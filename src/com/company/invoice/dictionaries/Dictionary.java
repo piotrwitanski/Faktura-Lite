@@ -32,8 +32,8 @@ public class Dictionary {
     public static final String TABLE_PRODUCT = "product";
     public static final String COLUMN_PRODUCT_ID = "id";
     public static final String COLUMN_PRODUCT_NAME = "name";
-    public static final String COLUMN_PRODUCT_PRICE_BRUTTO = "price_brutto";
-    public static final String COLUMN_PRODUCT_PRICE_NETTO = "price_netto";
+    public static final String COLUMN_PRODUCT_PRICE_GROSS = "price_gross";
+    public static final String COLUMN_PRODUCT_PRICE_NET = "price_net";
     public static final String COLUMN_PRODUCT_VAT = "vat";
     public static final String COLUMN_PRODUCT_UNIT_OF_MEASURE = "unit_of_measure";
     public static final String COLUMN_PRODUCT_TYPE = "type";
@@ -53,8 +53,8 @@ public class Dictionary {
     public static final String COLUMN_ITEM_INVOICE_ID = "invoice_id";
     public static final String COLUMN_ITEM_NAME = "name";
     public static final String COLUMN_ITEM_QUANTITY = "quantity";
-    public static final String COLUMN_ITEM_PRICE_BRUTTO = "price_brutto";
-    public static final String COLUMN_ITEM_PRICE_NETTO = "price_netto";
+    public static final String COLUMN_ITEM_PRICE_GROSS = "price_gross";
+    public static final String COLUMN_ITEM_PRICE_NET = "price_net";
     public static final String COLUMN_ITEM_VAT = "vat";
     public static final String COLUMN_ITEM_UNIT_OF_MEASURE = "unit_of_measure";
     public static final String COLUMN_ITEM_TYPE = "type";
@@ -70,15 +70,15 @@ public class Dictionary {
     public static final String NAME = "Nazwa";
     public static final String QUANTITY = "Ilość";
     public static final String UNIT_OF_MEASURE = "j.m.";
-    public static final String PRICE_NETTO = "Cena netto";
-    public static final String VALUE_NETTO = "Wartość netto";
+    public static final String PRICE_NET = "Cena netto";
+    public static final String VALUE_NET = "Wartość netto";
     public static final String VAT = "VAT [%]";
     public static final String VAT_PRICE = "Wartość VAT";
-    public static final String PRICE_BRUTTO = "Wartość brutto";
+    public static final String PRICE_GROSS = "Wartość brutto";
 
     public static final String PERCENTAGE = "%";
-    public static final String NETTO = "NETTO";
-    public static final String BRUTTO = "BRUTTO";
+    public static final String NET = "NETTO";
+    public static final String GROSS = "BRUTTO";
     public static final String VAT_VALUE = "VAT";
     public static final String SELLER = "Sprzedawca";
     public static final String BUYER = "Nabywca";

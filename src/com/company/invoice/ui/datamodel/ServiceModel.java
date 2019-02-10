@@ -6,20 +6,20 @@ public class ServiceModel {
     private SimpleStringProperty type = new SimpleStringProperty("");
     private SimpleStringProperty name = new SimpleStringProperty("");
     private SimpleStringProperty vat = new SimpleStringProperty("");
-    private SimpleStringProperty nettoPrice = new SimpleStringProperty("");
-    private SimpleStringProperty bruttoPrice = new SimpleStringProperty("");
+    private SimpleStringProperty netPrice = new SimpleStringProperty("");
+    private SimpleStringProperty grossPrice = new SimpleStringProperty("");
     private SimpleStringProperty unitOfMeasure = new SimpleStringProperty("");
 
     public ServiceModel() {
 
     }
 
-    public ServiceModel(String type, String name, String vat, String nettoPrice, String bruttoPrice, String unitOfMeasure) {
+    public ServiceModel(String type, String name, String vat, String netPrice, String grossPrice, String unitOfMeasure) {
         this.type.set(type);
         this.name.set(name);
         this.vat.set(vat);
-        this.nettoPrice.set(nettoPrice);
-        this.bruttoPrice.set(bruttoPrice);
+        this.netPrice.set(netPrice);
+        this.grossPrice.set(grossPrice);
         this.unitOfMeasure.set(unitOfMeasure);
     }
 
@@ -59,28 +59,28 @@ public class ServiceModel {
         this.vat.set(vat);
     }
 
-    public String getNettoPrice() {
-        return nettoPrice.get();
+    public String getNetPrice() {
+        return netPrice.get();
     }
 
-    public SimpleStringProperty nettoPriceProperty() {
-        return nettoPrice;
+    public SimpleStringProperty netPriceProperty() {
+        return netPrice;
     }
 
-    public void setNettoPrice(String nettoPrice) {
-        this.nettoPrice.set(nettoPrice);
+    public void setNetPrice(String netPrice) {
+        this.netPrice.set(netPrice);
     }
 
-    public String getBruttoPrice() {
-        return bruttoPrice.get();
+    public String getGrossPrice() {
+        return grossPrice.get();
     }
 
-    public SimpleStringProperty bruttoPriceProperty() {
-        return bruttoPrice;
+    public SimpleStringProperty grossPriceProperty() {
+        return grossPrice;
     }
 
-    public void setBruttoPrice(String bruttoPrice) {
-        this.bruttoPrice.set(bruttoPrice);
+    public void setGrossPrice(String grossPrice) {
+        this.grossPrice.set(grossPrice);
     }
 
     public String getUnitOfMeasure() {

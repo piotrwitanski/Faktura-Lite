@@ -73,8 +73,8 @@ public class UIData {
             invoiceModel.setInvoiceNumber(invoice.getInvoiceNumber());
             invoiceModel.setIssueDate(invoice.getIssueDate());
             invoiceModel.setCustomerName(customer.getName());
-            invoiceModel.setNettoValue(Double.toString(getNettoValue(itemsList)));
-            invoiceModel.setBruttoValue(Double.toString(getBruttoValue(itemsList)));
+            invoiceModel.setNetValue(Double.toString(getNettoValue(itemsList)));
+            invoiceModel.setGrossValue(Double.toString(getBruttoValue(itemsList)));
             invoiceModel.setVatValue(Double.toString(getBruttoValue(itemsList) - getNettoValue(itemsList)));
             invoiceModel.setCurrency(payment.getCurrency());
 
@@ -108,8 +108,8 @@ public class UIData {
             serviceModel.setType(product.getType());
             serviceModel.setName(product.getName());
             serviceModel.setVat(Integer.toString(product.getVat()));
-            serviceModel.setNettoPrice(Double.toString(product.getPriceNetto()));
-            serviceModel.setBruttoPrice(Double.toString(product.getPriceBrutto()));
+            serviceModel.setNetPrice(Double.toString(product.getNetPrice()));
+            serviceModel.setGrossPrice(Double.toString(product.getGrossPrice()));
             serviceModel.setUnitOfMeasure(product.getUnitOfMeasure());
 
             serviceModels.add(serviceModel);
@@ -130,10 +130,18 @@ public class UIData {
 
     }
 
+    public void saveInvoice(Invoice newInvoice) {
+        invoiceUtils.addInvoiceToDB(newInvoice);
+    }
+
+    public void saveItem(Item newItem) {
+        itemUtils.addItemToDB(newItem);
+    }
+
     private double getNettoValue(List<Item> itemsList) {
         double totalNettoValue = 0;
         for (Item item : itemsList) {
-            totalNettoValue += item.getQuantity() * item.getPriceNetto();
+            totalNettoValue += item.getQuantity() * item.getNetPrice();
         }
         return totalNettoValue;
     }
@@ -141,9 +149,17 @@ public class UIData {
     private double getBruttoValue(List<Item> itemsList) {
         double totalBruttoValue = 0;
         for (Item item : itemsList) {
-            totalBruttoValue += item.getQuantity() * item.getPriceBrutto();
+            totalBruttoValue += item.getQuantity() * item.getGrossPrice();
         }
         return totalBruttoValue;
+    }
+
+    public String getInvoiceMaxNumber() {
+        return invoiceUtils.downloadInvoiceMaxNumber();
+    }
+
+    public int getInvoiceLastId() {
+        return invoiceUtils.downloadInvoiceLastId();
     }
 
 }

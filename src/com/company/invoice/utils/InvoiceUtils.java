@@ -6,7 +6,6 @@ import java.util.List;
 
 import static com.company.invoice.dictionaries.Errors.DATABASE_ERROR;
 import static com.company.invoice.dictionaries.Errors.DOWNLOAD_DB_ERROR;
-import static com.company.invoice.dictionaries.Errors.SELECT_DB_ERROR;
 
 public class InvoiceUtils {
     private DataBaseUtils dataBaseUtils;
@@ -46,14 +45,25 @@ public class InvoiceUtils {
         }
     }
 
-    public String downloadInvoiceMaxId() {
+    public String downloadInvoiceMaxNumber() {
         try {
-            String invoiceNumber = dataBaseUtils.downloadInvoiceMaxId();
+            String invoiceNumber = dataBaseUtils.downloadInvoiceMaxNumber();
             return invoiceNumber;
         }
-        catch (Exception e) {
+        catch(Exception e) {
             System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
             return null;
+        }
+    }
+
+    public int downloadInvoiceLastId() {
+        try {
+            int invoiceId = dataBaseUtils.downloadInvoiceLastId();
+            return invoiceId;
+        }
+        catch(Exception e) {
+            System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
+            return -1;
         }
     }
 }

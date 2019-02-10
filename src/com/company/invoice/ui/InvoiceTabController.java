@@ -1,6 +1,7 @@
 package com.company.invoice.ui;
 
 import com.company.invoice.dto.Invoice;
+import com.company.invoice.dto.Item;
 import com.company.invoice.ui.datamodel.InvoiceModel;
 import com.company.invoice.ui.datamodel.UIData;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class InvoiceTabController {
@@ -52,10 +54,21 @@ public class InvoiceTabController {
             InvoiceDialogController invoiceController = fxmlLoader.getController();
             //*TODO here we need to add code that will get text from invoiceController and save it to specific class e.g. Invoice (but here we need different class for this object)
             Invoice newInvoice = invoiceController.getNewInvoice();
+            UIData.getInstance().saveInvoice(newInvoice);
+            int invoiceId = UIData.getInstance().getInvoiceLastId();
+            List<Item> itemList = invoiceController.getInvoiceItems();
+            saveItems(itemList, invoiceId);
             System.out.println("Invoice added to db");
+            //*TODO save here as pdf, add chooser and pdf method
         }
     }
 
+    private void saveItems(List<Item> itemList, int invoiceId) {
+        for (Item item : itemList) {
+            item.setInvoiceId(invoiceId);
+            UIData.getInstance().saveItem(item);
+        }
+    }
 
 
 }

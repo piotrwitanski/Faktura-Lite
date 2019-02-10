@@ -7,8 +7,8 @@ public class InvoiceModel {
     private SimpleStringProperty invoiceNumber = new SimpleStringProperty("");
     private SimpleStringProperty issueDate = new SimpleStringProperty("");
     private SimpleStringProperty customerName = new SimpleStringProperty("");
-    private SimpleStringProperty nettoValue = new SimpleStringProperty("");
-    private SimpleStringProperty bruttoValue = new SimpleStringProperty("");
+    private SimpleStringProperty netValue = new SimpleStringProperty("");
+    private SimpleStringProperty grossValue = new SimpleStringProperty("");
     private SimpleStringProperty vatValue = new SimpleStringProperty("");
     private SimpleStringProperty currency = new SimpleStringProperty("");
 
@@ -22,8 +22,8 @@ public class InvoiceModel {
         this.invoiceNumber.set(invoiceNumber);
         this.issueDate.set(issueDate);
         this.customerName.set(customerName);
-        this.nettoValue.set(nettoValue);
-        this.bruttoValue.set(bruttoValue);
+        this.netValue.set(nettoValue);
+        this.grossValue.set(bruttoValue);
         this.vatValue.set(vatValue);
         this.currency.set(currency);
     }
@@ -76,28 +76,28 @@ public class InvoiceModel {
         this.customerName.set(customerName);
     }
 
-    public String getNettoValue() {
-        return nettoValue.get();
+    public String getNetValue() {
+        return netValue.get();
     }
 
-    public SimpleStringProperty nettoValueProperty() {
-        return nettoValue;
+    public SimpleStringProperty netValueProperty() {
+        return netValue;
     }
 
-    public void setNettoValue(String nettoValue) {
-        this.nettoValue.set(nettoValue);
+    public void setNetValue(String netValue) {
+        this.netValue.set(netValue);
     }
 
-    public String getBruttoValue() {
-        return bruttoValue.get();
+    public String getGrossValue() {
+        return grossValue.get();
     }
 
-    public SimpleStringProperty bruttoValueProperty() {
-        return bruttoValue;
+    public SimpleStringProperty grossValueProperty() {
+        return grossValue;
     }
 
-    public void setBruttoValue(String bruttoValue) {
-        this.bruttoValue.set(bruttoValue);
+    public void setGrossValue(String grossValue) {
+        this.grossValue.set(grossValue);
     }
 
     public String getVatValue() {
@@ -131,8 +131,8 @@ public class InvoiceModel {
                 ", invoiceNumber=" + invoiceNumber +
                 ", issueDate=" + issueDate +
                 ", customerName=" + customerName +
-                ", nettoValue=" + nettoValue +
-                ", bruttoValue=" + bruttoValue +
+                ", netValue=" + netValue +
+                ", grossValue=" + grossValue +
                 ", vatValue=" + vatValue +
                 ", currency=" + currency +
                 '}';

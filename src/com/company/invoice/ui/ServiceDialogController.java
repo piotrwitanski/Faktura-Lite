@@ -13,7 +13,8 @@ public class ServiceDialogController {
     //added only for test
     public void initialize() {
         String cos = comboBox.getSelectionModel().getSelectedItem();
-        System.out.println(cos);
+        int index = comboBox.getSelectionModel().getSelectedIndex();
+        System.out.println(cos + index);
 
     }
 }

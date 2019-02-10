@@ -3,7 +3,6 @@ package com.company.invoice.utils;
 import com.company.invoice.db.DataBase;
 import com.company.invoice.dto.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseUtils {
@@ -195,14 +194,25 @@ public class DataBaseUtils {
         return payment;
     }
 
-    public String downloadInvoiceMaxId() {
+    public String downloadInvoiceMaxNumber() {
 
         dataBase.open();
 
-        String invoiceNumber = dataBase.downloadInvoiceMaxId();
+        String invoiceNumber = dataBase.downloadInvoiceMaxNumber();
 
         dataBase.close();
 
         return invoiceNumber;
+    }
+
+    public int downloadInvoiceLastId() {
+
+        dataBase.open();
+
+        int invoiceId = dataBase.downloadInvoiceLastId();
+
+        dataBase.close();
+
+        return invoiceId;
     }
 }

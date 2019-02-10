@@ -12,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class InvoiceDialogController {
     private TableView<ItemModel> itemsTable;
 
     @FXML
-    private Label totalNettoValueLabel, totalBruttoValueLabel;
+    private Label totalNetValueLabel, totalGrossValueLabel;
 
 
     public InvoiceDialogController() {
@@ -66,7 +65,6 @@ public class InvoiceDialogController {
         issueDatePicker.setValue(today);
         invoiceDatePicker.setValue(today);
         dueDatePicker.setValue(today);
-        //*TODO here need to download and set invoice number from database
 
         invoiceNumberTextField.setText(getInvoiceNumber());
         System.out.println(dueDatePicker.getValue().format(formatter));
@@ -82,8 +80,29 @@ public class InvoiceDialogController {
         newInvoice.setInvoiceNumber(invoiceNumberTextField.getText());
         newInvoice.setIssueDate(issueDatePicker.getValue().format(formatter));
         newInvoice.setInvoiceDate(dueDatePicker.getValue().format(formatter));
-        //*TODO change return object
-        return null;
+        newInvoice.setCustomerId(getContractorId());
+        //*TODO just for now we use user id 1 but we need add some method that will choose user from the list after log in
+        newInvoice.setUserId(1);
+        newInvoice.setPaymentId(getPaymentId());
+        return newInvoice;
+    }
+
+    public List<Item> getInvoiceItems() {
+        List<Item> itemList = new ArrayList<>();
+        for (ItemModel itemModel : itemModels) {
+            Item item = new Item();
+
+            item.setType(itemModel.getType());
+            item.setName(itemModel.getName());
+            item.setQuantity(Integer.parseInt(itemModel.getQuantity()));
+            item.setVat(Integer.parseInt(itemModel.getVat()));
+            item.setGrossPrice(Double.parseDouble(itemModel.getGrossPrice()));
+            item.setUnitOfMeasure(itemModel.getUnitOfMeasure());
+
+            itemList.add(item);
+        }
+
+        return itemList;
     }
 
     @FXML
@@ -160,7 +179,6 @@ public class InvoiceDialogController {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            //*TODO add method that will save items in table view need to add temporary items list before save to db in UIData
             ServiceInvoiceDialogController serviceInvoiceController = fxmlLoader.getController();
             ItemModel newItem = serviceInvoiceController.getNewItem();
             itemModels.add(newItem);
@@ -234,7 +252,7 @@ public class InvoiceDialogController {
     }
 
     private String getInvoiceNumber() {
-        String invoiceNumber = invoiceUtils.downloadInvoiceMaxId();
+        String invoiceNumber = UIData.getInstance().getInvoiceMaxNumber();
         List<String> list = Arrays.asList(invoiceNumber.split("/"));
         validateDate.setInvoiceYear(Integer.parseInt(list.get(2)));
         int day = 0;
@@ -253,15 +271,29 @@ public class InvoiceDialogController {
         double totalBruttoValue = 0;
 
         for (ItemModel itemModel : itemModels) {
-            totalNettoValue += getValue(itemModel.getQuantity(), itemModel.getNettoPrice());
-            totalBruttoValue += getValue(itemModel.getQuantity(), itemModel.getBruttoPrice());
+            totalNettoValue += getValue(itemModel.getQuantity(), itemModel.getNetPrice());
+            totalBruttoValue += getValue(itemModel.getQuantity(), itemModel.getGrossPrice());
         }
 
-        totalNettoValueLabel.setText("Razem wartość netto: " + String.format("\t%.2f", totalNettoValue));
-        totalBruttoValueLabel.setText("Razem wartość brutto: " + String.format("\t%.2f", totalBruttoValue));
+        totalNetValueLabel.setText("Razem wartość netto: " + String.format("\t%.2f", totalNettoValue));
+        totalGrossValueLabel.setText("Razem wartość brutto: " + String.format("\t%.2f", totalBruttoValue));
     }
 
     private double getValue(String quantity, String price) {
         return (Double.parseDouble(quantity) * Double.parseDouble(price));
+    }
+
+    private int getContractorId() {
+        ObservableList<ContractorModel> modelList = UIData.getInstance().getContractorModels();
+        int index = contractorComboBox.getSelectionModel().getSelectedIndex();
+
+        return Integer.parseInt(modelList.get(index).getId());
+    }
+
+    private int getPaymentId() {
+        ObservableList<PaymentModel> paymentList = UIData.getInstance().getPaymentModels();
+        int index = paymentComboBox.getSelectionModel().getSelectedIndex();
+
+        return Integer.parseInt(paymentList.get(index).getId());
     }
 }

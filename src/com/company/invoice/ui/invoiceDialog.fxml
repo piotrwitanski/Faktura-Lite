@@ -99,17 +99,17 @@
                     </TableColumn>
                     <TableColumn text="Cena netto">
                         <cellValueFactory>
-                            <PropertyValueFactory property="nettoPrice"/>
+                            <PropertyValueFactory property="netPrice"/>
                         </cellValueFactory>
                     </TableColumn>
                     <TableColumn text="Wartość netto">
                         <cellValueFactory>
-                            <PropertyValueFactory property="nettoValue"/>
+                            <PropertyValueFactory property="netValue"/>
                         </cellValueFactory>
                     </TableColumn>
                     <TableColumn text="Wartość brutto">
                         <cellValueFactory>
-                            <PropertyValueFactory property="bruttoValue"/>
+                            <PropertyValueFactory property="grossValue"/>
                         </cellValueFactory>
                     </TableColumn>
                     <TableColumn text="VAT">
@@ -141,8 +141,8 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Label fx:id="totalNettoValueLabel" text="Razem wartość netto:" GridPane.rowIndex="1" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
-                <Label fx:id="totalBruttoValueLabel" text="Razem wartość brutto:" GridPane.rowIndex="2" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
+                <Label fx:id="totalNetValueLabel" text="Razem wartość netto:" GridPane.rowIndex="1" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
+                <Label fx:id="totalGrossValueLabel" text="Razem wartość brutto:" GridPane.rowIndex="2" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
 
             </GridPane>
 

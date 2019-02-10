@@ -72,7 +72,7 @@ public class Main extends Application {
         Product product = new Product();
         product.setName("DRUKARKA");
         product.setVat(23);
-        product.setPriceBrutto(1000);
+        product.setGrossPrice(1000);
         product.setUnitOfMeasure("szt.");
         product.setType("Towar");
         ProductUtils productUtils = new ProductUtils();
@@ -127,7 +127,8 @@ public class Main extends Application {
 //        invoiceUtils.addInvoiceToDB(invoice);
 
         //download max invoice number from DB
-        System.out.println("Max number: " + invoiceUtils.downloadInvoiceMaxId());
+        System.out.println("Max number: " + invoiceUtils.downloadInvoiceMaxNumber());
+        System.out.println("Max invoice id: " + invoiceUtils.downloadInvoiceLastId());
 
         //add item to DB
         Item item = new Item();
@@ -135,7 +136,7 @@ public class Main extends Application {
         item.setName("SKANER");
         item.setQuantity(1);
         item.setVat(23);
-        item.setPriceBrutto(2000);
+        item.setGrossPrice(2000);
         item.setUnitOfMeasure("szt.");
         item.setType("TOWAR");
 

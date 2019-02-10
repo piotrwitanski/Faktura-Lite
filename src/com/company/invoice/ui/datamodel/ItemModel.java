@@ -6,10 +6,10 @@ public class ItemModel {
     private SimpleStringProperty type = new SimpleStringProperty("");
     private SimpleStringProperty name = new SimpleStringProperty("");
     private SimpleStringProperty vat = new SimpleStringProperty("");
-    private SimpleStringProperty nettoPrice = new SimpleStringProperty("");
-    private SimpleStringProperty bruttoPrice = new SimpleStringProperty("");
-    private SimpleStringProperty nettoValue = new SimpleStringProperty("");
-    private SimpleStringProperty bruttoValue = new SimpleStringProperty("");
+    private SimpleStringProperty netPrice = new SimpleStringProperty("");
+    private SimpleStringProperty grossPrice = new SimpleStringProperty("");
+    private SimpleStringProperty netValue = new SimpleStringProperty("");
+    private SimpleStringProperty grossValue = new SimpleStringProperty("");
     private SimpleStringProperty unitOfMeasure = new SimpleStringProperty("");
     private SimpleStringProperty quantity = new SimpleStringProperty("");
 
@@ -17,12 +17,12 @@ public class ItemModel {
 
     }
 
-    public ItemModel(String type, String name, String vat, String nettoPrice, String bruttoPrice, String unitOfMeasure) {
+    public ItemModel(String type, String name, String vat, String netPrice, String grossPrice, String unitOfMeasure) {
         this.type.set(type);
         this.name.set(name);
         this.vat.set(vat);
-        this.nettoPrice.set(nettoPrice);
-        this.bruttoPrice.set(bruttoPrice);
+        this.netPrice.set(netPrice);
+        this.grossPrice.set(grossPrice);
         this.unitOfMeasure.set(unitOfMeasure);
     }
 
@@ -62,30 +62,30 @@ public class ItemModel {
         this.vat.set(vat);
     }
 
-    public String getNettoPrice() {
-        return nettoPrice.get();
+    public String getNetPrice() {
+        return netPrice.get();
     }
 
-    public SimpleStringProperty nettoPriceProperty() {
-        return nettoPrice;
+    public SimpleStringProperty netPriceProperty() {
+        return netPrice;
     }
 
-    public void setNettoPrice(String nettoPrice) {
-        this.nettoPrice.set(nettoPrice);
+    public void setNetPrice(String netPrice) {
+        this.netPrice.set(netPrice);
         setNettoValue();
     }
 
-    public String getBruttoPrice() {
-        return bruttoPrice.get();
+    public String getGrossPrice() {
+        return grossPrice.get();
     }
 
-    public SimpleStringProperty bruttoPriceProperty() {
-        return bruttoPrice;
+    public SimpleStringProperty grossPriceProperty() {
+        return grossPrice;
     }
 
-    public void setBruttoPrice(String bruttoPrice) {
-        this.bruttoPrice.set(bruttoPrice);
-        setBruttoValue();
+    public void setGrossPrice(String grossPrice) {
+        this.grossPrice.set(grossPrice);
+        setGrossValue();
     }
 
     public String getUnitOfMeasure() {
@@ -112,32 +112,32 @@ public class ItemModel {
         this.quantity.set(quantity);
     }
 
-    public String getNettoValue() {
-        return nettoValue.get();
+    public String getNetValue() {
+        return netValue.get();
     }
 
-    public SimpleStringProperty nettoValueProperty() {
-        return nettoValue;
+    public SimpleStringProperty netValueProperty() {
+        return netValue;
     }
 
     public void setNettoValue() {
         double nettoValue = 0;
-        nettoValue = Double.parseDouble(this.quantity.get()) * Double.parseDouble(this.nettoPrice.get());
-        this.nettoValue.set(Double.toString(nettoValue));
+        nettoValue = Double.parseDouble(this.quantity.get()) * Double.parseDouble(this.netPrice.get());
+        this.netValue.set(Double.toString(nettoValue));
     }
 
-    public String getBruttoValue() {
-        return bruttoValue.get();
+    public String getGrossValue() {
+        return grossValue.get();
     }
 
-    public SimpleStringProperty bruttoValueProperty() {
-        return bruttoValue;
+    public SimpleStringProperty grossValueProperty() {
+        return grossValue;
     }
 
-    public void setBruttoValue() {
-        double bruttoValue = 0;
-        bruttoValue = Double.parseDouble(this.quantity.get()) * Double.parseDouble(this.bruttoPrice.get());
-        this.bruttoValue.set(Double.toString(bruttoValue));
+    public void setGrossValue() {
+        double grossValue = 0;
+        grossValue = Double.parseDouble(this.quantity.get()) * Double.parseDouble(this.grossPrice.get());
+        this.grossValue.set(Double.toString(grossValue));
     }
 
 

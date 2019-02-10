@@ -3,8 +3,8 @@ package com.company.invoice.dto;
 public class Product {
     private int id;
     private String name;
-    private double priceBrutto;
-    private double priceNetto;
+    private double grossPrice;
+    private double netPrice;
     private int vat;
     private String unitOfMeasure;
     private String type;
@@ -25,34 +25,34 @@ public class Product {
         this.name = name;
     }
 
-    public double getPriceNetto() {
-        return priceNetto;
+    public double getNetPrice() {
+        return netPrice;
     }
 
-    public int getDBPriceNetto() {
-        return (int)this.priceNetto * 100;
+    public int getDBPriceNet() {
+        return (int)this.netPrice * 100;
     }
 
-    public void setDBPriceNetto(int priceNetto) {
-        this.priceNetto = (double)priceNetto / 100;
+    public void setDBPriceNet(int netPrice) {
+        this.netPrice = (double)netPrice / 100;
     }
 
-    public double getPriceBrutto() {
-        return priceBrutto;
+    public double getGrossPrice() {
+        return grossPrice;
     }
 
-    public int getDBPriceBrutto() {
-        return (int)this.priceBrutto * 100;
+    public int getDBPriceGross() {
+        return (int)this.grossPrice * 100;
     }
 
-    public void setPriceBrutto(double priceBrutto) {
-        this.priceBrutto = priceBrutto;
-        this.priceNetto = this.priceBrutto - (this.priceBrutto * (double)this.vat / (100 + (double)this.vat));
+    public void setGrossPrice(double grossPrice) {
+        this.grossPrice = grossPrice;
+        this.netPrice = this.grossPrice - (this.grossPrice * (double)this.vat / (100 + (double)this.vat));
         //*TODO check precision of this method to calculate netto price
     }
 
-    public void setDBPriceBrutto(int priceBrutto) {
-        this.priceBrutto = (double)priceBrutto / 100;
+    public void setDBPriceGross(int grossPrice) {
+        this.grossPrice = (double)grossPrice / 100;
     }
 
     public int getVat() {
@@ -82,6 +82,6 @@ public class Product {
     @Override
     public String toString() {
         return "Name: " + this.name +
-                "\nPrice Brutto: " + this.priceBrutto + " Price Netto: " + this.priceNetto + " VAT: " + this.vat + " UoM: " + this.unitOfMeasure;
+                "\nPrice Gross: " + this.grossPrice + " Price Net: " + this.netPrice + " VAT: " + this.vat + " UoM: " + this.unitOfMeasure;
     }
 }

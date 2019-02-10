@@ -1,6 +1,5 @@
 package com.company.invoice.ui;
 
-import com.company.invoice.dto.Item;
 import com.company.invoice.ui.datamodel.ItemModel;
 import com.company.invoice.ui.datamodel.ServiceModel;
 import com.company.invoice.ui.datamodel.UIData;
@@ -42,8 +41,8 @@ public class ServiceInvoiceDialogController {
             @Override
             public void changed(ObservableValue<? extends ServiceModel> observable, ServiceModel oldValue, ServiceModel newValue) {
                 if(newValue != null) {
-                    nettoPriceTextField.setText(newValue.getNettoPrice());
-                    bruttoPriceTextField.setText(newValue.getBruttoPrice());
+                    nettoPriceTextField.setText(newValue.getNetPrice());
+                    bruttoPriceTextField.setText(newValue.getGrossPrice());
                     vatTextField.setText(newValue.getVat());
                     serviceModel = newValue;
                 }
@@ -84,15 +83,16 @@ public class ServiceInvoiceDialogController {
         newItem.setName(serviceModel.getName());
         newItem.setQuantity(quantityTextField.getText());
         newItem.setVat(vatTextField.getText());
-        newItem.setBruttoPrice(bruttoPriceTextField.getText());
-        newItem.setNettoPrice(nettoPriceTextField.getText());
+        newItem.setGrossPrice(bruttoPriceTextField.getText());
+        newItem.setNetPrice(nettoPriceTextField.getText());
+        newItem.setUnitOfMeasure(serviceModel.getUnitOfMeasure());
 
         return newItem;
     }
 
     public void editItem(ItemModel itemModel) {
-        nettoPriceTextField.setText(itemModel.getNettoPrice());
-        bruttoPriceTextField.setText(itemModel.getBruttoPrice());
+        nettoPriceTextField.setText(itemModel.getNetPrice());
+        bruttoPriceTextField.setText(itemModel.getGrossPrice());
         vatTextField.setText(itemModel.getVat());
         quantityTextField.setText(itemModel.getQuantity());
 
@@ -102,16 +102,16 @@ public class ServiceInvoiceDialogController {
         if(serviceTable.getSelectionModel().getSelectedItem() == null) {
             itemModel.setQuantity(quantityTextField.getText());
             itemModel.setVat(vatTextField.getText());
-            itemModel.setBruttoPrice(bruttoPriceTextField.getText());
-            itemModel.setNettoPrice(nettoPriceTextField.getText());
+            itemModel.setGrossPrice(bruttoPriceTextField.getText());
+            itemModel.setNetPrice(nettoPriceTextField.getText());
         }
         else {
             itemModel.setType(serviceModel.getType());
             itemModel.setName(serviceModel.getName());
             itemModel.setQuantity(quantityTextField.getText());
             itemModel.setVat(vatTextField.getText());
-            itemModel.setBruttoPrice(bruttoPriceTextField.getText());
-            itemModel.setNettoPrice(nettoPriceTextField.getText());
+            itemModel.setGrossPrice(bruttoPriceTextField.getText());
+            itemModel.setNetPrice(nettoPriceTextField.getText());
         }
     }
 

@@ -10,7 +10,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import java.util.*;
 import java.util.List;
 
 import static com.company.invoice.dictionaries.Dictionary.*;
@@ -135,11 +134,11 @@ public class PDFCreator {
         createColumnTitle(table, NAME, font);
         createColumnTitle(table, QUANTITY, font);
         createColumnTitle(table, UNIT_OF_MEASURE, font);
-        createColumnTitle(table, PRICE_NETTO, font);
-        createColumnTitle(table, VALUE_NETTO, font);
+        createColumnTitle(table, PRICE_NET, font);
+        createColumnTitle(table, VALUE_NET, font);
         createColumnTitle(table, VAT, font);
         createColumnTitle(table, VAT_PRICE, font);
-        createColumnTitle(table, PRICE_BRUTTO, font);
+        createColumnTitle(table, PRICE_GROSS, font);
 
     }
 
@@ -158,12 +157,12 @@ public class PDFCreator {
             addTableCell(table,items.get(i).getName(), normalFont, 15,-1);
             addTableCell(table,Integer.toString(items.get(i).getQuantity()), normalFont, 15,-1);
             addTableCell(table,items.get(i).getUnitOfMeasure(), normalFont, 15,-1);
-            addTableCell(table,Double.toString(items.get(i).getPriceNetto()), normalFont, 15,2);
-            addTableCell(table,Double.toString(items.get(i).getQuantity() * items.get(i).getPriceNetto()), normalFont, 15,2);
+            addTableCell(table,Double.toString(items.get(i).getNetPrice()), normalFont, 15,2);
+            addTableCell(table,Double.toString(items.get(i).getQuantity() * items.get(i).getNetPrice()), normalFont, 15,2);
             addTableCell(table,Integer.toString(items.get(i).getVat()) + "%", normalFont, 15,2);
-            addTableCell(table,Double.toString((items.get(i).getQuantity() * items.get(i).getPriceBrutto()) -
-                    (items.get(i).getQuantity() * items.get(i).getPriceNetto())), normalFont, 15,2);
-            addTableCell(table,Double.toString(items.get(i).getQuantity() * items.get(i).getPriceBrutto()), normalFont, 15,2);
+            addTableCell(table,Double.toString((items.get(i).getQuantity() * items.get(i).getGrossPrice()) -
+                    (items.get(i).getQuantity() * items.get(i).getNetPrice())), normalFont, 15,2);
+            addTableCell(table,Double.toString(items.get(i).getQuantity() * items.get(i).getGrossPrice()), normalFont, 15,2);
         }
 
     }
@@ -215,31 +214,31 @@ public class PDFCreator {
      */
     private void createSummaryTable(PdfPTable table) {
         double totalVat = 0;
-        double totalNetto = 0;
-        double totalBrutto = 0;
+        double totalNet = 0;
+        double totalGross = 0;
 
         addTableCell(table, PERCENTAGE, boldFont, 0, 2);
-        addTableCell(table, NETTO, boldFont, 0, 2);
+        addTableCell(table, NET, boldFont, 0, 2);
         addTableCell(table, VAT_VALUE, boldFont, 0, 2);
-        addTableCell(table, BRUTTO, boldFont, 0, 2);
+        addTableCell(table, GROSS, boldFont, 0, 2);
 
         for (Item item : items) {
             addTableCell(table, Integer.toString(item.getVat()), normalFont, 0, 2);
-            addTableCell(table, Double.toString(item.getQuantity() * item.getPriceNetto()), normalFont, 0, 2);
-            addTableCell(table, Double.toString((item.getQuantity() * item.getPriceBrutto()) -
-                                                    (item.getQuantity() * item.getPriceNetto())), normalFont, 0, 2);
-            addTableCell(table, Double.toString(item.getQuantity() * item.getPriceBrutto()), normalFont, 0, 2);
+            addTableCell(table, Double.toString(item.getQuantity() * item.getNetPrice()), normalFont, 0, 2);
+            addTableCell(table, Double.toString((item.getQuantity() * item.getGrossPrice()) -
+                                                    (item.getQuantity() * item.getNetPrice())), normalFont, 0, 2);
+            addTableCell(table, Double.toString(item.getQuantity() * item.getGrossPrice()), normalFont, 0, 2);
 
-            totalNetto += item.getQuantity() * item.getPriceNetto();
-            totalVat += (item.getQuantity() * item.getPriceBrutto()) -
-                    (item.getQuantity() * item.getPriceNetto());
-            totalBrutto += item.getQuantity() * item.getPriceBrutto();
+            totalNet += item.getQuantity() * item.getNetPrice();
+            totalVat += (item.getQuantity() * item.getGrossPrice()) -
+                    (item.getQuantity() * item.getNetPrice());
+            totalGross += item.getQuantity() * item.getGrossPrice();
         }
 
         addTableCell(table, "", boldFont, 1, 2);
-        addTableCell(table, Double.toString(totalNetto), boldFont, 1, 2);
+        addTableCell(table, Double.toString(totalNet), boldFont, 1, 2);
         addTableCell(table, Double.toString(totalVat), boldFont, 1, 2);
-        addTableCell(table, Double.toString(totalBrutto), boldFont, 1, 2);
+        addTableCell(table, Double.toString(totalGross), boldFont, 1, 2);
     }
 
 

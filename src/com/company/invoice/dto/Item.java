@@ -5,8 +5,8 @@ public class Item {
     private int invoiceId;
     private String name;
     private int quantity;
-    private double priceBrutto;
-    private double priceNetto;
+    private double grossPrice;
+    private double netPrice;
     private int vat;
     private String unitOfMeasure;
     private String type;
@@ -45,33 +45,33 @@ public class Item {
 
 
 
-    public double getPriceNetto() {
-        return priceNetto;
+    public double getNetPrice() {
+        return netPrice;
     }
 
-    public void setDBPriceNetto(int priceNetto) {
-        this.priceNetto = (double)priceNetto / 100;
+    public void setDBPriceNet(int priceNet) {
+        this.netPrice = (double)priceNet / 100;
     }
 
-    public int getDBPriceNetto() {
-        return (int)this.priceNetto * 100;
+    public int getDBPriceNet() {
+        return (int)this.netPrice * 100;
     }
 
-    public double getPriceBrutto() {
-        return priceBrutto;
+    public double getGrossPrice() {
+        return grossPrice;
     }
 
-    public int getDBPriceBrutto() {
-        return (int)this.priceBrutto * 100;
+    public int getDBPriceGross() {
+        return (int)this.grossPrice * 100;
     }
 
-    public void setPriceBrutto(double priceBrutto) {
-        this.priceBrutto = priceBrutto;
-        this.priceNetto = this.priceBrutto * (1.0 - ((double)this.vat / 100));
+    public void setGrossPrice(double grossPrice) {
+        this.grossPrice = grossPrice;
+        this.netPrice = this.grossPrice * (1.0 - ((double)this.vat / 100));
     }
 
-    public void setDBPriceBrutto(int priceBrutto) {
-        this.priceBrutto = (double)priceBrutto / 100;
+    public void setDBPriceGross(int priceGross) {
+        this.grossPrice = (double)priceGross / 100;
     }
 
     public int getVat() {
@@ -102,6 +102,6 @@ public class Item {
     public String toString() {
         return "Item Id: " + this.id + " Invoice Id: " + this.invoiceId +
                 "\nName: " + this.name + " quantity: " + this.quantity +
-                " price Brutto: " + this.priceBrutto + " price Netto: " + this.priceNetto + " VAT: " + this.vat + " UoM: " + this.unitOfMeasure;
+                " price Gross: " + this.grossPrice + " price Net: " + this.netPrice + " VAT: " + this.vat + " UoM: " + this.unitOfMeasure;
     }
 }

@@ -62,12 +62,12 @@
                 </TableColumn>
                 <TableColumn text="Cena netto">
                     <cellValueFactory>
-                        <PropertyValueFactory property="nettoPrice"/>
+                        <PropertyValueFactory property="netPrice"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Cena brutto">
                     <cellValueFactory>
-                        <PropertyValueFactory property="bruttoPrice"/>
+                        <PropertyValueFactory property="grossPrice"/>
                     </cellValueFactory>
                 </TableColumn>
             </columns>

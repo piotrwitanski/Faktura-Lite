@@ -85,12 +85,12 @@
                 </TableColumn>
                 <TableColumn text="Wartość Netto">
                     <cellValueFactory>
-                        <PropertyValueFactory property="nettoValue"/>
+                        <PropertyValueFactory property="netValue"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Wartość Brutto">
                     <cellValueFactory>
-                        <PropertyValueFactory property="bruttoValue"/>
+                        <PropertyValueFactory property="grossValue"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Wartość VAT">

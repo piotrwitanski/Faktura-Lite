@@ -112,14 +112,14 @@ public class DataBase {
             statement.execute("INSERT INTO " + TABLE_PRODUCT +
                     " (" + COLUMN_PRODUCT_ID + ", " +
                     COLUMN_PRODUCT_NAME + ", " +
-                    COLUMN_PRODUCT_PRICE_BRUTTO + ", " +
-                    COLUMN_PRODUCT_PRICE_NETTO+ ", " +
+                    COLUMN_PRODUCT_PRICE_GROSS + ", " +
+                    COLUMN_PRODUCT_PRICE_NET + ", " +
                     COLUMN_PRODUCT_VAT + ", " +
                     COLUMN_PRODUCT_UNIT_OF_MEASURE + ", " +
                     COLUMN_PRODUCT_TYPE +
                     ")" +
                     "VALUES(NULL" +  ", '" + product.getName() + "', " +
-                    product.getDBPriceBrutto() + ", " + product.getDBPriceNetto() + ", " +
+                    product.getDBPriceGross() + ", " + product.getDBPriceNet() + ", " +
                     product.getVat() + ", '" + product.getUnitOfMeasure() + "', '" +
                     product.getType() +"')");
         }
@@ -165,14 +165,14 @@ public class DataBase {
                     COLUMN_ITEM_TYPE + ", " +
                     COLUMN_ITEM_NAME + ", " +
                     COLUMN_ITEM_QUANTITY + ", " +
-                    COLUMN_ITEM_PRICE_BRUTTO + ", " +
-                    COLUMN_ITEM_PRICE_NETTO + ", " +
+                    COLUMN_ITEM_PRICE_GROSS + ", " +
+                    COLUMN_ITEM_PRICE_NET + ", " +
                     COLUMN_ITEM_VAT + ", " +
                     COLUMN_ITEM_UNIT_OF_MEASURE +
                     ")" +
                     "VALUES(NULL" +  ", " + item.getInvoiceId() + ", '" + item.getType() + "', '" +
                     item.getName() + "', " + item.getQuantity() + ", " +
-                    item.getDBPriceBrutto() + ", " + item.getDBPriceNetto() + ", " +
+                    item.getDBPriceGross() + ", " + item.getDBPriceNet() + ", " +
                     item.getVat() + ", '" + item.getUnitOfMeasure() + "')");
         }
         catch (SQLException e) {
@@ -203,7 +203,7 @@ public class DataBase {
     /**
      * Method downloading invoice max number for validation
      */
-    public String downloadInvoiceMaxId() {
+    public String downloadInvoiceMaxNumber() {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT " + COLUMN_INVOICE_NUMBER +
                     " FROM " + TABLE_INVOICE +
@@ -219,6 +219,29 @@ public class DataBase {
         {
             System.out.println("Add statement ERROR: " + e.getMessage());
             return null;
+        }
+    }
+
+    /**
+     * Method downloading last invoice ID from DB
+     * @return
+     */
+    public int downloadInvoiceLastId() {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT " + COLUMN_INVOICE_ID +
+                    " FROM " + TABLE_INVOICE +
+                    " WHERE " + COLUMN_INVOICE_ID + " = (SELECT MAX(" + COLUMN_INVOICE_ID + ") FROM " + TABLE_INVOICE + ")")){
+
+            result.next();
+
+            int invoiceId = result.getInt(COLUMN_INVOICE_ID);
+
+            return invoiceId;
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Add statement ERROR: " + e.getMessage());
+            return -1;
         }
     }
 
@@ -360,8 +383,8 @@ public class DataBase {
                 Product product = new Product();
                 product.setId(result.getInt(COLUMN_PRODUCT_ID));
                 product.setName(result.getString(COLUMN_PRODUCT_NAME));
-                product.setDBPriceBrutto(result.getInt(COLUMN_PRODUCT_PRICE_BRUTTO));
-                product.setDBPriceNetto(result.getInt(COLUMN_PRODUCT_PRICE_NETTO));
+                product.setDBPriceGross(result.getInt(COLUMN_PRODUCT_PRICE_GROSS));
+                product.setDBPriceNet(result.getInt(COLUMN_PRODUCT_PRICE_NET));
                 product.setVat(result.getInt(COLUMN_PRODUCT_VAT));
                 product.setUnitOfMeasure(result.getString(COLUMN_PRODUCT_UNIT_OF_MEASURE));
                 product.setType(result.getString(COLUMN_PRODUCT_TYPE));
@@ -447,8 +470,8 @@ public class DataBase {
                 item.setType(result.getString(COLUMN_ITEM_TYPE));
                 item.setName(result.getString(COLUMN_ITEM_NAME));
                 item.setQuantity(result.getInt(COLUMN_ITEM_QUANTITY));
-                item.setDBPriceBrutto(result.getInt(COLUMN_ITEM_PRICE_BRUTTO));
-                item.setDBPriceNetto(result.getInt(COLUMN_ITEM_PRICE_NETTO));
+                item.setDBPriceGross(result.getInt(COLUMN_ITEM_PRICE_GROSS));
+                item.setDBPriceNet(result.getInt(COLUMN_ITEM_PRICE_NET));
                 item.setVat(result.getInt(COLUMN_ITEM_VAT));
                 item.setUnitOfMeasure(result.getString(COLUMN_ITEM_UNIT_OF_MEASURE));
 
