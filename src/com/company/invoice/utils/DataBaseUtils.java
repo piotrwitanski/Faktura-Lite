@@ -215,4 +215,23 @@ public class DataBaseUtils {
 
         return invoiceId;
     }
+
+    public void removeItem(int invoiceId) {
+
+        dataBase.open();
+
+        dataBase.removeItem(invoiceId);
+
+        dataBase.close();
+
+    }
+
+    public void removeInvoie(int invoiceId) {
+
+        dataBase.open();
+
+        dataBase.removeInvoice(invoiceId);
+
+        dataBase.close();
+    }
 }

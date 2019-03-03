@@ -3,6 +3,7 @@ package com.company.invoice.ui.datamodel;
 import javafx.beans.property.SimpleStringProperty;
 
 public class InvoiceModel {
+    private SimpleStringProperty invoiceId = new SimpleStringProperty("");
     private SimpleStringProperty invoiceType = new SimpleStringProperty("");
     private SimpleStringProperty invoiceNumber = new SimpleStringProperty("");
     private SimpleStringProperty issueDate = new SimpleStringProperty("");
@@ -16,8 +17,9 @@ public class InvoiceModel {
 
     }
 
-    public InvoiceModel(String invoiceType, String invoiceNumber, String issueDate, String customerName,
+    public InvoiceModel(String invoiceId, String invoiceType, String invoiceNumber, String issueDate, String customerName,
                         String nettoValue, String bruttoValue, String vatValue, String currency) {
+        this.invoiceId.set(invoiceId);
         this.invoiceType.set(invoiceType);
         this.invoiceNumber.set(invoiceNumber);
         this.issueDate.set(issueDate);
@@ -26,6 +28,18 @@ public class InvoiceModel {
         this.grossValue.set(bruttoValue);
         this.vatValue.set(vatValue);
         this.currency.set(currency);
+    }
+
+    public String getInvoiceId() {
+        return invoiceId.get();
+    }
+
+    public SimpleStringProperty invoiceIdProperty() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(String invoiceId) {
+        this.invoiceId.set(invoiceId);
     }
 
     public String getInvoiceType() {

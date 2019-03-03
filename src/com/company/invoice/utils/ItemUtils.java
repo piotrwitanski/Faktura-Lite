@@ -6,6 +6,7 @@ import java.util.List;
 
 import static com.company.invoice.dictionaries.Errors.DATABASE_ERROR;
 import static com.company.invoice.dictionaries.Errors.DOWNLOAD_DB_ERROR;
+import static com.company.invoice.dictionaries.Errors.REMOVE_FROM_DB_ERROR;
 
 public class ItemUtils {
     private DataBaseUtils dataBaseUtils;
@@ -31,6 +32,15 @@ public class ItemUtils {
         catch(Exception e) {
             System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
             return null;
+        }
+    }
+
+    public void removeItem(int invoiceId) {
+        try {
+            dataBaseUtils.removeItem(invoiceId);
+        }
+        catch(Exception e) {
+            System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
         }
     }
 }

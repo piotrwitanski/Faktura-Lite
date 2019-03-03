@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.company.invoice.dictionaries.Dictionary.*;
-import static com.company.invoice.dictionaries.Errors.SELECT_DB_ERROR;
+import static com.company.invoice.dictionaries.Errors.*;
 
 public class DataBase {
     private Connection conn;
@@ -24,7 +24,7 @@ public class DataBase {
             return true;
         }
         catch(SQLException e) {
-            System.out.println("Couldn't connect to database" + e.getMessage());
+            System.out.println(CONNECT_ERROR + e.getMessage());
             return false;
         }
     }
@@ -39,7 +39,7 @@ public class DataBase {
                 conn.close();
         }
         catch (SQLException e) {
-            System.out.println("Couldn't close connection:" + e.getMessage());
+            System.out.println(CLOSE_DB_ERROR + e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class DataBase {
                             customer.getBankAccount() + "')");
         }
         catch (SQLException e) {
-            System.out.println("Add statement ERROR: " + e.getMessage());
+            System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
     /**
@@ -98,7 +98,7 @@ public class DataBase {
                     user.getBankAccount() + "')");
         }
         catch (SQLException e) {
-            System.out.println("Add statement ERROR: " + e.getMessage());
+            System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
 
@@ -124,7 +124,7 @@ public class DataBase {
                     product.getType() +"')");
         }
         catch (SQLException e) {
-            System.out.println("Add statement ERROR: " + e.getMessage());
+            System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
 
@@ -152,7 +152,7 @@ public class DataBase {
                     invoice.getIssueDate() + "', " + invoice.getPaymentId() + ")");
         }
         catch (SQLException e) {
-            System.out.println("Add statement ERROR: " + e.getMessage());
+            System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
 
@@ -196,7 +196,37 @@ public class DataBase {
                     payment.getName() + "', '" + payment.getCurrency() + "')");
         }
         catch (SQLException e) {
-            System.out.println("Add statement ERROR: " + e.getMessage());
+            System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
+        }
+    }
+
+    /**
+     * Method remove item from database
+     * @param invoiceId specify which item we want to remove
+     */
+    public void removeItem(int invoiceId) {
+        try(Statement statement = conn.createStatement()){
+
+            statement.execute("DELETE FROM " + TABLE_ITEM +
+                    " WHERE " + COLUMN_ITEM_INVOICE_ID + " = " + invoiceId);
+        }
+        catch (SQLException e) {
+            System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
+        }
+    }
+
+    /**
+     * Method remove invoice from database
+     * @param invoiceId specify which invoice we want to remove
+     */
+    public void removeInvoice(int invoiceId) {
+        try(Statement statement = conn.createStatement()){
+
+            statement.execute("DELETE FROM " + TABLE_INVOICE +
+                    " WHERE " + COLUMN_INVOICE_ID + " = " + invoiceId);
+        }
+        catch (SQLException e) {
+            System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
         }
     }
 
@@ -217,7 +247,7 @@ public class DataBase {
         }
         catch(SQLException e)
         {
-            System.out.println("Add statement ERROR: " + e.getMessage());
+            System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
             return null;
         }
     }
@@ -240,7 +270,7 @@ public class DataBase {
         }
         catch(SQLException e)
         {
-            System.out.println("Add statement ERROR: " + e.getMessage());
+            System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
             return -1;
         }
     }

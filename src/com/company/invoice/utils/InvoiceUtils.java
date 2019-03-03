@@ -66,4 +66,13 @@ public class InvoiceUtils {
             return -1;
         }
     }
+
+    public void removeInovoice(int invoiceId) {
+        try {
+            dataBaseUtils.removeInvoie(invoiceId);
+        }
+        catch(Exception e) {
+            System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
+        }
+    }
 }

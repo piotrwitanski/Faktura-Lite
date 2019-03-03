@@ -4,8 +4,12 @@ import com.company.invoice.dto.Invoice;
 import com.company.invoice.dto.Item;
 import com.company.invoice.ui.datamodel.InvoiceModel;
 import com.company.invoice.ui.datamodel.UIData;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TableView;
@@ -27,6 +31,7 @@ public class InvoiceTabController {
     public void initialize() {
         UIData.getInstance().loadInvoiceTable();
         invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
+
     }
 
     //*TODO it's just for test, need to check this solution !!!!!!!!!!
@@ -55,11 +60,38 @@ public class InvoiceTabController {
             //*TODO here we need to add code that will get text from invoiceController and save it to specific class e.g. Invoice (but here we need different class for this object)
             Invoice newInvoice = invoiceController.getNewInvoice();
             UIData.getInstance().saveInvoice(newInvoice);
+//            UIData.getInstance().addInvoiceModel(newInvoice);
             int invoiceId = UIData.getInstance().getInvoiceLastId();
             List<Item> itemList = invoiceController.getInvoiceItems();
             saveItems(itemList, invoiceId);
-            System.out.println("Invoice added to db");
+            //*TODO not sure how to refresh invoice tableView. Also there is lack of scroll when we start program!!!!!!!!!!!!!!!!
+//            UIData.getInstance().loadInvoiceTable();
+//            invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
+//            invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
             //*TODO save here as pdf, add chooser and pdf method
+        }
+    }
+
+    public void showDeleteInvoiceDialog() {
+        InvoiceModel selectedInvoice = invoiceTable.getSelectionModel().getSelectedItem();
+        if(selectedInvoice == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Brak zaznaczonej faktury");
+            alert.setHeaderText(null);
+            alert.setContentText("Proszę zaznaczyć fakturę do usunięcia");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Usuwanie faktury");
+        alert.setHeaderText(null);
+        alert.setContentText("Czy jesteś pewny, że chcesz usunąć zaznaczoną fakturę " +
+                                selectedInvoice.getInvoiceType() + " " + selectedInvoice.getInvoiceNumber());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            UIData.getInstance().deleteInvoice(selectedInvoice);
         }
     }
 

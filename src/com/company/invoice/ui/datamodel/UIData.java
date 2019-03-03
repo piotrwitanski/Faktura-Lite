@@ -53,8 +53,28 @@ public class UIData {
         return paymentModels;
     }
 
-    public void addInvoiceModel() {
+    public void addInvoiceModel(Invoice invoice) {
+        //*TODO add correct method to add invoice model to table list (refresh it)
+//        InvoiceModel invoiceModel = new InvoiceModel();
+//        Customer customer = customerUtils.downloadCustomer(invoice.getCustomerId());
+//        List<Item> itemsList = itemUtils.downloadItems(invoice.getId());
+//        Payment payment = paymentUtils.downloadPayment(invoice.getPaymentId());
+//
+//        invoiceModel.setInvoiceType(invoice.getInvoiceType());
+//        invoiceModel.setInvoiceNumber(invoice.getInvoiceNumber());
+//        invoiceModel.setIssueDate(invoice.getIssueDate());
+//        invoiceModel.setCustomerName(customer.getName());
+//        invoiceModel.setNetValue(Double.toString(getNettoValue(itemsList)));
+//        invoiceModel.setGrossValue(Double.toString(getBruttoValue(itemsList)));
+//        invoiceModel.setVatValue(Double.toString(getBruttoValue(itemsList) - getNettoValue(itemsList)));
+//        invoiceModel.setCurrency(payment.getCurrency());
+//        invoiceModels.add(invoiceModel);
+    }
 
+    public void deleteInvoice(InvoiceModel invoiceModel) {
+        invoiceModels.remove(invoiceModel);
+        itemUtils.removeItem(Integer.parseInt(invoiceModel.getInvoiceId()));
+        invoiceUtils.removeInovoice(Integer.parseInt(invoiceModel.getInvoiceId()));
     }
 
     /**
@@ -62,13 +82,14 @@ public class UIData {
      */
     public void loadInvoiceTable() {
         List<Invoice> invoiceList = invoiceUtils.downloadInvoices();
-
+        invoiceModels.removeAll(invoiceModels);
         for (Invoice invoice : invoiceList) {
             InvoiceModel invoiceModel = new InvoiceModel();
             Customer customer = customerUtils.downloadCustomer(invoice.getCustomerId());
             List<Item> itemsList = itemUtils.downloadItems(invoice.getId());
             Payment payment = paymentUtils.downloadPayment(invoice.getPaymentId());
 
+            invoiceModel.setInvoiceId(Integer.toString(invoice.getId()));
             invoiceModel.setInvoiceType(invoice.getInvoiceType());
             invoiceModel.setInvoiceNumber(invoice.getInvoiceNumber());
             invoiceModel.setIssueDate(invoice.getIssueDate());
