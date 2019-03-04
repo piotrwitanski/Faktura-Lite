@@ -60,7 +60,6 @@ public class InvoiceDialogController {
 
 
     public void initialize() {
-        UIData.getInstance().loadPaymentList();
         itemModels = FXCollections.observableArrayList();
         issueDatePicker.setValue(today);
         invoiceDatePicker.setValue(today);
@@ -128,6 +127,7 @@ public class InvoiceDialogController {
         for (PaymentModel paymentModel : paymentList) {
             nameList.add(paymentModel.getName());
         }
+        //*TODO somehow every time when we open new window payment list is doubled
         paymentComboBox.setItems(nameList);
     }
 

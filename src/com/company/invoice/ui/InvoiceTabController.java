@@ -30,6 +30,7 @@ public class InvoiceTabController {
 
     public void initialize() {
         UIData.getInstance().loadInvoiceTable();
+        UIData.getInstance().loadPaymentList();
         invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
 
     }
@@ -57,17 +58,15 @@ public class InvoiceTabController {
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             InvoiceDialogController invoiceController = fxmlLoader.getController();
-            //*TODO here we need to add code that will get text from invoiceController and save it to specific class e.g. Invoice (but here we need different class for this object)
             Invoice newInvoice = invoiceController.getNewInvoice();
             UIData.getInstance().saveInvoice(newInvoice);
-//            UIData.getInstance().addInvoiceModel(newInvoice);
             int invoiceId = UIData.getInstance().getInvoiceLastId();
             List<Item> itemList = invoiceController.getInvoiceItems();
             saveItems(itemList, invoiceId);
-            //*TODO not sure how to refresh invoice tableView. Also there is lack of scroll when we start program!!!!!!!!!!!!!!!!
-//            UIData.getInstance().loadInvoiceTable();
-//            invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
-//            invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
+            UIData.getInstance().addInvoiceModel(UIData.getInstance().loadNewInvoice());
+
+            //*TODO there is lack of scroll when we start program!!!!!!!!!!!!!!!!
+            invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
             //*TODO save here as pdf, add chooser and pdf method
         }
     }
