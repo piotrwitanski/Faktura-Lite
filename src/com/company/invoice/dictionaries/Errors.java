@@ -10,5 +10,7 @@ public class Errors {
     public static final String CLOSE_DB_ERROR = "Couldn't close connection:";
     public static final String ADD_STATEMENT_ERROR = "Add statement ERROR: ";
     public static final String REMOVE_FROM_DB_ERROR = "Couldn't remove from DB ";
+    public static final String UPDATE_DB_ERROR = "Couldn't update position in DB ";
+    public static final String DIALOG_LOAD_ERROR = "Couldn't load the dialog";
 
 }

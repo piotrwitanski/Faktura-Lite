@@ -9,15 +9,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import static com.company.invoice.dictionaries.Errors.DIALOG_LOAD_ERROR;
 
 public class InvoiceTabController {
 
@@ -47,7 +46,7 @@ public class InvoiceTabController {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         }
         catch(IOException e) {
-            System.out.println("Couldn't load the dialog");
+            System.out.println(DIALOG_LOAD_ERROR);
             e.getStackTrace();
             return;
         }
@@ -68,6 +67,44 @@ public class InvoiceTabController {
             //*TODO there is lack of scroll when we start program!!!!!!!!!!!!!!!!
             invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
             //*TODO save here as pdf, add chooser and pdf method
+        }
+    }
+
+    @FXML
+    public void showEditInvoiceDialog() {
+        InvoiceModel selectedInvoice = invoiceTable.getSelectionModel().getSelectedItem();
+        if(selectedInvoice == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Brak zaznaczonej faktury");
+            alert.setHeaderText(null);
+            alert.setContentText("Proszę zaznaczyć fakturę do edytowania");
+            alert.showAndWait();
+            return;
+        }
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(sellBorderPane.getScene().getWindow());
+        dialog.setTitle("Edytowanie faktury");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("invoiceDialog.fxml"));
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+        }
+        catch(IOException e) {
+            System.out.println(DIALOG_LOAD_ERROR);
+            e.getStackTrace();
+            return;
+        }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        InvoiceDialogController invoiceDialogController = fxmlLoader.getController();
+        invoiceDialogController.editInvoice(selectedInvoice);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            System.out.println("Something");
         }
     }
 

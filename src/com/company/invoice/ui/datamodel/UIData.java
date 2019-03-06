@@ -64,6 +64,7 @@ public class UIData {
         invoiceModel.setInvoiceType(invoice.getInvoiceType());
         invoiceModel.setInvoiceNumber(invoice.getInvoiceNumber());
         invoiceModel.setIssueDate(invoice.getIssueDate());
+        invoiceModel.setInvoiceDate(invoice.getInvoiceDate());
         invoiceModel.setCustomerName(customer.getName());
         invoiceModel.setNetValue(Double.toString(getNettoValue(itemsList)));
         invoiceModel.setGrossValue(Double.toString(getBruttoValue(itemsList)));
@@ -99,6 +100,7 @@ public class UIData {
             invoiceModel.setInvoiceType(invoice.getInvoiceType());
             invoiceModel.setInvoiceNumber(invoice.getInvoiceNumber());
             invoiceModel.setIssueDate(invoice.getIssueDate());
+            invoiceModel.setInvoiceDate(invoice.getInvoiceDate());
             invoiceModel.setCustomerName(customer.getName());
             invoiceModel.setNetValue(Double.toString(getNettoValue(itemsList)));
             invoiceModel.setGrossValue(Double.toString(getBruttoValue(itemsList)));
@@ -163,6 +165,10 @@ public class UIData {
 
     public void saveItem(Item newItem) {
         itemUtils.addItemToDB(newItem);
+    }
+
+    public List<Item> downloadItems(int invoiceId) {
+        return itemUtils.downloadItems(invoiceId);
     }
 
     private double getNettoValue(List<Item> itemsList) {

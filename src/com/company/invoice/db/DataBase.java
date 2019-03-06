@@ -199,6 +199,25 @@ public class DataBase {
             System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
+    //*TODO write update method for database. Remember that we need not to update items but remove all items related with invoice and add new ones.
+    public void updateInvoice(Invoice invoice) {
+        try(Statement statement = conn.createStatement()){
+
+            statement.execute("UPDATE " + TABLE_INVOICE +
+                    " SET "+ COLUMN_INVOICE_NUMBER + " = '" + invoice.getInvoiceNumber() + "', " +
+                    COLUMN_INVOICE_TYPE + " = '" + invoice.getInvoiceType() + "', " +
+                    COLUMN_INVOICE_CUSTOMER_ID + " = " + invoice.getCustomerId() + ", " +
+                    COLUMN_INVOICE_USER_ID + " = " + invoice.getUserId() + ", " +
+                    COLUMN_INVOICE_ISSUE_DATE + " = '" + invoice.getIssueDate() + "', " +
+                    COLUMN_INVOICE_INVOICE_DATE + " = '" + invoice.getInvoiceDate() + "', " +
+                    COLUMN_INVOICE_PAYMENT_ID + " = " + invoice.getPaymentId()  +
+                    " WHERE " + COLUMN_INVOICE_ID + " = " + invoice.getId());
+        }
+        catch (SQLException e) {
+            System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
+        }
+
+    }
 
     /**
      * Method remove item from database

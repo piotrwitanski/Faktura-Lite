@@ -7,6 +7,7 @@ public class InvoiceModel {
     private SimpleStringProperty invoiceType = new SimpleStringProperty("");
     private SimpleStringProperty invoiceNumber = new SimpleStringProperty("");
     private SimpleStringProperty issueDate = new SimpleStringProperty("");
+    private SimpleStringProperty invoiceDate = new SimpleStringProperty("");
     private SimpleStringProperty customerName = new SimpleStringProperty("");
     private SimpleStringProperty netValue = new SimpleStringProperty("");
     private SimpleStringProperty grossValue = new SimpleStringProperty("");
@@ -76,6 +77,18 @@ public class InvoiceModel {
 
     public void setIssueDate(String issueDate) {
         this.issueDate.set(issueDate);
+    }
+
+    public String getInvoiceDate() {
+        return invoiceDate.get();
+    }
+
+    public SimpleStringProperty invoiceDateProperty() {
+        return invoiceDate;
+    }
+
+    public void setInvoiceDate(String invoiceDate) {
+        this.invoiceDate.set(invoiceDate);
     }
 
     public String getCustomerName() {

@@ -2,10 +2,7 @@ package com.company.invoice.ui;
 
 import com.company.invoice.dto.Invoice;
 import com.company.invoice.dto.Item;
-import com.company.invoice.ui.datamodel.ContractorModel;
-import com.company.invoice.ui.datamodel.ItemModel;
-import com.company.invoice.ui.datamodel.PaymentModel;
-import com.company.invoice.ui.datamodel.UIData;
+import com.company.invoice.ui.datamodel.*;
 import com.company.invoice.utils.InvoiceUtils;
 import com.company.invoice.validators.ValidateDate;
 import javafx.collections.FXCollections;
@@ -18,6 +15,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import static com.company.invoice.dictionaries.Errors.DIALOG_LOAD_ERROR;
 
 public class InvoiceDialogController {
 
@@ -169,7 +168,7 @@ public class InvoiceDialogController {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         }
         catch(IOException e) {
-            System.out.println("Couldn't load the dialog");
+            System.out.println(DIALOG_LOAD_ERROR);
             e.getStackTrace();
             return;
         }
@@ -208,7 +207,7 @@ public class InvoiceDialogController {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         }
         catch(IOException e) {
-            System.out.println("Couldn't load the dialog");
+            System.out.println(DIALOG_LOAD_ERROR);
             e.getStackTrace();
             return;
         }
@@ -295,5 +294,34 @@ public class InvoiceDialogController {
         int index = paymentComboBox.getSelectionModel().getSelectedIndex();
 
         return Integer.parseInt(paymentList.get(index).getId());
+    }
+
+    public void editInvoice(InvoiceModel invoiceModel) {
+        typeComboBox.getSelectionModel().select(invoiceModel.getInvoiceType());
+        invoiceNumberTextField.setText(invoiceModel.getInvoiceNumber());
+        issueDatePicker.setValue(LocalDate.parse(invoiceModel.getIssueDate(), formatter));
+        invoiceDatePicker.setValue(LocalDate.parse(invoiceModel.getInvoiceDate(), formatter));
+        contractorComboBox.getSelectionModel().select(invoiceModel.getCustomerName());
+        setInvoiceItems(Integer.parseInt(invoiceModel.getInvoiceId()));
+        itemsTable.setItems(itemModels);
+    }
+
+    private void setInvoiceItems(int invoiceId) {
+        List<Item> items = UIData.getInstance().downloadItems(invoiceId);
+        for (Item item : items) {
+            itemModels.add(setItemModel(item));
+        }
+    }
+
+    private ItemModel setItemModel(Item item) {
+        //*TODO need to set net value and price
+        ItemModel itemModel = new ItemModel();
+        itemModel.setType(item.getType());
+        itemModel.setName(item.getName());
+        itemModel.setQuantity(Integer.toString(item.getQuantity()));
+        itemModel.setVat(Integer.toString(item.getVat()));
+        itemModel.setGrossPrice(Double.toString(item.getGrossPrice()));
+        itemModel.setUnitOfMeasure(item.getUnitOfMeasure());
+        return itemModel;
     }
 }

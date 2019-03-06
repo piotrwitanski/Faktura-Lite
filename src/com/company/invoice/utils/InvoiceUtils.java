@@ -6,6 +6,7 @@ import java.util.List;
 
 import static com.company.invoice.dictionaries.Errors.DATABASE_ERROR;
 import static com.company.invoice.dictionaries.Errors.DOWNLOAD_DB_ERROR;
+import static com.company.invoice.dictionaries.Errors.UPDATE_DB_ERROR;
 
 public class InvoiceUtils {
     private DataBaseUtils dataBaseUtils;
@@ -67,9 +68,18 @@ public class InvoiceUtils {
         }
     }
 
+    public void updateInvoice(Invoice invoice) {
+        try {
+            dataBaseUtils.updateInvoice(invoice);
+        }
+        catch(Exception e) {
+            System.out.println(UPDATE_DB_ERROR + e.getMessage());
+        }
+    }
+
     public void removeInovoice(int invoiceId) {
         try {
-            dataBaseUtils.removeInvoie(invoiceId);
+            dataBaseUtils.removeInvoice(invoiceId);
         }
         catch(Exception e) {
             System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
