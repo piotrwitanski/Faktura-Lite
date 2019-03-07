@@ -87,6 +87,7 @@ public class User {
     public String toString() {
         return "Name: " + this.name +
                 "\nAdress: " + this.postCode + " " + this.city + ", " + this.street +
-                "\nNIP: " + this.NIP;
+                "\nNIP: " + this.NIP +
+                "\nBank Account: " + this.bankAccount;
     }
 }

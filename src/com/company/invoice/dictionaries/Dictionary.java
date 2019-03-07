@@ -84,4 +84,6 @@ public class Dictionary {
     public static final String BUYER = "Nabywca";
     public static final String DOTS = "...............................................................................";
 
+    public static final int USER_ID = 1;
+    public static final int BANK_ACCOUNT_NUMBER = 0;
 }

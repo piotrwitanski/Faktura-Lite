@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
+import static com.company.invoice.dictionaries.Dictionary.USER_ID;
+
 public class UIData {
 
     private static UIData instance = new UIData();
@@ -15,11 +17,13 @@ public class UIData {
     private ObservableList<ContractorModel> contractorModels;
     private ObservableList<ServiceModel> serviceModels;
     private ObservableList<PaymentModel> paymentModels;
+    private ObservableList<UserModel> userModels;
     private InvoiceUtils invoiceUtils;
     private CustomerUtils customerUtils;
     private ItemUtils itemUtils;
     private PaymentUtils paymentUtils;
     private ProductUtils productUtils;
+    private UserUtils userUtils;
 
     private UIData() {
         invoiceUtils = new InvoiceUtils();
@@ -27,10 +31,12 @@ public class UIData {
         itemUtils = new ItemUtils();
         paymentUtils = new PaymentUtils();
         productUtils = new ProductUtils();
+        userUtils = new UserUtils();
         invoiceModels = FXCollections.observableArrayList();
         contractorModels = FXCollections.observableArrayList();
         serviceModels = FXCollections.observableArrayList();
         paymentModels = FXCollections.observableArrayList();
+        userModels = FXCollections.observableArrayList();
     }
 
     public static UIData getInstance() {
@@ -53,6 +59,10 @@ public class UIData {
         return paymentModels;
     }
 
+    public ObservableList<UserModel> getUserModels() {
+        return userModels;
+    }
+
     public void addInvoiceModel(Invoice invoice) {
         InvoiceModel invoiceModel = new InvoiceModel();
         Customer customer = customerUtils.downloadCustomer(invoice.getCustomerId());
@@ -64,6 +74,7 @@ public class UIData {
         invoiceModel.setInvoiceType(invoice.getInvoiceType());
         invoiceModel.setInvoiceNumber(invoice.getInvoiceNumber());
         invoiceModel.setIssueDate(invoice.getIssueDate());
+        invoiceModel.setPaymentId(Integer.toString(invoice.getPaymentId()));
         invoiceModel.setInvoiceDate(invoice.getInvoiceDate());
         invoiceModel.setCustomerName(customer.getName());
         invoiceModel.setNetValue(Double.toString(getNettoValue(itemsList)));
@@ -100,6 +111,7 @@ public class UIData {
             invoiceModel.setInvoiceType(invoice.getInvoiceType());
             invoiceModel.setInvoiceNumber(invoice.getInvoiceNumber());
             invoiceModel.setIssueDate(invoice.getIssueDate());
+            invoiceModel.setPaymentId(Integer.toString(invoice.getPaymentId()));
             invoiceModel.setInvoiceDate(invoice.getInvoiceDate());
             invoiceModel.setCustomerName(customer.getName());
             invoiceModel.setNetValue(Double.toString(getNettoValue(itemsList)));
@@ -159,6 +171,18 @@ public class UIData {
 
     }
 
+    public void loadBankAccountNumber() {
+        User user = userUtils.downloadUser(USER_ID);
+        //*TODO just for now we assume that we will have only one user (id 1). Not sure if in future need to add more users
+        UserModel userModel = new UserModel();
+
+        userModel.setId(Integer.toString(user.getId()));
+        userModel.setName(user.getName());
+        userModel.setBankAccount(user.getBankAccount());
+
+        userModels.add(userModel);
+    }
+
     public void saveInvoice(Invoice newInvoice) {
         invoiceUtils.addInvoiceToDB(newInvoice);
     }
@@ -169,6 +193,10 @@ public class UIData {
 
     public List<Item> downloadItems(int invoiceId) {
         return itemUtils.downloadItems(invoiceId);
+    }
+
+    public Payment downloadPayment(int paymentId) {
+        return paymentUtils.downloadPayment(paymentId);
     }
 
     private double getNettoValue(List<Item> itemsList) {

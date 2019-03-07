@@ -30,6 +30,7 @@ public class InvoiceTabController {
     public void initialize() {
         UIData.getInstance().loadInvoiceTable();
         UIData.getInstance().loadPaymentList();
+        UIData.getInstance().loadBankAccountNumber();
         invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
 
     }

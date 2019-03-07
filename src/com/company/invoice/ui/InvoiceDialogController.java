@@ -2,6 +2,8 @@ package com.company.invoice.ui;
 
 import com.company.invoice.dto.Invoice;
 import com.company.invoice.dto.Item;
+import com.company.invoice.dto.Payment;
+import com.company.invoice.dto.User;
 import com.company.invoice.ui.datamodel.*;
 import com.company.invoice.utils.InvoiceUtils;
 import com.company.invoice.validators.ValidateDate;
@@ -16,6 +18,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static com.company.invoice.dictionaries.Dictionary.BANK_ACCOUNT_NUMBER;
+import static com.company.invoice.dictionaries.Dictionary.USER_ID;
 import static com.company.invoice.dictionaries.Errors.DIALOG_LOAD_ERROR;
 
 public class InvoiceDialogController {
@@ -30,7 +34,7 @@ public class InvoiceDialogController {
     private DatePicker issueDatePicker, invoiceDatePicker, dueDatePicker;
 
     @FXML
-    private ComboBox<String> typeComboBox, contractorComboBox, recipientComboBox, paymentComboBox;
+    private ComboBox<String> typeComboBox, contractorComboBox, recipientComboBox, paymentComboBox, bankAccountComboBox;
 
     @FXML
     private TextField invoiceNumberTextField;
@@ -70,6 +74,7 @@ public class InvoiceDialogController {
         recipientAddButton.setDisable(!recipientCheckBox.isSelected());
         setContractorsAndRecipients();
         setPayments();
+        setBankAccountNumber();
     }
 
     public Invoice getNewInvoice() {
@@ -80,7 +85,7 @@ public class InvoiceDialogController {
         newInvoice.setInvoiceDate(dueDatePicker.getValue().format(formatter));
         newInvoice.setCustomerId(getContractorId());
         //*TODO just for now we use user id 1 but we need add some method that will choose user from the list after log in
-        newInvoice.setUserId(1);
+        newInvoice.setUserId(USER_ID);
         newInvoice.setPaymentId(getPaymentId());
         return newInvoice;
     }
@@ -126,8 +131,16 @@ public class InvoiceDialogController {
         for (PaymentModel paymentModel : paymentList) {
             nameList.add(paymentModel.getName());
         }
-        //*TODO somehow every time when we open new window payment list is doubled
         paymentComboBox.setItems(nameList);
+    }
+
+    private void setBankAccountNumber() {
+        ObservableList<UserModel> userList = UIData.getInstance().getUserModels();
+        ObservableList<String> bankAccountList = FXCollections.observableArrayList();
+        for (UserModel userModel : userList) {
+            bankAccountList.add(userModel.getBankAccount());
+        }
+        bankAccountComboBox.setItems(bankAccountList);
     }
 
     @FXML
@@ -285,6 +298,7 @@ public class InvoiceDialogController {
     private int getContractorId() {
         ObservableList<ContractorModel> modelList = UIData.getInstance().getContractorModels();
         int index = contractorComboBox.getSelectionModel().getSelectedIndex();
+        //TODO not sure if this solution getSelectedIndex() is good, possible to get incorrect index???
 
         return Integer.parseInt(modelList.get(index).getId());
     }
@@ -292,6 +306,7 @@ public class InvoiceDialogController {
     private int getPaymentId() {
         ObservableList<PaymentModel> paymentList = UIData.getInstance().getPaymentModels();
         int index = paymentComboBox.getSelectionModel().getSelectedIndex();
+        //TODO not sure if this solution getSelectedIndex() is good, possible to get incorrect index???
 
         return Integer.parseInt(paymentList.get(index).getId());
     }
@@ -304,6 +319,8 @@ public class InvoiceDialogController {
         contractorComboBox.getSelectionModel().select(invoiceModel.getCustomerName());
         setInvoiceItems(Integer.parseInt(invoiceModel.getInvoiceId()));
         itemsTable.setItems(itemModels);
+        bankAccountComboBox.getSelectionModel().select(BANK_ACCOUNT_NUMBER);
+        setPaymentComboBox(Integer.parseInt(invoiceModel.getPaymentId()));
     }
 
     private void setInvoiceItems(int invoiceId) {
@@ -321,7 +338,14 @@ public class InvoiceDialogController {
         itemModel.setQuantity(Integer.toString(item.getQuantity()));
         itemModel.setVat(Integer.toString(item.getVat()));
         itemModel.setGrossPrice(Double.toString(item.getGrossPrice()));
+        itemModel.setNetPrice(Double.toString(item.getNetPrice()));
+        itemModel.setNettoValue();
         itemModel.setUnitOfMeasure(item.getUnitOfMeasure());
         return itemModel;
+    }
+
+    private void setPaymentComboBox(int paymentId) {
+        Payment payment = UIData.getInstance().downloadPayment(paymentId);
+        paymentComboBox.getSelectionModel().select(payment.getName());
     }
 }

@@ -408,6 +408,7 @@ public class DataBase {
                 user.setStreet(result.getString(COLUMN_USER_STREET));
                 user.setPostCode(result.getString(COLUMN_USER_POST_CODE));
                 user.setNIP(result.getString(COLUMN_USER_NIP));
+                user.setBankAccount(result.getString(COLUMN_USER_BANK_ACCOUNT));
             }
 
             return user;
