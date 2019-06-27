@@ -18,7 +18,7 @@ public class CustomerUtils {
         try {
             dataBaseUtils.addCustomerToDB(customer);
         }
-        catch (Exception e) {
+        catch(Exception e) {
             System.out.println(DATABASE_ERROR + e.getMessage());
         }
     }

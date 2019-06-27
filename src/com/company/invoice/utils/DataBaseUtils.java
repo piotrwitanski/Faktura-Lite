@@ -15,6 +15,7 @@ public class DataBaseUtils {
 
     /**
      * Adding new Customer to database
+     *
      * @param customer dto for database
      */
     public void addCustomerToDB(Customer customer) {
@@ -28,6 +29,7 @@ public class DataBaseUtils {
 
     /**
      * Adding new User to database
+     *
      * @param user dto for database
      */
     public void addUserToDB(User user) {
@@ -41,6 +43,7 @@ public class DataBaseUtils {
 
     /**
      * Adding new Product to database
+     *
      * @param product dto for database
      */
     public void addProductToDB(Product product) {
@@ -82,6 +85,7 @@ public class DataBaseUtils {
 
     /**
      * Transfer Customer List
+     *
      * @return customers List
      */
     public List<Customer> downloadCustomers() {
@@ -152,13 +156,13 @@ public class DataBaseUtils {
 
     public Invoice downloadInvoice(int invoiceId) {
 
-         dataBase.open();
+        dataBase.open();
 
-         Invoice invoice = dataBase.downloadInvoice(invoiceId);
+        Invoice invoice = dataBase.downloadInvoice(invoiceId);
 
-         dataBase.close();
+        dataBase.close();
 
-         return invoice;
+        return invoice;
     }
 
     public List<Item> downloadItems(int invoiceId) {

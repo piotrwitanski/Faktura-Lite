@@ -17,7 +17,7 @@ import java.util.*;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/company/invoice/ui/main.fxml"));
         setUserAgentStylesheet(STYLESHEET_CASPIAN);
         primaryStage.setTitle("Invoice Lite");
@@ -79,7 +79,6 @@ public class Main extends Application {
 //        productUtils.addProductToDB(product);
 
 
-
         //download Customers from DB
         List<Customer> customers = customerUtils.downloadCustomers();
         for(Customer customerDB : customers) {
@@ -106,7 +105,7 @@ public class Main extends Application {
 
         List<String> list = Arrays.asList(todayDate.split("-"));
 
-        for (String s : list) {
+        for(String s : list) {
             System.out.println(s);
         }
 

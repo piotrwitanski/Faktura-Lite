@@ -1,4 +1,5 @@
 package com.company.invoice.tools;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -33,7 +34,7 @@ public class UserProperties {
 
             properties.store(out, "User properties");
         }
-        catch (IOException e) {
+        catch(IOException e) {
             e.printStackTrace();
         }
 
@@ -53,7 +54,7 @@ public class UserProperties {
             this.NIP = properties.getProperty("NIP");
 
         }
-        catch (IOException e) {
+        catch(IOException e) {
             e.printStackTrace();
         }
     }

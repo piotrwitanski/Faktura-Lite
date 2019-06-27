@@ -28,7 +28,7 @@ public class PDFCreator {
     private User user;
     private Payment payment;
 
-    public void createPdf(String filename, Customer customer, Invoice invoice, List<Item> items, User user, Payment payment){
+    public void createPdf(String filename, Customer customer, Invoice invoice, List<Item> items, User user, Payment payment) {
         //*TODO add bigger font size
         //*TODO add Payment table to PDF
         try {
@@ -49,7 +49,7 @@ public class PDFCreator {
             addEmptyLine(document, 2);
 
             PdfPTable namesTable = new PdfPTable(3);
-            namesTable.setWidths(new int[] {6, 1, 6});
+            namesTable.setWidths(new int[]{6, 1, 6});
             namesTable.setWidthPercentage(100);
             createCustomerSellerTable(namesTable);
 
@@ -58,7 +58,7 @@ public class PDFCreator {
             addEmptyLine(document, 2);
 
             PdfPTable itemTable = new PdfPTable(9);
-            itemTable.setWidths(new int[] {1, 3, 1, 1, 2, 2, 1, 2, 2});
+            itemTable.setWidths(new int[]{1, 3, 1, 1, 2, 2, 1, 2, 2});
             itemTable.setWidthPercentage(100);
             createItemTitleTable(itemTable);
             addItemTablePositions(itemTable);
@@ -67,7 +67,7 @@ public class PDFCreator {
             addEmptyLine(document, 2);
 
             PdfPTable summaryTable = new PdfPTable(4);
-            summaryTable.setWidths(new int[] {2, 2, 2, 2});
+            summaryTable.setWidths(new int[]{2, 2, 2, 2});
             summaryTable.setWidthPercentage(50);
             summaryTable.setHorizontalAlignment(Element.ALIGN_RIGHT);
             createSummaryTable(summaryTable);
@@ -76,7 +76,7 @@ public class PDFCreator {
             addEmptyLine(document, 2);
 
             PdfPTable signsTable = new PdfPTable(3);
-            signsTable.setWidths(new int[] {6, 5, 6});
+            signsTable.setWidths(new int[]{6, 5, 6});
             signsTable.setWidthPercentage(100);
             createSignTable(signsTable);
 
@@ -85,12 +85,13 @@ public class PDFCreator {
             document.close();
         }
         catch(DocumentException | IOException e) {
-            System.out.println(PDF_ERROR +e.getMessage());
+            System.out.println(PDF_ERROR + e.getMessage());
         }
     }
 
     /**
      * This method add title for PDF page
+     *
      * @param document
      * @throws DocumentException
      */
@@ -101,9 +102,10 @@ public class PDFCreator {
 
     /**
      * This method adding date in right top corner of the pdf page
+     *
      * @param document
-     * @param title is used to add date description
-     * @param date specify date
+     * @param title    is used to add date description
+     * @param date     specify date
      * @throws DocumentException
      */
     private void addDateTable(Document document, String title, String date) throws DocumentException, IOException {
@@ -152,28 +154,29 @@ public class PDFCreator {
     private void addItemTablePositions(PdfPTable table) throws DocumentException {
         //*TODO download values from DB
 
-        for (int i = 0; i < items.size(); i++) {
-            addTableCell(table, Integer.toString(i + 1), normalFont,15, -1);
-            addTableCell(table,items.get(i).getName(), normalFont, 15,-1);
-            addTableCell(table,Integer.toString(items.get(i).getQuantity()), normalFont, 15,-1);
-            addTableCell(table,items.get(i).getUnitOfMeasure(), normalFont, 15,-1);
-            addTableCell(table,Double.toString(items.get(i).getNetPrice()), normalFont, 15,2);
-            addTableCell(table,Double.toString(items.get(i).getQuantity() * items.get(i).getNetPrice()), normalFont, 15,2);
-            addTableCell(table,Integer.toString(items.get(i).getVat()) + "%", normalFont, 15,2);
-            addTableCell(table,Double.toString((items.get(i).getQuantity() * items.get(i).getGrossPrice()) -
-                    (items.get(i).getQuantity() * items.get(i).getNetPrice())), normalFont, 15,2);
-            addTableCell(table,Double.toString(items.get(i).getQuantity() * items.get(i).getGrossPrice()), normalFont, 15,2);
+        for(int i = 0; i < items.size(); i++) {
+            addTableCell(table, Integer.toString(i + 1), normalFont, 15, -1);
+            addTableCell(table, items.get(i).getName(), normalFont, 15, -1);
+            addTableCell(table, Integer.toString(items.get(i).getQuantity()), normalFont, 15, -1);
+            addTableCell(table, items.get(i).getUnitOfMeasure(), normalFont, 15, -1);
+            addTableCell(table, Double.toString(items.get(i).getNetPrice()), normalFont, 15, 2);
+            addTableCell(table, Double.toString(items.get(i).getQuantity() * items.get(i).getNetPrice()), normalFont, 15, 2);
+            addTableCell(table, Integer.toString(items.get(i).getVat()) + "%", normalFont, 15, 2);
+            addTableCell(table, Double.toString((items.get(i).getQuantity() * items.get(i).getGrossPrice()) -
+                    (items.get(i).getQuantity() * items.get(i).getNetPrice())), normalFont, 15, 2);
+            addTableCell(table, Double.toString(items.get(i).getQuantity() * items.get(i).getGrossPrice()), normalFont, 15, 2);
         }
 
     }
 
     /**
      * This method is created to add values for specify item table positions.
-     * @param table is Item table for invoice
-     * @param font specify which font type want to use
-     * @param text contain value that will be displayed in item table
+     *
+     * @param table      is Item table for invoice
+     * @param font       specify which font type want to use
+     * @param text       contain value that will be displayed in item table
      * @param cellBorder 0 -> without cellBorder; 1 -> top cellBorder; 15 -> all cellBorders; {@link Rectangle}
-     * @param align 2 -> ALIGN_RIGHT; 1 -> ALIGN_CENTER; -1 -> ALIGN_UNDEFINED {@link Element}
+     * @param align      2 -> ALIGN_RIGHT; 1 -> ALIGN_CENTER; -1 -> ALIGN_UNDEFINED {@link Element}
      */
     private void addTableCell(PdfPTable table, String text, Font font, int cellBorder, int align) {
         PdfPCell cell = new PdfPCell(new Phrase(text, font));
@@ -181,7 +184,8 @@ public class PDFCreator {
         cell.setHorizontalAlignment(align);
         table.addCell(cell);
     }
-//-------------------------------------------------------------------------------------------------------------------------------------------
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------
     private void createCustomerSellerTable(PdfPTable table) throws IOException, DocumentException {
         BaseFont bf = BaseFont.createFont("arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font fontBold = new Font(bf, 8, Font.BOLD);
@@ -197,10 +201,10 @@ public class PDFCreator {
         addTableCell(table, customer.getName(), font, 0, -1);
 
         addTableCell(table, user.getPostCode() + " " + user.getCity() +
-                                ", " + user.getStreet(), font, 0, -1);
+                ", " + user.getStreet(), font, 0, -1);
         addTableCell(table, "", font, 0, -1);
         addTableCell(table, customer.getPostCode() + " " + customer.getCity() +
-                                ", " + customer.getStreet(), font, 0, -1);
+                ", " + customer.getStreet(), font, 0, -1);
 
         addTableCell(table, "NIP: " + user.getNIP(), font, 0, -1);
         addTableCell(table, "", font, 0, -1);
@@ -208,8 +212,10 @@ public class PDFCreator {
     }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
+
     /**
-     *Method create summary table for invoice
+     * Method create summary table for invoice
+     *
      * @param table
      */
     private void createSummaryTable(PdfPTable table) {
@@ -222,11 +228,11 @@ public class PDFCreator {
         addTableCell(table, VAT_VALUE, boldFont, 0, 2);
         addTableCell(table, GROSS, boldFont, 0, 2);
 
-        for (Item item : items) {
+        for(Item item : items) {
             addTableCell(table, Integer.toString(item.getVat()), normalFont, 0, 2);
             addTableCell(table, Double.toString(item.getQuantity() * item.getNetPrice()), normalFont, 0, 2);
             addTableCell(table, Double.toString((item.getQuantity() * item.getGrossPrice()) -
-                                                    (item.getQuantity() * item.getNetPrice())), normalFont, 0, 2);
+                    (item.getQuantity() * item.getNetPrice())), normalFont, 0, 2);
             addTableCell(table, Double.toString(item.getQuantity() * item.getGrossPrice()), normalFont, 0, 2);
 
             totalNet += item.getQuantity() * item.getNetPrice();
@@ -261,7 +267,7 @@ public class PDFCreator {
     }
 
     private void addEmptyLine(Document document, int emptyLines) throws DocumentException {
-        for (int i = 0; i < emptyLines; i++) {
+        for(int i = 0; i < emptyLines; i++) {
             document.add(new Paragraph(" "));
         }
     }

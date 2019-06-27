@@ -15,7 +15,7 @@ public class UserUtils {
     }
 
     public void addUserToDB(User user) {
-        try{
+        try {
             dataBaseUtils.addUserToDB(user);
         }
         catch(Exception e) {

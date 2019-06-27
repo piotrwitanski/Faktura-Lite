@@ -138,7 +138,7 @@ public class ServiceInvoiceDialogController {
         double nettoPrice = 0;
         NumberFormat formatter = NumberFormat.getInstance(Locale.US);
         nettoPrice = Double.parseDouble(bruttoPriceTextField.getText()) - (Double.parseDouble(bruttoPriceTextField.getText()) *
-                    (Double.parseDouble(vatTextField.getText())) / (100 + Double.parseDouble(vatTextField.getText())));
+                (Double.parseDouble(vatTextField.getText())) / (100 + Double.parseDouble(vatTextField.getText())));
         return Double.toString(nettoPrice);
         //*TODO add correct formatter to netto and brutto price
     }

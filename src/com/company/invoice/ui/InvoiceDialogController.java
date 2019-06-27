@@ -92,7 +92,7 @@ public class InvoiceDialogController {
 
     public List<Item> getInvoiceItems() {
         List<Item> itemList = new ArrayList<>();
-        for (ItemModel itemModel : itemModels) {
+        for(ItemModel itemModel : itemModels) {
             Item item = new Item();
 
             item.setType(itemModel.getType());
@@ -118,7 +118,7 @@ public class InvoiceDialogController {
     private void setContractorsAndRecipients() {
         ObservableList<ContractorModel> modelList = UIData.getInstance().getContractorModels();
         ObservableList<String> nameList = FXCollections.observableArrayList();
-        for (ContractorModel contractorModel : modelList) {
+        for(ContractorModel contractorModel : modelList) {
             nameList.add(contractorModel.getName() + "\t\t" + contractorModel.getNIP());
         }
         contractorComboBox.setItems(nameList);
@@ -128,7 +128,7 @@ public class InvoiceDialogController {
     private void setPayments() {
         ObservableList<PaymentModel> paymentList = UIData.getInstance().getPaymentModels();
         ObservableList<String> nameList = FXCollections.observableArrayList();
-        for (PaymentModel paymentModel : paymentList) {
+        for(PaymentModel paymentModel : paymentList) {
             nameList.add(paymentModel.getName());
         }
         paymentComboBox.setItems(nameList);
@@ -137,7 +137,7 @@ public class InvoiceDialogController {
     private void setBankAccountNumber() {
         ObservableList<UserModel> userList = UIData.getInstance().getUserModels();
         ObservableList<String> bankAccountList = FXCollections.observableArrayList();
-        for (UserModel userModel : userList) {
+        for(UserModel userModel : userList) {
             bankAccountList.add(userModel.getBankAccount());
         }
         bankAccountComboBox.setItems(bankAccountList);
@@ -254,7 +254,7 @@ public class InvoiceDialogController {
         alert.setTitle("Usuwanie przedmiotu");
         alert.setHeaderText(null);
         alert.setContentText("Czy jesteś pewny, że chcesz usunąć zaznaczony przedmiot " +
-                            selectedItem.getName());
+                selectedItem.getName());
 
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
@@ -282,7 +282,7 @@ public class InvoiceDialogController {
         double totalNettoValue = 0;
         double totalBruttoValue = 0;
 
-        for (ItemModel itemModel : itemModels) {
+        for(ItemModel itemModel : itemModels) {
             totalNettoValue += getValue(itemModel.getQuantity(), itemModel.getNetPrice());
             totalBruttoValue += getValue(itemModel.getQuantity(), itemModel.getGrossPrice());
         }
@@ -298,7 +298,6 @@ public class InvoiceDialogController {
     private int getContractorId() {
         ObservableList<ContractorModel> modelList = UIData.getInstance().getContractorModels();
         int index = contractorComboBox.getSelectionModel().getSelectedIndex();
-        //TODO not sure if this solution getSelectedIndex() is good, possible to get incorrect index???
 
         return Integer.parseInt(modelList.get(index).getId());
     }
@@ -306,7 +305,6 @@ public class InvoiceDialogController {
     private int getPaymentId() {
         ObservableList<PaymentModel> paymentList = UIData.getInstance().getPaymentModels();
         int index = paymentComboBox.getSelectionModel().getSelectedIndex();
-        //TODO not sure if this solution getSelectedIndex() is good, possible to get incorrect index???
 
         return Integer.parseInt(paymentList.get(index).getId());
     }
@@ -325,7 +323,7 @@ public class InvoiceDialogController {
 
     private void setInvoiceItems(int invoiceId) {
         List<Item> items = UIData.getInstance().downloadItems(invoiceId);
-        for (Item item : items) {
+        for(Item item : items) {
             itemModels.add(setItemModel(item));
         }
     }

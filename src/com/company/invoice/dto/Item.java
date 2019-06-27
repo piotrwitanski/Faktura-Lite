@@ -11,6 +11,22 @@ public class Item {
     private String unitOfMeasure;
     private String type;
 
+    public Item(int id, int invoiceId, String name, int quantity, double grossPrice, double netPrice, int vat, String unitOfMeasure, String type) {
+        this.id = id;
+        this.invoiceId = invoiceId;
+        this.name = name;
+        this.quantity = quantity;
+        this.grossPrice = grossPrice;
+        this.netPrice = netPrice;
+        this.vat = vat;
+        this.unitOfMeasure = unitOfMeasure;
+        this.type = type;
+    }
+
+    public Item() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -103,5 +119,21 @@ public class Item {
         return "Item Id: " + this.id + " Invoice Id: " + this.invoiceId +
                 "\nName: " + this.name + " quantity: " + this.quantity +
                 " price Gross: " + this.grossPrice + " price Net: " + this.netPrice + " VAT: " + this.vat + " UoM: " + this.unitOfMeasure;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Item)) {
+            return false;
+        }
+
+        Item item = (Item) obj;
+
+        return id == item.id && invoiceId == item.invoiceId && name.equals(item.name) && quantity == item.quantity && Double.compare(grossPrice, item.grossPrice) == 0
+                    && Double.compare(netPrice, item.netPrice) == 0 && vat == item.vat && unitOfMeasure.equals(item.unitOfMeasure) && type.equals(item.type);
     }
 }

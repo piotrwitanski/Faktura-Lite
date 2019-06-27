@@ -106,6 +106,7 @@ public class InvoiceTabController {
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("Something");
+            //*TODO here should be update method from invoiceUtils???
         }
     }
 
@@ -124,7 +125,7 @@ public class InvoiceTabController {
         alert.setTitle("Usuwanie faktury");
         alert.setHeaderText(null);
         alert.setContentText("Czy jesteś pewny, że chcesz usunąć zaznaczoną fakturę " +
-                                selectedInvoice.getInvoiceType() + " " + selectedInvoice.getInvoiceNumber());
+                selectedInvoice.getInvoiceType() + " " + selectedInvoice.getInvoiceNumber());
 
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
@@ -133,7 +134,7 @@ public class InvoiceTabController {
     }
 
     private void saveItems(List<Item> itemList, int invoiceId) {
-        for (Item item : itemList) {
+        for(Item item : itemList) {
             item.setInvoiceId(invoiceId);
             UIData.getInstance().saveItem(item);
         }

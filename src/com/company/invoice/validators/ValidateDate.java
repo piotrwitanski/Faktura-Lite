@@ -3,7 +3,7 @@ package com.company.invoice.validators;
 import java.time.LocalDate;
 
 public class ValidateDate implements Validator {
-    private int  invoiceYear;
+    private int invoiceYear;
     private LocalDate today;
 
     public ValidateDate() {

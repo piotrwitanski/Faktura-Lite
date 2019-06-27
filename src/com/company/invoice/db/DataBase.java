@@ -15,11 +15,12 @@ public class DataBase {
 
     /**
      * Open connection to database
+     *
      * @return false when there is a problem to connect with database and true when connected with database
      * @constant CONNECTION_STRING a database path from Dictionary.java
      */
     public boolean open() {
-        try{
+        try {
             conn = DriverManager.getConnection(CONNECTION_STRING);
             return true;
         }
@@ -31,14 +32,13 @@ public class DataBase {
 
     /**
      * Close connection to database
-     *
      */
     public void close() {
         try {
             if(conn != null)
                 conn.close();
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println(CLOSE_DB_ERROR + e.getMessage());
         }
     }
@@ -46,10 +46,11 @@ public class DataBase {
     /**
      * Adding new Customer to database
      * Customer id is automatically incremented (send NULL to database)
+     *
      * @param customer transfer data to table customer from database
      */
     public void addStatement(Customer customer) {
-        try(Statement statement = conn.createStatement()){
+        try(Statement statement = conn.createStatement()) {
 
             statement.execute("INSERT INTO " + TABLE_CUSTOMER +
                     " (" + COLUMN_CUSTOMER_ID + ", " +
@@ -62,23 +63,25 @@ public class DataBase {
                     COLUMN_CUSTOMER_APARTMENT_NUMBER + ", " +
                     COLUMN_CUSTOMER_BANK_ACCOUNT +
                     ")" +
-                    "VALUES(NULL" + ", '" + customer.getName()  +
-                            "', '" + customer.getCity() + "', '"  + customer.getStreet() + "', '"  +
-                            customer.getPostCode() + "', '" + customer.getNIP() + "', " +
-                            customer.getHouseNumber() + ", " + customer.getApartmentNumber() + ", '" +
-                            customer.getBankAccount() + "')");
+                    "VALUES(NULL" + ", '" + customer.getName() +
+                    "', '" + customer.getCity() + "', '" + customer.getStreet() + "', '" +
+                    customer.getPostCode() + "', '" + customer.getNIP() + "', " +
+                    customer.getHouseNumber() + ", " + customer.getApartmentNumber() + ", '" +
+                    customer.getBankAccount() + "')");
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
+
     /**
      * Adding new User to database
      * Customer id is automatically incremented (send NULL to database)
+     *
      * @param user transfer data to table customer from database
      */
     public void addStatement(User user) {
-        try(Statement statement = conn.createStatement()){
+        try(Statement statement = conn.createStatement()) {
 
             statement.execute("INSERT INTO " + TABLE_USER +
                     " (" + COLUMN_USER_ID + ", " +
@@ -91,23 +94,24 @@ public class DataBase {
                     COLUMN_USER_APARTMENT_NUMBER + ", " +
                     COLUMN_USER_BANK_ACCOUNT +
                     ")" +
-                    "VALUES(NULL" + ", '" + user.getName()  +
-                    "', '" + user.getCity() + "', '"  + user.getStreet() + "', '"  +
+                    "VALUES(NULL" + ", '" + user.getName() +
+                    "', '" + user.getCity() + "', '" + user.getStreet() + "', '" +
                     user.getPostCode() + "', '" + user.getNIP() + "', " +
                     user.getHouseNumber() + ", " + user.getApartmentNumber() + ", '" +
                     user.getBankAccount() + "')");
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
 
     /**
      * Adding new Product to database
+     *
      * @param product transfer data to table customer from database
      */
     public void addStatement(Product product) {
-        try(Statement statement = conn.createStatement()){
+        try(Statement statement = conn.createStatement()) {
 
             statement.execute("INSERT INTO " + TABLE_PRODUCT +
                     " (" + COLUMN_PRODUCT_ID + ", " +
@@ -118,22 +122,23 @@ public class DataBase {
                     COLUMN_PRODUCT_UNIT_OF_MEASURE + ", " +
                     COLUMN_PRODUCT_TYPE +
                     ")" +
-                    "VALUES(NULL" +  ", '" + product.getName() + "', " +
+                    "VALUES(NULL" + ", '" + product.getName() + "', " +
                     product.getDBPriceGross() + ", " + product.getDBPriceNet() + ", " +
                     product.getVat() + ", '" + product.getUnitOfMeasure() + "', '" +
-                    product.getType() +"')");
+                    product.getType() + "')");
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
 
     /**
      * Adding new Invoice to database
+     *
      * @param invoice transfer data to table invoice from database
      */
     public void addStatement(Invoice invoice) {
-        try(Statement statement = conn.createStatement()){
+        try(Statement statement = conn.createStatement()) {
 
             statement.execute("INSERT INTO " + TABLE_INVOICE +
                     " (" + COLUMN_INVOICE_ID + ", " +
@@ -151,13 +156,13 @@ public class DataBase {
                     invoice.getUserId() + ", '" + invoice.getInvoiceDate() + "', '" +
                     invoice.getIssueDate() + "', " + invoice.getPaymentId() + ")");
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
 
     public void addStatement(Item item) {
-        try(Statement statement = conn.createStatement()){
+        try(Statement statement = conn.createStatement()) {
 
             statement.execute("INSERT INTO " + TABLE_ITEM +
                     " (" + COLUMN_ITEM_ID + ", " +
@@ -170,22 +175,23 @@ public class DataBase {
                     COLUMN_ITEM_VAT + ", " +
                     COLUMN_ITEM_UNIT_OF_MEASURE +
                     ")" +
-                    "VALUES(NULL" +  ", " + item.getInvoiceId() + ", '" + item.getType() + "', '" +
+                    "VALUES(NULL" + ", " + item.getInvoiceId() + ", '" + item.getType() + "', '" +
                     item.getName() + "', " + item.getQuantity() + ", " +
                     item.getDBPriceGross() + ", " + item.getDBPriceNet() + ", " +
                     item.getVat() + ", '" + item.getUnitOfMeasure() + "')");
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println("Add statement ERROR: " + e.getMessage());
         }
     }
 
     /**
      * Method for adding payment to database
+     *
      * @param payment
      */
     public void addStatement(Payment payment) {
-        try(Statement statement = conn.createStatement()){
+        try(Statement statement = conn.createStatement()) {
 
             statement.execute("INSERT INTO " + TABLE_PAYMENT +
                     " (" + COLUMN_PAYMENT_ID + ", " +
@@ -195,25 +201,26 @@ public class DataBase {
                     "VALUES(NULL" + ", '" +
                     payment.getName() + "', '" + payment.getCurrency() + "')");
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
         }
     }
+
     //*TODO write update method for database. Remember that we need not to update items but remove all items related with invoice and add new ones.
     public void updateInvoice(Invoice invoice) {
-        try(Statement statement = conn.createStatement()){
+        try(Statement statement = conn.createStatement()) {
 
             statement.execute("UPDATE " + TABLE_INVOICE +
-                    " SET "+ COLUMN_INVOICE_NUMBER + " = '" + invoice.getInvoiceNumber() + "', " +
+                    " SET " + COLUMN_INVOICE_NUMBER + " = '" + invoice.getInvoiceNumber() + "', " +
                     COLUMN_INVOICE_TYPE + " = '" + invoice.getInvoiceType() + "', " +
                     COLUMN_INVOICE_CUSTOMER_ID + " = " + invoice.getCustomerId() + ", " +
                     COLUMN_INVOICE_USER_ID + " = " + invoice.getUserId() + ", " +
                     COLUMN_INVOICE_ISSUE_DATE + " = '" + invoice.getIssueDate() + "', " +
                     COLUMN_INVOICE_INVOICE_DATE + " = '" + invoice.getInvoiceDate() + "', " +
-                    COLUMN_INVOICE_PAYMENT_ID + " = " + invoice.getPaymentId()  +
+                    COLUMN_INVOICE_PAYMENT_ID + " = " + invoice.getPaymentId() +
                     " WHERE " + COLUMN_INVOICE_ID + " = " + invoice.getId());
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
         }
 
@@ -221,30 +228,32 @@ public class DataBase {
 
     /**
      * Method remove item from database
+     *
      * @param invoiceId specify which item we want to remove
      */
     public void removeItem(int invoiceId) {
-        try(Statement statement = conn.createStatement()){
+        try(Statement statement = conn.createStatement()) {
 
             statement.execute("DELETE FROM " + TABLE_ITEM +
                     " WHERE " + COLUMN_ITEM_INVOICE_ID + " = " + invoiceId);
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
         }
     }
 
     /**
      * Method remove invoice from database
+     *
      * @param invoiceId specify which invoice we want to remove
      */
     public void removeInvoice(int invoiceId) {
-        try(Statement statement = conn.createStatement()){
+        try(Statement statement = conn.createStatement()) {
 
             statement.execute("DELETE FROM " + TABLE_INVOICE +
                     " WHERE " + COLUMN_INVOICE_ID + " = " + invoiceId);
         }
-        catch (SQLException e) {
+        catch(SQLException e) {
             System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
         }
     }
@@ -256,7 +265,7 @@ public class DataBase {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT " + COLUMN_INVOICE_NUMBER +
                     " FROM " + TABLE_INVOICE +
-                    " WHERE " + COLUMN_INVOICE_ID + " = (SELECT MAX(" + COLUMN_INVOICE_ID + ") FROM " + TABLE_INVOICE + ")")){
+                    " WHERE " + COLUMN_INVOICE_ID + " = (SELECT MAX(" + COLUMN_INVOICE_ID + ") FROM " + TABLE_INVOICE + ")")) {
 
             result.next();
 
@@ -264,8 +273,7 @@ public class DataBase {
 
             return invoiceNumber;
         }
-        catch(SQLException e)
-        {
+        catch(SQLException e) {
             System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
             return null;
         }
@@ -273,13 +281,14 @@ public class DataBase {
 
     /**
      * Method downloading last invoice ID from DB
+     *
      * @return
      */
     public int downloadInvoiceLastId() {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT " + COLUMN_INVOICE_ID +
                     " FROM " + TABLE_INVOICE +
-                    " WHERE " + COLUMN_INVOICE_ID + " = (SELECT MAX(" + COLUMN_INVOICE_ID + ") FROM " + TABLE_INVOICE + ")")){
+                    " WHERE " + COLUMN_INVOICE_ID + " = (SELECT MAX(" + COLUMN_INVOICE_ID + ") FROM " + TABLE_INVOICE + ")")) {
 
             result.next();
 
@@ -287,8 +296,7 @@ public class DataBase {
 
             return invoiceId;
         }
-        catch(SQLException e)
-        {
+        catch(SQLException e) {
             System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
             return -1;
         }
@@ -296,11 +304,12 @@ public class DataBase {
 
     /**
      * Downloading Customers List from database.
+     *
      * @return customerList with all db customer list or {@code null} when there is a problem with database
      */
     public List<Customer> downloadCustomers() {
         try(Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_CUSTOMER)){
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_CUSTOMER)) {
 
             List<Customer> customerList = new ArrayList<>();
             while(result.next()) {
@@ -328,13 +337,14 @@ public class DataBase {
 
     /**
      * Method download one Cutomer from database for Invoice
+     *
      * @param customerId specify which customerId we want download from database
      * @return Customer
      */
     public Customer downloadCustomer(int customerId) {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_CUSTOMER +
-                                                        " WHERE " + COLUMN_CUSTOMER_ID + " = " + customerId)){
+                    " WHERE " + COLUMN_CUSTOMER_ID + " = " + customerId)) {
             Customer customer = new Customer();
 
             while(result.next()) {
@@ -360,11 +370,12 @@ public class DataBase {
 
     /**
      * Downloading Users List from database.
+     *
      * @return userList with all db users  or {@code null} when there is a problem with database
      */
     public List<User> downloadUsers() {
         try(Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_USER)){
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_USER)) {
 
             List<User> userList = new ArrayList<>();
             while(result.next()) {
@@ -392,13 +403,14 @@ public class DataBase {
 
     /**
      * Method download User from database for Invoice
+     *
      * @param userId specify which user we want to download
      * @return User
      */
     public User downloadUser(int userId) {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_USER +
-                    " WHERE " + COLUMN_USER_ID + " = " + userId)){
+                    " WHERE " + COLUMN_USER_ID + " = " + userId)) {
             User user = new User();
 
             while(result.next()) {
@@ -422,11 +434,12 @@ public class DataBase {
 
     /**
      * Downloading Products List from database.
+     *
      * @return productList with all db products or {@code null} when there is a problem with database
      */
     public List<Product> downloadProducts() {
         try(Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PRODUCT)){
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PRODUCT)) {
 
             List<Product> productList = new ArrayList<>();
             while(result.next()) {
@@ -451,7 +464,7 @@ public class DataBase {
 
     public List<Invoice> downloadInvoices() {
         try(Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_INVOICE)){
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_INVOICE)) {
 
             List<Invoice> invoiceList = new ArrayList<>();
             while(result.next()) {
@@ -479,7 +492,7 @@ public class DataBase {
     public Invoice downloadInvoice(int invoiceId) {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_INVOICE +
-                    " WHERE " + COLUMN_INVOICE_ID + " = " + invoiceId)){
+                    " WHERE " + COLUMN_INVOICE_ID + " = " + invoiceId)) {
 
             Invoice invoice = new Invoice();
 
@@ -504,13 +517,14 @@ public class DataBase {
 
     /**
      * Downloading itemList from database for specific invoice number
+     *
      * @param invoiceId indicate which item should be downloaded from database
      * @return list of Items that match the invoice id or {@code null} when there is a problem with database
      */
     public List<Item> downloadItems(int invoiceId) {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_ITEM +
-                                                        " WHERE " + COLUMN_ITEM_INVOICE_ID + " = " + invoiceId)){
+                    " WHERE " + COLUMN_ITEM_INVOICE_ID + " = " + invoiceId)) {
 
             List<Item> itemList = new ArrayList<>();
             while(result.next()) {
@@ -538,11 +552,12 @@ public class DataBase {
 
     /**
      * Downloading Payment List from database.
+     *
      * @return paymentList with all db payments or {@code null} when there is a problem with database
      */
     public List<Payment> downloadPayments() {
         try(Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PAYMENT)){
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PAYMENT)) {
 
             List<Payment> paymentList = new ArrayList<>();
             while(result.next()) {
@@ -565,7 +580,7 @@ public class DataBase {
     public Payment downloadPayment(int paymentId) {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PAYMENT +
-                    " WHERE " + COLUMN_PAYMENT_ID + " = " + paymentId)){
+                    " WHERE " + COLUMN_PAYMENT_ID + " = " + paymentId)) {
 
             Payment payment = new Payment();
 

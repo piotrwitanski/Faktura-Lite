@@ -91,7 +91,7 @@ public class UIData {
         invoiceUtils.removeInovoice(Integer.parseInt(invoiceModel.getInvoiceId()));
     }
 
-    public Invoice loadNewInvoice(){
+    public Invoice loadNewInvoice() {
         return invoiceUtils.downloadInvoice(getInvoiceLastId());
     }
 
@@ -101,7 +101,7 @@ public class UIData {
     public void loadInvoiceTable() {
         List<Invoice> invoiceList = invoiceUtils.downloadInvoices();
         invoiceModels.removeAll(invoiceModels);
-        for (Invoice invoice : invoiceList) {
+        for(Invoice invoice : invoiceList) {
             InvoiceModel invoiceModel = new InvoiceModel();
             Customer customer = customerUtils.downloadCustomer(invoice.getCustomerId());
             List<Item> itemsList = itemUtils.downloadItems(invoice.getId());
@@ -143,7 +143,7 @@ public class UIData {
 
     public void loadServiceTable() {
         List<Product> productList = productUtils.downloadProducts();
-        for (Product product : productList) {
+        for(Product product : productList) {
             ServiceModel serviceModel = new ServiceModel();
 
             serviceModel.setType(product.getType());
@@ -159,7 +159,7 @@ public class UIData {
 
     public void loadPaymentList() {
         List<Payment> paymentList = paymentUtils.downloadPayments();
-        for (Payment payment : paymentList) {
+        for(Payment payment : paymentList) {
             PaymentModel paymentModel = new PaymentModel();
 
             paymentModel.setId(Integer.toString(payment.getId()));
@@ -201,7 +201,7 @@ public class UIData {
 
     private double getNettoValue(List<Item> itemsList) {
         double totalNettoValue = 0;
-        for (Item item : itemsList) {
+        for(Item item : itemsList) {
             totalNettoValue += item.getQuantity() * item.getNetPrice();
         }
         return totalNettoValue;
@@ -209,7 +209,7 @@ public class UIData {
 
     private double getBruttoValue(List<Item> itemsList) {
         double totalBruttoValue = 0;
-        for (Item item : itemsList) {
+        for(Item item : itemsList) {
             totalBruttoValue += item.getQuantity() * item.getGrossPrice();
         }
         return totalBruttoValue;

@@ -10,6 +10,7 @@ public class ServiceDialogController {
 
     @FXML
     private ComboBox<String> comboBox;
+
     //added only for test
     public void initialize() {
         String cos = comboBox.getSelectionModel().getSelectedItem();

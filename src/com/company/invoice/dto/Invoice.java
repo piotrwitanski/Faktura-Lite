@@ -10,6 +10,21 @@ public class Invoice {
     private String invoiceType;
     private String invoiceNumber;
 
+    public Invoice(int id, int customerId, int userId, String invoiceDate, String issueDate, int paymentId, String invoiceType, String invoiceNumber) {
+        this.id = id;
+        this.customerId = customerId;
+        this.userId = userId;
+        this.invoiceDate = invoiceDate;
+        this.issueDate = issueDate;
+        this.paymentId = paymentId;
+        this.invoiceType = invoiceType;
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public Invoice() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -78,5 +93,21 @@ public class Invoice {
     public String toString() {
         return "Invoice NO: " + this.id +
                 "\nCustomer id: " + this.customerId + " Invoice date: " + this.invoiceDate + " Issue date: " + this.issueDate + " Payment id: " + this.paymentId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Item)) {
+            return false;
+        }
+
+        Invoice invoice = (Invoice) obj;
+
+        return id == invoice.id && customerId == invoice.customerId && userId == invoice.userId && invoiceDate.equals(invoice.invoiceDate) && issueDate.equals(invoice.issueDate)
+                    && paymentId == invoice.paymentId && invoiceType.equals(invoice.invoiceType) && invoiceNumber.equals(invoice.invoiceNumber);
     }
 }
