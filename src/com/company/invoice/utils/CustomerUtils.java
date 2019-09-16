@@ -46,4 +46,14 @@ public class CustomerUtils {
         }
     }
 
+    public int downloadCustomerLastId() {
+        try {
+            int customerId = dataBaseUtils.downloadCustomerLastId();
+            return customerId;
+        }
+        catch(Exception e) {
+            System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
+            return -1;
+        }
+    }
 }

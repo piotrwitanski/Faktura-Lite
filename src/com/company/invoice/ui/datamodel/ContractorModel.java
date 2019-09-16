@@ -11,12 +11,13 @@ public class ContractorModel {
     private SimpleStringProperty houseNumber = new SimpleStringProperty("");
     private SimpleStringProperty apartmentNumber = new SimpleStringProperty("");
     private SimpleStringProperty id = new SimpleStringProperty("");
+    private SimpleStringProperty bankAccount = new SimpleStringProperty("");
 
     public ContractorModel() {
 
     }
 
-    public ContractorModel(String id, String name, String city, String street, String postCode, String NIP, String houseNumber, String apartmentNumber) {
+    public ContractorModel(String id, String name, String city, String street, String postCode, String NIP, String houseNumber, String apartmentNumber, String bankAccount) {
         this.id.set(id);
         this.name.set(name);
         this.city.set(city);
@@ -25,6 +26,7 @@ public class ContractorModel {
         this.NIP.set(NIP);
         this.houseNumber.set(houseNumber);
         this.apartmentNumber.set(apartmentNumber);
+        this.bankAccount.set(bankAccount);
     }
 
     public String getId() {
@@ -121,6 +123,18 @@ public class ContractorModel {
 
     public void setApartmentNumber(String apartmentNumber) {
         this.apartmentNumber.set(apartmentNumber);
+    }
+
+    public String getBankAccount() {
+        return bankAccount.get();
+    }
+
+    public SimpleStringProperty bankAccountProperty() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount.set(bankAccount);
     }
 
     @Override

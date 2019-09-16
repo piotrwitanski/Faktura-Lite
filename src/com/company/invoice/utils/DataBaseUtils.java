@@ -247,4 +247,14 @@ public class DataBaseUtils {
 
         dataBase.close();
     }
+
+    public int downloadCustomerLastId() {
+        dataBase.open();
+
+        int customerLastId = dataBase.downloadCustomerLastID();
+
+        dataBase.close();
+
+        return customerLastId;
+    }
 }

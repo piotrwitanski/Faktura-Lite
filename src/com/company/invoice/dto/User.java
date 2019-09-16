@@ -11,6 +11,21 @@ public class User {
     private int apartmentNumber;
     private String bankAccount;
 
+    public User(int id, String name, String city, String street, String postCode, String NIP, int houseNumber, int apartmentNumber, String bankAccount) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.street = street;
+        this.postCode = postCode;
+        this.NIP = NIP;
+        this.houseNumber = houseNumber;
+        this.apartmentNumber = apartmentNumber;
+        this.bankAccount = bankAccount;
+    }
+
+    public User() {
+    }
+
     public int getId() {
         return id;
     }
@@ -89,5 +104,21 @@ public class User {
                 "\nAdress: " + this.postCode + " " + this.city + ", " + this.street +
                 "\nNIP: " + this.NIP +
                 "\nBank Account: " + this.bankAccount;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Item)) {
+            return false;
+        }
+
+        User user = (User) obj;
+
+        return id == user.id && name.equals(user.name) && city.equals(user.city) && street.equals(user.street) && postCode.equals(user.postCode)
+                    && NIP.equals(user.NIP) && houseNumber == user.houseNumber && apartmentNumber == user.apartmentNumber && bankAccount.equals(user.bankAccount);
     }
 }

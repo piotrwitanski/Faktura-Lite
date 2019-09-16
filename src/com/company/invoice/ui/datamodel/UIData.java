@@ -67,7 +67,6 @@ public class UIData {
         InvoiceModel invoiceModel = new InvoiceModel();
         Customer customer = customerUtils.downloadCustomer(invoice.getCustomerId());
         List<Item> itemsList = itemUtils.downloadItems(invoice.getId());
-        System.out.println(invoice.getId());
         Payment payment = paymentUtils.downloadPayment(invoice.getPaymentId());
 
         invoiceModel.setInvoiceId(Integer.toString(invoice.getId()));
@@ -121,6 +120,27 @@ public class UIData {
 
             invoiceModels.add(invoiceModel);
         }
+    }
+
+    public void addContractorModel(Customer customer) {
+        ContractorModel contractorModel = new ContractorModel();
+
+        contractorModel.setId(Integer.toString(customer.getId()));
+        contractorModel.setName(customer.getName());
+        contractorModel.setStreet(customer.getStreet());
+        contractorModel.setHouseNumber(Integer.toString(customer.getHouseNumber()));
+        contractorModel.setApartmentNumber(Integer.toString(customer.getApartmentNumber()));
+        contractorModel.setPostCode(customer.getPostCode());
+        contractorModel.setCity(customer.getCity());
+        contractorModel.setNIP(customer.getNIP());
+        contractorModel.setBankAccount(customer.getBankAccount());
+
+        contractorModels.add(contractorModel);
+
+    }
+
+    public Customer loadNewCustomer() {
+        return customerUtils.downloadCustomer(getCustomerLastId());
     }
 
     public void loadContractorTable() {
@@ -191,6 +211,10 @@ public class UIData {
         itemUtils.addItemToDB(newItem);
     }
 
+    public void saveCustomer(Customer newCustomer) {
+        customerUtils.addCustomerToDB(newCustomer);
+    }
+
     public List<Item> downloadItems(int invoiceId) {
         return itemUtils.downloadItems(invoiceId);
     }
@@ -221,6 +245,10 @@ public class UIData {
 
     public int getInvoiceLastId() {
         return invoiceUtils.downloadInvoiceLastId();
+    }
+
+    public int getCustomerLastId() {
+        return customerUtils.downloadCustomerLastId();
     }
 
 }

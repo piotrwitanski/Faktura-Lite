@@ -1,9 +1,11 @@
 package com.company.invoice.ui;
 
+import com.company.invoice.dto.Customer;
 import com.company.invoice.ui.datamodel.ContractorModel;
 import com.company.invoice.ui.datamodel.UIData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TableView;
@@ -11,6 +13,8 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.util.Optional;
+
+import static com.company.invoice.dictionaries.Errors.DIALOG_LOAD_ERROR;
 
 public class ContractorTabController {
 
@@ -54,8 +58,51 @@ public class ContractorTabController {
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             ContractorDialogController contractorController = fxmlLoader.getController();
-            //TODO here we need to add code that takes values from ContractorDialogController to save contractor in db
+            Customer customer = contractorController.getNewCustomer();
+            UIData.getInstance().saveCustomer(customer);
+            UIData.getInstance().addContractorModel(UIData.getInstance().loadNewCustomer());
             System.out.println("Contractor saved in db");
+            contractorTable.setItems(UIData.getInstance().getContractorModels());
+        }
+    }
+
+    @FXML
+    public void showEditContractorDialog() {
+        ContractorModel selectedContractor = contractorTable.getSelectionModel().getSelectedItem();
+        if(selectedContractor == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Brak zaznaczonego kontrahenta");
+            alert.setHeaderText(null);
+            alert.setContentText("Proszę zaznaczyć kontrahenta do edytowania");
+            alert.showAndWait();
+            return;
+        }
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(contractorBorderPane.getScene().getWindow());
+        dialog.setTitle("Edytowanie kontrahenta");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("contractorDialog.fxml"));
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+        }
+        catch(IOException e) {
+            System.out.println(DIALOG_LOAD_ERROR);
+            e.getStackTrace();
+            return;
+        }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        ContractorDialogController contractorDialogController = fxmlLoader.getController();
+        contractorDialogController.editContractor(selectedContractor);
+        //TODO here we need to add DB method to update customer by ID (but send customer object)
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            System.out.println("Editing contractor and saving to DB");
+            //TODO here need to add saving to DB method
         }
     }
 

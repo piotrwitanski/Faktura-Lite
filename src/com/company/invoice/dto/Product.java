@@ -9,6 +9,20 @@ public class Product {
     private String unitOfMeasure;
     private String type;
 
+    public Product(int id, String name, double grossPrice, double netPrice, int vat, String unitOfMeasure, String type) {
+        this.id = id;
+        this.name = name;
+        this.grossPrice = grossPrice;
+        this.netPrice = netPrice;
+        this.vat = vat;
+        this.unitOfMeasure = unitOfMeasure;
+        this.type = type;
+    }
+
+    public Product() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -83,5 +97,20 @@ public class Product {
     public String toString() {
         return "Name: " + this.name +
                 "\nPrice Gross: " + this.grossPrice + " Price Net: " + this.netPrice + " VAT: " + this.vat + " UoM: " + this.unitOfMeasure;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Item)) {
+            return false;
+        }
+
+        Product product = (Product) obj;
+
+        return id == product.id && name.equals(product.name) && Double.compare(grossPrice, product.grossPrice) == 0 && Double.compare(netPrice, product.netPrice) == 0
+                    && vat == product.vat && unitOfMeasure.equals(product.unitOfMeasure) && type.equals(product.type);
     }
 }

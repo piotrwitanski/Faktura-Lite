@@ -9,17 +9,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class InvoiceUtilsTest {
 
     private InvoiceUtils invoiceUtils;
-    private DataBaseUtils dataBaseUtils;
 
     @org.junit.Before
     public void setup() {
         invoiceUtils = new InvoiceUtils();
-        dataBaseUtils = new DataBaseUtils();
     }
     @Test
     public void addInvoiceToDB() {
@@ -27,7 +26,7 @@ public class InvoiceUtilsTest {
 
     @Test
     public void downloadInvoices() {
-        List<Invoice> invoices = dataBaseUtils.downloadInvoices();
+        List<Invoice> invoices = invoiceUtils.downloadInvoices();
 
         List<Invoice> expectedInvoices = Arrays.asList(
                 new Invoice(1, 1, 1, "09-12-2018", "25-11-2018", 1, "Faktura", "01/05/2018"),
@@ -36,7 +35,7 @@ public class InvoiceUtilsTest {
                 new Invoice(5, 1, 1, "09-02-2019", "26-01-2019", 2, "Faktura", "10/01/2018")
         );
 
-
+        assertThat(invoices, is(expectedInvoices));
     }
 
     @Test

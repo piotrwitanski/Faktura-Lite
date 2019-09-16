@@ -369,6 +369,28 @@ public class DataBase {
     }
 
     /**
+     * Downloading last added Customer id to DB
+     * @return last Customer ID
+     */
+    public int downloadCustomerLastID() {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT " + COLUMN_CUSTOMER_ID +
+                    " FROM " + TABLE_CUSTOMER +
+                    " WHERE " + COLUMN_CUSTOMER_ID + " = (SELECT MAX(" + COLUMN_CUSTOMER_ID + ") FROM " + TABLE_CUSTOMER + ")")) {
+
+            result.next();
+
+            int customerId = result.getInt(COLUMN_CUSTOMER_ID);
+
+            return customerId;
+        }
+        catch(SQLException e) {
+            System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
+            return -1;
+        }
+    }
+
+    /**
      * Downloading Users List from database.
      *
      * @return userList with all db users  or {@code null} when there is a problem with database
