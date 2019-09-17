@@ -2,6 +2,7 @@ package com.company.invoice.utils;
 
 import com.company.invoice.dto.Customer;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 import static com.company.invoice.dictionaries.Errors.*;
@@ -54,6 +55,24 @@ public class CustomerUtils {
         catch(Exception e) {
             System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
             return -1;
+        }
+    }
+
+    public void updateCustomer(Customer customer) {
+        try {
+            dataBaseUtils.updateCustomer(customer);
+        }
+        catch(Exception e) {
+            System.out.println(UPDATE_DB_ERROR + e.getMessage());
+        }
+    }
+
+    public void removeCustomer(int customerId) {
+        try {
+            dataBaseUtils.removeCustomer(customerId);
+        }
+        catch(Exception e) {
+            System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
         }
     }
 }

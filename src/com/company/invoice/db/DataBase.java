@@ -221,7 +221,7 @@ public class DataBase {
                     " WHERE " + COLUMN_INVOICE_ID + " = " + invoice.getId());
         }
         catch(SQLException e) {
-            System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
+            System.out.println(UPDATE_DB_ERROR + e.getMessage());
         }
 
     }
@@ -387,6 +387,40 @@ public class DataBase {
         catch(SQLException e) {
             System.out.println(ADD_STATEMENT_ERROR + e.getMessage());
             return -1;
+        }
+    }
+
+    /**
+     * Updating customer in DB
+     * @param customer is a new updated object
+     */
+    public void updateCustomer(Customer customer) {
+        try(Statement statement = conn.createStatement()) {
+
+            statement.execute("UPDATE " + TABLE_CUSTOMER +
+                    " SET " + COLUMN_CUSTOMER_NAME + " = '" + customer.getName() + "', " +
+                    COLUMN_CUSTOMER_STREET + " = '" + customer.getStreet() + "', " +
+                    COLUMN_CUSTOMER_HOUSE_NUMBER + " = " + customer.getHouseNumber() + ", " +
+                    COLUMN_CUSTOMER_APARTMENT_NUMBER + " = " + customer.getApartmentNumber() + ", " +
+                    COLUMN_CUSTOMER_POST_CODE + " = '" + customer.getPostCode() + "', " +
+                    COLUMN_CUSTOMER_CITY + " = '" + customer.getCity() + "', " +
+                    COLUMN_CUSTOMER_NIP + " = '" + customer.getNIP() + "', " +
+                    COLUMN_CUSTOMER_BANK_ACCOUNT + " = '" + customer.getBankAccount() + "'" +
+                    " WHERE " + COLUMN_CUSTOMER_ID + " = " + customer.getId());
+        }
+        catch(SQLException e) {
+            System.out.println(UPDATE_DB_ERROR + e.getMessage());
+        }
+    }
+
+    public void removeCustomer(int customerId) {
+        try(Statement statement = conn.createStatement()) {
+
+            statement.execute("DELETE FROM " + TABLE_CUSTOMER +
+                    " WHERE " + COLUMN_CUSTOMER_ID + " = " + customerId);
+        }
+        catch(SQLException e) {
+            System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
         }
     }
 

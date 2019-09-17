@@ -27,6 +27,21 @@ public class ContractorDialogController {
         return newCustomer;
     }
 
+    public Customer updateCustomer(int id) {
+        Customer customer = new Customer();
+        customer.setId(id);
+        customer.setName(contractorNameTextField.getText());
+        customer.setStreet(contractorStreetTextField.getText());
+        customer.setHouseNumber(Integer.parseInt(contractorHouseNumberTextField.getText()));
+        customer.setApartmentNumber(Integer.parseInt(contractorApartmentNumberTextField.getText()));
+        customer.setPostCode(contractorPostCodeTextField.getText());
+        customer.setCity(contractorCityTextField.getText());
+        customer.setNIP(contractorNIPTextField.getText());
+        customer.setBankAccount(contractorBankAccountTextField.getText());
+
+        return customer;
+    }
+
     public void editContractor(ContractorModel contractorModel) {
         contractorNameTextField.setText(contractorModel.getName());
         contractorStreetTextField.setText(contractorModel.getStreet());

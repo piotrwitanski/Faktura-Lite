@@ -136,7 +136,30 @@ public class UIData {
         contractorModel.setBankAccount(customer.getBankAccount());
 
         contractorModels.add(contractorModel);
+    }
 
+    public void updateCustomer(Customer customer) {
+        customerUtils.updateCustomer(customer);
+    }
+
+    public void updateContractorModel(Customer customer) {
+        for(ContractorModel contractorModel : contractorModels) {
+            if(Integer.parseInt(contractorModel.getId()) == customer.getId()) {
+                contractorModel.setName(customer.getName());
+                contractorModel.setStreet(customer.getStreet());
+                contractorModel.setHouseNumber(Integer.toString(customer.getHouseNumber()));
+                contractorModel.setApartmentNumber(Integer.toString(customer.getApartmentNumber()));
+                contractorModel.setPostCode(customer.getPostCode());
+                contractorModel.setCity(customer.getCity());
+                contractorModel.setNIP(customer.getNIP());
+                contractorModel.setBankAccount(customer.getBankAccount());
+            }
+        }
+    }
+
+    public void deleteContractor(ContractorModel contractorModel) {
+        contractorModels.remove(contractorModel);
+        customerUtils.removeCustomer(Integer.parseInt(contractorModel.getId()));
     }
 
     public Customer loadNewCustomer() {
@@ -156,6 +179,7 @@ public class UIData {
             contractorModel.setApartmentNumber(Integer.toString(customer.getApartmentNumber()));
             contractorModel.setPostCode(customer.getPostCode());
             contractorModel.setNIP(customer.getNIP());
+            contractorModel.setBankAccount(customer.getBankAccount());
 
             contractorModels.add(contractorModel);
         }

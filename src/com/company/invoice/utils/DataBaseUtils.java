@@ -249,6 +249,7 @@ public class DataBaseUtils {
     }
 
     public int downloadCustomerLastId() {
+
         dataBase.open();
 
         int customerLastId = dataBase.downloadCustomerLastID();
@@ -256,5 +257,23 @@ public class DataBaseUtils {
         dataBase.close();
 
         return customerLastId;
+    }
+
+    public void updateCustomer(Customer customer) {
+
+        dataBase.open();
+
+        dataBase.updateCustomer(customer);
+
+        dataBase.close();
+    }
+
+    public void removeCustomer(int customerId) {
+
+        dataBase.open();
+
+        dataBase.removeCustomer(customerId);
+
+        dataBase.close();
     }
 }

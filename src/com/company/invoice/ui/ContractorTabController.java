@@ -97,12 +97,37 @@ public class ContractorTabController {
 
         ContractorDialogController contractorDialogController = fxmlLoader.getController();
         contractorDialogController.editContractor(selectedContractor);
-        //TODO here we need to add DB method to update customer by ID (but send customer object)
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            System.out.println("Editing contractor and saving to DB");
-            //TODO here need to add saving to DB method
+            Customer customer = contractorDialogController.updateCustomer(Integer.parseInt(selectedContractor.getId()));
+            UIData.getInstance().updateCustomer(customer);
+            UIData.getInstance().updateContractorModel(customer);
+            contractorTable.setItems(UIData.getInstance().getContractorModels());
+
+        }
+    }
+
+    @FXML
+    public void showDeleteContractorDialog() {
+        ContractorModel selectedContractor = contractorTable.getSelectionModel().getSelectedItem();
+        if(selectedContractor == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Brak zaznaczonego kontrahenta");
+            alert.setHeaderText(null);
+            alert.setContentText("Proszę zaznaczyć kontrahenta do usunięcia");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Usuwanie kontrahenta");
+        alert.setHeaderText(null);
+        alert.setContentText("Czy jesteś pewny, że chcesz usunąć zaznaczonego kontrahenta " + selectedContractor.getName());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            UIData.getInstance().deleteContractor(selectedContractor);
         }
     }
 

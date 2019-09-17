@@ -1,9 +1,6 @@
 package com.company.invoice.ui;
 
-import com.company.invoice.dto.Invoice;
-import com.company.invoice.dto.Item;
-import com.company.invoice.dto.Payment;
-import com.company.invoice.dto.User;
+import com.company.invoice.dto.*;
 import com.company.invoice.ui.datamodel.*;
 import com.company.invoice.utils.InvoiceUtils;
 import com.company.invoice.validators.ValidateDate;
@@ -165,8 +162,10 @@ public class InvoiceDialogController {
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             ContractorDialogController contractorController = fxmlLoader.getController();
-            //TODO here we need to add code that takes values from ContractorDialogController to save contractor in db
-            System.out.println("Contractor saved in db");
+            Customer customer = contractorController.getNewCustomer();
+            UIData.getInstance().saveCustomer(customer);
+            UIData.getInstance().addContractorModel(UIData.getInstance().loadNewCustomer());
+            setContractorsAndRecipients();
         }
     }
 
