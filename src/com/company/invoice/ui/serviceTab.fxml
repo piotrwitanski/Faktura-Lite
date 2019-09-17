@@ -19,14 +19,14 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button text="Edytuj" contentDisplay="TOP">
+                <Button text="Edytuj" contentDisplay="TOP" onAction="#showEditServiceDialog">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/table/RowInsertBefore24.gif"/>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button text="Usuń" contentDisplay="TOP">
+                <Button text="Usuń" contentDisplay="TOP" onAction="#showDeleteServiceDialog">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/table/RowDelete24.gif"/>
