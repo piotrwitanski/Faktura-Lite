@@ -16,7 +16,7 @@
         <VBox>
             <GridPane hgap="10" vgap="10">
                 <Label text="Typ" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+                <ComboBox fx:id="typeComboBox" GridPane.rowIndex="0" GridPane.columnIndex="1">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Usługa"/>
@@ -28,12 +28,12 @@
                     </value>
                 </ComboBox>
                 <Label text="Nazwa" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                <TextField GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                <TextField fx:id="nameTextField" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
                 <Label text="Symbol" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
-                <TextField GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+                <TextField fx:id="symbolTextField" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
 
                 <Label text="Jednostka" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="1">
+                <ComboBox fx:id="unitComboBox" GridPane.rowIndex="1" GridPane.columnIndex="1">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="szt."/>
@@ -45,7 +45,7 @@
                     </value>
                 </ComboBox>
                 <Label text="Stawka VAT" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                <TextField GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                <TextField fx:id="vatTextField" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
                 <Label text="Waluta" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
                 <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="5">
                     <items>
@@ -58,21 +58,21 @@
                     </value>
                 </ComboBox>
 
-                <ComboBox fx:id="comboBox" GridPane.rowIndex="4" GridPane.columnIndex="0">
-                    <items>
-                        <FXCollections fx:id="testList" fx:factory="observableArrayList">
-                            <String fx:value="Test"/>
-                        </FXCollections>
-                    </items>
-                    <value>
-                        <String fx:value="Test"/>
-                    </value>
-                </ComboBox>
+                <!--<ComboBox fx:id="comboBox" GridPane.rowIndex="4" GridPane.columnIndex="0">-->
+                    <!--<items>-->
+                        <!--<FXCollections fx:id="testList" fx:factory="observableArrayList">-->
+                            <!--<String fx:value="Test"/>-->
+                        <!--</FXCollections>-->
+                    <!--</items>-->
+                    <!--<value>-->
+                        <!--<String fx:value="Test"/>-->
+                    <!--</value>-->
+                <!--</ComboBox>-->
 
                 <Label text="Cena netto" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                <TextField GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+                <TextField fx:id="netPriceTextField" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
                 <Label text="Cena brutto" GridPane.rowIndex="3" GridPane.columnIndex="4"/>
-                <TextField GridPane.rowIndex="3" GridPane.columnIndex="5"/>
+                <TextField fx:id="grossTextField" GridPane.rowIndex="3" GridPane.columnIndex="5"/>
             </GridPane>
         </VBox>
     </content>

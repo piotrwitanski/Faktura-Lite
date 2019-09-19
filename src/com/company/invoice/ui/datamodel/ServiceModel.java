@@ -3,6 +3,7 @@ package com.company.invoice.ui.datamodel;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ServiceModel {
+    private SimpleStringProperty id = new SimpleStringProperty("");
     private SimpleStringProperty type = new SimpleStringProperty("");
     private SimpleStringProperty name = new SimpleStringProperty("");
     private SimpleStringProperty vat = new SimpleStringProperty("");
@@ -14,13 +15,26 @@ public class ServiceModel {
 
     }
 
-    public ServiceModel(String type, String name, String vat, String netPrice, String grossPrice, String unitOfMeasure) {
+    public ServiceModel(String id, String type, String name, String vat, String netPrice, String grossPrice, String unitOfMeasure) {
+        this.id.set(id);
         this.type.set(type);
         this.name.set(name);
         this.vat.set(vat);
         this.netPrice.set(netPrice);
         this.grossPrice.set(grossPrice);
         this.unitOfMeasure.set(unitOfMeasure);
+    }
+
+    public String getId() {
+        return id.get();
+    }
+
+    public SimpleStringProperty idProperty() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id.set(id);
     }
 
     public String getType() {

@@ -61,7 +61,6 @@ public class ContractorTabController {
             Customer customer = contractorController.getNewCustomer();
             UIData.getInstance().saveCustomer(customer);
             UIData.getInstance().addContractorModel(UIData.getInstance().loadNewCustomer());
-            System.out.println("Contractor saved in db");
             contractorTable.setItems(UIData.getInstance().getContractorModels());
         }
     }

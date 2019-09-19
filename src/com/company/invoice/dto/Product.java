@@ -62,7 +62,7 @@ public class Product {
     public void setGrossPrice(double grossPrice) {
         this.grossPrice = grossPrice;
         this.netPrice = this.grossPrice - (this.grossPrice * (double)this.vat / (100 + (double)this.vat));
-        //*TODO check precision of this method to calculate netto price
+    //*TODO check precision of this method to calculate net price
     }
 
     public void setDBPriceGross(int grossPrice) {

@@ -185,11 +185,38 @@ public class UIData {
         }
     }
 
+    public Product loadNewProduct() {
+        return productUtils.downloadProduct(getProductLastId());
+    }
+
+    public void updateProduct(Product product) {
+        productUtils.updateProduct(product);
+    }
+
+    public void updateServiceModel(Product product) {
+        for(ServiceModel serviceModel : serviceModels) {
+            if(Integer.parseInt(serviceModel.getId()) == product.getId()) {
+                serviceModel.setType(product.getType());
+                serviceModel.setName(product.getName());
+                serviceModel.setVat(Integer.toString(product.getVat()));
+                serviceModel.setGrossPrice(Double.toString(product.getGrossPrice()));
+                serviceModel.setNetPrice(Double.toString(product.getNetPrice()));
+                serviceModel.setUnitOfMeasure(product.getUnitOfMeasure());
+            }
+        }
+    }
+
+    public void removeService(ServiceModel serviceModel) {
+        serviceModels.remove(serviceModel);
+        productUtils.removeProduct(Integer.parseInt(serviceModel.getId()));
+    }
+
     public void loadServiceTable() {
         List<Product> productList = productUtils.downloadProducts();
         for(Product product : productList) {
             ServiceModel serviceModel = new ServiceModel();
 
+            serviceModel.setId(Integer.toString(product.getId()));
             serviceModel.setType(product.getType());
             serviceModel.setName(product.getName());
             serviceModel.setVat(Integer.toString(product.getVat()));
@@ -199,6 +226,20 @@ public class UIData {
 
             serviceModels.add(serviceModel);
         }
+    }
+
+    public void addServiceModel(Product product) {
+        ServiceModel serviceModel = new ServiceModel();
+
+        serviceModel.setId(Integer.toString(product.getId()));
+        serviceModel.setType(product.getType());
+        serviceModel.setName(product.getName());
+        serviceModel.setVat(Integer.toString(product.getVat()));
+        serviceModel.setNetPrice(Double.toString(product.getNetPrice()));
+        serviceModel.setGrossPrice(Double.toString(product.getGrossPrice()));
+        serviceModel.setUnitOfMeasure(product.getUnitOfMeasure());
+
+        serviceModels.add(serviceModel);
     }
 
     public void loadPaymentList() {
@@ -239,6 +280,10 @@ public class UIData {
         customerUtils.addCustomerToDB(newCustomer);
     }
 
+    public void saveProduct(Product newProduct) {
+        productUtils.addProductToDB(newProduct);
+    }
+
     public List<Item> downloadItems(int invoiceId) {
         return itemUtils.downloadItems(invoiceId);
     }
@@ -275,4 +320,7 @@ public class UIData {
         return customerUtils.downloadCustomerLastId();
     }
 
+    public int getProductLastId() {
+        return productUtils.downloadProductLastId();
+    }
 }

@@ -55,6 +55,45 @@ public class DataBaseUtils {
         dataBase.close();
     }
 
+    public Product downloadProduct(int productId) {
+
+        dataBase.open();
+
+        Product product = dataBase.downloadProduct(productId);
+
+        dataBase.close();
+
+        return product;
+    }
+
+    public void updateProduct(Product product) {
+
+        dataBase.open();
+
+        dataBase.updateProduct(product);
+
+        dataBase.close();
+    }
+
+    public void removeProduct(int productId) {
+
+        dataBase.open();
+
+        dataBase.removeProduct(productId);
+
+        dataBase.close();
+    }
+
+    public int downloadProductLastId() {
+
+        dataBase.open();
+
+        int productId = dataBase.downloadProductLastId();
+
+        dataBase.close();
+
+        return  productId;
+    }
 
     public void addInvoiceToDB(Invoice invoice) {
 

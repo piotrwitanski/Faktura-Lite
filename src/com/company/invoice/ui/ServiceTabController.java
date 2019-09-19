@@ -1,5 +1,6 @@
 package com.company.invoice.ui;
 
+import com.company.invoice.dto.Product;
 import com.company.invoice.ui.datamodel.ServiceModel;
 import com.company.invoice.ui.datamodel.UIData;
 import javafx.fxml.FXML;
@@ -51,8 +52,11 @@ public class ServiceTabController {
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             ServiceDialogController serviceController = fxmlLoader.getController();
-            //TODO here we need add code take values from ServiceDialogController and sava them in db
-            System.out.println("Service or ware saved in database");
+            Product product = serviceController.getNewProduct();
+            UIData.getInstance().saveProduct(product);
+            UIData.getInstance().addServiceModel(UIData.getInstance().loadNewProduct());
+            serviceTable.setItems(UIData.getInstance().getServiceModels());
+            //TODO need to improve gross to net price method -> have strange results!!!!!!!
         }
     }
 
@@ -86,11 +90,14 @@ public class ServiceTabController {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
         ServiceDialogController serviceDialogController = fxmlLoader.getController();
-        //TODO here add edit method from controller
+        serviceDialogController.editService(selectedService);
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            //TODO here add save method for serviceDB and service model. Update servide table
+            Product product = serviceDialogController.updateProduct(Integer.parseInt(selectedService.getId()));
+            UIData.getInstance().updateProduct(product);
+            UIData.getInstance().updateServiceModel(product);
+            serviceTable.setItems(UIData.getInstance().getServiceModels());
         }
     }
 
@@ -113,7 +120,7 @@ public class ServiceTabController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            //TODO here need to add delete service method
+            UIData.getInstance().removeService(selectedService);
         }
     }
 }

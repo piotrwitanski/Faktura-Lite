@@ -518,6 +518,77 @@ public class DataBase {
         }
     }
 
+    public Product downloadProduct(int productId) {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_PRODUCT +
+                    " WHERE " + COLUMN_PRODUCT_ID + " = " + productId)) {
+
+            Product product = new Product();
+
+            while(result.next()) {
+                product.setId(result.getInt(COLUMN_PRODUCT_ID));
+                product.setName(result.getString(COLUMN_PRODUCT_NAME));
+                product.setDBPriceGross(result.getInt(COLUMN_PRODUCT_PRICE_GROSS));
+                product.setDBPriceNet(result.getInt(COLUMN_PRODUCT_PRICE_NET));
+                product.setVat(result.getInt(COLUMN_PRODUCT_VAT));
+                product.setUnitOfMeasure(result.getString(COLUMN_PRODUCT_UNIT_OF_MEASURE));
+                product.setType(result.getString(COLUMN_PRODUCT_TYPE));
+            }
+
+            return product;
+        }
+        catch(SQLException e) {
+            System.out.println(SELECT_DB_ERROR + e.getMessage());
+            return null;
+        }
+    }
+
+    public void updateProduct(Product product) {
+        try(Statement statement = conn.createStatement()) {
+
+            statement.execute("UPDATE " + TABLE_PRODUCT +
+                    " SET " + COLUMN_PRODUCT_NAME + " = '" + product.getName() + "', " +
+                    COLUMN_PRODUCT_TYPE + " = '" + product.getType() + "', " +
+                    COLUMN_PRODUCT_VAT + " = " + product.getVat() + ", " +
+                    COLUMN_PRODUCT_PRICE_GROSS + " = " + product.getDBPriceGross() + ", " +
+                    COLUMN_PRODUCT_PRICE_NET + " = " + product.getDBPriceNet() + ", " +
+                    COLUMN_PRODUCT_UNIT_OF_MEASURE + " = '" + product.getUnitOfMeasure() + "'" +
+                    " WHERE " + COLUMN_CUSTOMER_ID + " = " + product.getId());
+        }
+        catch(SQLException e) {
+            System.out.println(UPDATE_DB_ERROR + e.getMessage());
+        }
+    }
+
+    public void removeProduct(int productId) {
+        try(Statement statement = conn.createStatement()) {
+
+            statement.execute("DELETE FROM " + TABLE_PRODUCT +
+                    " WHERE " + COLUMN_PRODUCT_ID + " = " + productId);
+        }
+        catch(SQLException e) {
+            System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
+        }
+    }
+
+    public int downloadProductLastId() {
+        try(Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT " + COLUMN_PRODUCT_ID +
+                    " FROM " + TABLE_PRODUCT +
+                    " WHERE " + COLUMN_PRODUCT_ID + " = (SELECT MAX(" + COLUMN_PRODUCT_ID + ") FROM " + TABLE_PRODUCT + ")")) {
+
+            result.next();
+
+            int customerId = result.getInt(COLUMN_PRODUCT_ID);
+
+            return customerId;
+        }
+        catch(SQLException e) {
+            System.out.println(DOWNLOAD_DB_ERROR + e.getMessage());
+            return -1;
+        }
+    }
+
     public List<Invoice> downloadInvoices() {
         try(Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM " + TABLE_INVOICE)) {
