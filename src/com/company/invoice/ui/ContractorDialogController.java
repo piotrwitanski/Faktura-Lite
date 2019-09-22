@@ -53,7 +53,4 @@ public class ContractorDialogController {
         contractorBankAccountTextField.setText(contractorModel.getBankAccount());
     }
 
-    public void updateContractor(ContractorModel contractorModel) {
-
-    }
 }

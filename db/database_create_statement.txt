@@ -1,0 +1,7 @@
+CREATE TABLE "customer" ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `city` TEXT, `street` TEXT, `post_code` TEXT, `NIP` TEXT, `house_number` INTEGER, `apartment_number` INTEGER, `bank_account` TEXT )
+CREATE TABLE "invoice" ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `invoice_number` TEXT, `invoice_type` TEXT, `customer_id` INTEGER, `user_id` INTEGER, `invoice_date` TEXT, `issue_date` TEXT, `payment_id` INTEGER, FOREIGN KEY(`customer_id`) REFERENCES `customer`(`id`), FOREIGN KEY(`user_id`) REFERENCES `user`(`id`), FOREIGN KEY(`payment_id`) REFERENCES `payment`(`id`) )
+CREATE TABLE "item" ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `invoice_id` INTEGER, `type` TEXT, `name` TEXT, `quantity` INTEGER, `price_gross` INTEGER, `price_net` INTEGER, `vat` INTEGER, `unit_of_measure` TEXT, FOREIGN KEY(`invoice_id`) REFERENCES `invoice`(`id`) )
+CREATE TABLE `payment` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `currency` TEXT )
+CREATE TABLE "product" ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` INTEGER, `price_gross` INTEGER, `price_net` INTEGER, `vat` INTEGER, `unit_of_measure` INTEGER, `type` TEXT )
+CREATE TABLE sqlite_sequence(name,seq)
+CREATE TABLE "user" ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `city` TEXT, `street` TEXT, `post_code` TEXT, `NIP` TEXT, `house_number` INTEGER, `apartment_number` INTEGER, `bank_account` TEXT )
