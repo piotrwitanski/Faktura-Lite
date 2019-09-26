@@ -206,7 +206,6 @@ public class DataBase {
         }
     }
 
-    //*TODO write update method for database. Remember that we need not to update items but remove all items related with invoice and add new ones.
     public void updateInvoice(Invoice invoice) {
         try(Statement statement = conn.createStatement()) {
 
@@ -227,11 +226,11 @@ public class DataBase {
     }
 
     /**
-     * Method remove item from database
+     * Method remove items from database for specific invoice
      *
-     * @param invoiceId specify which item we want to remove
+     * @param invoiceId specify which items we want to remove
      */
-    public void removeItem(int invoiceId) {
+    public void removeItems(int invoiceId) {
         try(Statement statement = conn.createStatement()) {
 
             statement.execute("DELETE FROM " + TABLE_ITEM +
@@ -239,6 +238,40 @@ public class DataBase {
         }
         catch(SQLException e) {
             System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
+        }
+    }
+
+    /**
+     * Method remove single item from database
+     *
+     * @param itemId specify which item we want to remove
+     */
+    public void removeItem(int itemId) {
+        try(Statement statement = conn.createStatement()) {
+
+            statement.execute("DELETE FROM " + TABLE_ITEM +
+                    " WHERE " + COLUMN_ITEM_ID + " = " + itemId);
+        }
+        catch(SQLException e) {
+            System.out.println(REMOVE_FROM_DB_ERROR + e.getMessage());
+        }
+    }
+
+    public void updateItem(Item item) {
+        try(Statement statement = conn.createStatement()) {
+
+            statement.execute("UPDATE " + TABLE_ITEM +
+                    " SET " + COLUMN_ITEM_NAME + " = '" + item.getName() + "', " +
+                    COLUMN_ITEM_TYPE + " = '" + item.getType() + "', " +
+                    COLUMN_ITEM_PRICE_GROSS + " = " + item.getDBPriceGross() + ", " +
+                    COLUMN_ITEM_PRICE_NET + " = " + item.getDBPriceNet() + ", " +
+                    COLUMN_ITEM_VAT + " = " + item.getVat() + ", " +
+                    COLUMN_ITEM_QUANTITY + " = " + item.getQuantity() + ", " +
+                    COLUMN_ITEM_UNIT_OF_MEASURE + " = '" + item.getUnitOfMeasure() + "'" +
+                    " WHERE " + COLUMN_ITEM_ID + " = " + item.getId());
+        }
+        catch(SQLException e) {
+            System.out.println(UPDATE_DB_ERROR + e.getMessage());
         }
     }
 
@@ -368,8 +401,10 @@ public class DataBase {
         }
     }
 
+
     /**
      * Downloading last added Customer id to DB
+     *
      * @return last Customer ID
      */
     public int downloadCustomerLastID() {
@@ -392,6 +427,7 @@ public class DataBase {
 
     /**
      * Updating customer in DB
+     *
      * @param customer is a new updated object
      */
     public void updateCustomer(Customer customer) {

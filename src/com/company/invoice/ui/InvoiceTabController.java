@@ -35,7 +35,6 @@ public class InvoiceTabController {
 
     }
 
-    //*TODO it's just for test, need to check this solution !!!!!!!!!!
     @FXML
     public void showNewInvoiceDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -105,8 +104,14 @@ public class InvoiceTabController {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            System.out.println("Something");
-            //*TODO here should be update method from invoiceUtils???
+            Invoice invoice = invoiceDialogController.updateInvoice(Integer.parseInt(selectedInvoice.getInvoiceId()));
+            UIData.getInstance().updateInvoice(invoice);
+
+            List<Item> itemList = invoiceDialogController.getInvoiceItems();
+            updateItems(itemList, invoice.getId());
+            UIData.getInstance().updateInvoiceModel(invoice);
+            invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
+
         }
     }
 
@@ -138,6 +143,12 @@ public class InvoiceTabController {
             item.setInvoiceId(invoiceId);
             UIData.getInstance().saveItem(item);
         }
+    }
+
+    private void updateItems(List<Item> newItemList, int invoiceId) {
+        UIData.getInstance().removeAllItems(invoiceId);
+        saveItems(newItemList, invoiceId);
+
     }
 
 

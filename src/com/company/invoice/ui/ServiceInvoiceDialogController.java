@@ -22,10 +22,10 @@ public class ServiceInvoiceDialogController {
     private TextField quantityTextField;
 
     @FXML
-    private TextField nettoPriceTextField;
+    private TextField netPriceTextField;
 
     @FXML
-    private TextField bruttoPriceTextField;
+    private TextField grossPriceTextField;
 
     @FXML
     private TextField vatTextField;
@@ -41,15 +41,15 @@ public class ServiceInvoiceDialogController {
             @Override
             public void changed(ObservableValue<? extends ServiceModel> observable, ServiceModel oldValue, ServiceModel newValue) {
                 if(newValue != null) {
-                    nettoPriceTextField.setText(newValue.getNetPrice());
-                    bruttoPriceTextField.setText(newValue.getGrossPrice());
+                    netPriceTextField.setText(newValue.getNetPrice());
+                    grossPriceTextField.setText(newValue.getGrossPrice());
                     vatTextField.setText(newValue.getVat());
                     serviceModel = newValue;
                 }
             }
         });
 
-        nettoPriceTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        netPriceTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(!newValue) {
@@ -58,7 +58,7 @@ public class ServiceInvoiceDialogController {
             }
         });
 
-        bruttoPriceTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        grossPriceTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(!newValue) {
@@ -83,16 +83,16 @@ public class ServiceInvoiceDialogController {
         newItem.setName(serviceModel.getName());
         newItem.setQuantity(quantityTextField.getText());
         newItem.setVat(vatTextField.getText());
-        newItem.setGrossPrice(bruttoPriceTextField.getText());
-        newItem.setNetPrice(nettoPriceTextField.getText());
+        newItem.setGrossPrice(grossPriceTextField.getText());
+        newItem.setNetPrice(netPriceTextField.getText());
         newItem.setUnitOfMeasure(serviceModel.getUnitOfMeasure());
 
         return newItem;
     }
 
     public void editItem(ItemModel itemModel) {
-        nettoPriceTextField.setText(itemModel.getNetPrice());
-        bruttoPriceTextField.setText(itemModel.getGrossPrice());
+        netPriceTextField.setText(itemModel.getNetPrice());
+        grossPriceTextField.setText(itemModel.getGrossPrice());
         vatTextField.setText(itemModel.getVat());
         quantityTextField.setText(itemModel.getQuantity());
 
@@ -102,34 +102,34 @@ public class ServiceInvoiceDialogController {
         if(serviceTable.getSelectionModel().getSelectedItem() == null) {
             itemModel.setQuantity(quantityTextField.getText());
             itemModel.setVat(vatTextField.getText());
-            itemModel.setGrossPrice(bruttoPriceTextField.getText());
-            itemModel.setNetPrice(nettoPriceTextField.getText());
+            itemModel.setGrossPrice(grossPriceTextField.getText());
+            itemModel.setNetPrice(netPriceTextField.getText());
         }
         else {
             itemModel.setType(serviceModel.getType());
             itemModel.setName(serviceModel.getName());
             itemModel.setQuantity(quantityTextField.getText());
             itemModel.setVat(vatTextField.getText());
-            itemModel.setGrossPrice(bruttoPriceTextField.getText());
-            itemModel.setNetPrice(nettoPriceTextField.getText());
+            itemModel.setGrossPrice(grossPriceTextField.getText());
+            itemModel.setNetPrice(netPriceTextField.getText());
         }
     }
 
     @FXML
     public void calculateBruttoPrice() {
-        bruttoPriceTextField.setText(getBruttoPrice());
+        grossPriceTextField.setText(getBruttoPrice());
     }
 
     @FXML
     public void calculateNettoPrice() {
-        nettoPriceTextField.setText(getNettoPrice());
+        netPriceTextField.setText(getNettoPrice());
     }
 
     private String getBruttoPrice() {
         double bruttoPrice = 0;
         NumberFormat formatter = NumberFormat.getInstance(Locale.US);
         //*TODO how to avoid empty String exception in TextField
-        bruttoPrice = (Double.parseDouble(vatTextField.getText()) / 100 + 1) * Double.parseDouble(nettoPriceTextField.getText());
+        bruttoPrice = (Double.parseDouble(vatTextField.getText()) / 100 + 1) * Double.parseDouble(netPriceTextField.getText());
         return Double.toString(bruttoPrice);
 
     }
@@ -137,9 +137,9 @@ public class ServiceInvoiceDialogController {
     private String getNettoPrice() {
         double nettoPrice = 0;
         NumberFormat formatter = NumberFormat.getInstance(Locale.US);
-        nettoPrice = Double.parseDouble(bruttoPriceTextField.getText()) - (Double.parseDouble(bruttoPriceTextField.getText()) *
+        nettoPrice = Double.parseDouble(grossPriceTextField.getText()) - (Double.parseDouble(grossPriceTextField.getText()) *
                 (Double.parseDouble(vatTextField.getText())) / (100 + Double.parseDouble(vatTextField.getText())));
         return Double.toString(nettoPrice);
-        //*TODO add correct formatter to netto and brutto price
+        //*TODO add correct formatter to net and gross price
     }
 }

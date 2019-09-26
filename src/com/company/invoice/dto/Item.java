@@ -136,4 +136,5 @@ public class Item {
         return id == item.id && invoiceId == item.invoiceId && name.equals(item.name) && quantity == item.quantity && Double.compare(grossPrice, item.grossPrice) == 0
                     && Double.compare(netPrice, item.netPrice) == 0 && vat == item.vat && unitOfMeasure.equals(item.unitOfMeasure) && type.equals(item.type);
     }
+
 }

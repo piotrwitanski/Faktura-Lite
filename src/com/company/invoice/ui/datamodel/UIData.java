@@ -76,9 +76,9 @@ public class UIData {
         invoiceModel.setPaymentId(Integer.toString(invoice.getPaymentId()));
         invoiceModel.setInvoiceDate(invoice.getInvoiceDate());
         invoiceModel.setCustomerName(customer.getName());
-        invoiceModel.setNetValue(Double.toString(getNettoValue(itemsList)));
-        invoiceModel.setGrossValue(Double.toString(getBruttoValue(itemsList)));
-        invoiceModel.setVatValue(Double.toString(getBruttoValue(itemsList) - getNettoValue(itemsList)));
+        invoiceModel.setNetValue(Double.toString(getNetValue(itemsList)));
+        invoiceModel.setGrossValue(Double.toString(getGrossValue(itemsList)));
+        invoiceModel.setVatValue(Double.toString(getGrossValue(itemsList) - getNetValue(itemsList)));
         invoiceModel.setCurrency(payment.getCurrency());
         invoiceModels.add(invoiceModel);
 
@@ -86,7 +86,7 @@ public class UIData {
 
     public void deleteInvoice(InvoiceModel invoiceModel) {
         invoiceModels.remove(invoiceModel);
-        itemUtils.removeItem(Integer.parseInt(invoiceModel.getInvoiceId()));
+        itemUtils.removeItems(Integer.parseInt(invoiceModel.getInvoiceId()));
         invoiceUtils.removeInovoice(Integer.parseInt(invoiceModel.getInvoiceId()));
     }
 
@@ -113,12 +113,38 @@ public class UIData {
             invoiceModel.setPaymentId(Integer.toString(invoice.getPaymentId()));
             invoiceModel.setInvoiceDate(invoice.getInvoiceDate());
             invoiceModel.setCustomerName(customer.getName());
-            invoiceModel.setNetValue(Double.toString(getNettoValue(itemsList)));
-            invoiceModel.setGrossValue(Double.toString(getBruttoValue(itemsList)));
-            invoiceModel.setVatValue(Double.toString(getBruttoValue(itemsList) - getNettoValue(itemsList)));
+            invoiceModel.setNetValue(Double.toString(getNetValue(itemsList)));
+            invoiceModel.setGrossValue(Double.toString(getGrossValue(itemsList)));
+            invoiceModel.setVatValue(Double.toString(getGrossValue(itemsList) - getNetValue(itemsList)));
             invoiceModel.setCurrency(payment.getCurrency());
 
             invoiceModels.add(invoiceModel);
+        }
+    }
+
+    public void updateInvoice(Invoice invoice) {
+        invoiceUtils.updateInvoice(invoice);
+    }
+
+    public void updateInvoiceModel(Invoice invoice) {
+        for(InvoiceModel invoiceModel : invoiceModels) {
+            if(Integer.parseInt(invoiceModel.getInvoiceId()) == invoice.getId()) {
+                Customer customer = customerUtils.downloadCustomer(invoice.getCustomerId());
+                List<Item> itemsList = itemUtils.downloadItems(invoice.getId());
+                Payment payment = paymentUtils.downloadPayment(invoice.getPaymentId());
+
+                invoiceModel.setInvoiceId(Integer.toString(invoice.getId()));
+                invoiceModel.setInvoiceType(invoice.getInvoiceType());
+                invoiceModel.setInvoiceNumber(invoice.getInvoiceNumber());
+                invoiceModel.setIssueDate(invoice.getIssueDate());
+                invoiceModel.setPaymentId(Integer.toString(invoice.getPaymentId()));
+                invoiceModel.setInvoiceDate(invoice.getInvoiceDate());
+                invoiceModel.setCustomerName(customer.getName());
+                invoiceModel.setNetValue(Double.toString(getNetValue(itemsList)));
+                invoiceModel.setGrossValue(Double.toString(getGrossValue(itemsList)));
+                invoiceModel.setVatValue(Double.toString(getGrossValue(itemsList) - getNetValue(itemsList)));
+                invoiceModel.setCurrency(payment.getCurrency());
+            }
         }
     }
 
@@ -268,6 +294,18 @@ public class UIData {
         userModels.add(userModel);
     }
 
+    public void removeAllItems(int invoiceId) {
+        itemUtils.removeItems(invoiceId);
+    }
+
+    public void removeItem(int itemId) {
+        itemUtils.removeItem(itemId);
+    }
+
+    public void updateItem(Item item) {
+        itemUtils.updateItem(item);
+    }
+
     public void saveInvoice(Invoice newInvoice) {
         invoiceUtils.addInvoiceToDB(newInvoice);
     }
@@ -292,20 +330,20 @@ public class UIData {
         return paymentUtils.downloadPayment(paymentId);
     }
 
-    private double getNettoValue(List<Item> itemsList) {
-        double totalNettoValue = 0;
+    private double getNetValue(List<Item> itemsList) {
+        double totalNetValue = 0;
         for(Item item : itemsList) {
-            totalNettoValue += item.getQuantity() * item.getNetPrice();
+            totalNetValue += item.getQuantity() * item.getNetPrice();
         }
-        return totalNettoValue;
+        return totalNetValue;
     }
 
-    private double getBruttoValue(List<Item> itemsList) {
-        double totalBruttoValue = 0;
+    private double getGrossValue(List<Item> itemsList) {
+        double totalGrossValue = 0;
         for(Item item : itemsList) {
-            totalBruttoValue += item.getQuantity() * item.getGrossPrice();
+            totalGrossValue += item.getQuantity() * item.getGrossPrice();
         }
-        return totalBruttoValue;
+        return totalGrossValue;
     }
 
     public String getInvoiceMaxNumber() {
@@ -323,4 +361,5 @@ public class UIData {
     public int getProductLastId() {
         return productUtils.downloadProductLastId();
     }
+
 }

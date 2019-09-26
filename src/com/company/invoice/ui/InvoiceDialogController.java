@@ -91,7 +91,6 @@ public class InvoiceDialogController {
         List<Item> itemList = new ArrayList<>();
         for(ItemModel itemModel : itemModels) {
             Item item = new Item();
-
             item.setType(itemModel.getType());
             item.setName(itemModel.getName());
             item.setQuantity(Integer.parseInt(itemModel.getQuantity()));
@@ -297,7 +296,6 @@ public class InvoiceDialogController {
     private int getContractorId() {
         ObservableList<ContractorModel> modelList = UIData.getInstance().getContractorModels();
         int index = contractorComboBox.getSelectionModel().getSelectedIndex();
-
         return Integer.parseInt(modelList.get(index).getId());
     }
 
@@ -309,15 +307,41 @@ public class InvoiceDialogController {
     }
 
     public void editInvoice(InvoiceModel invoiceModel) {
+        ObservableList<ContractorModel> modelList = UIData.getInstance().getContractorModels();
+
         typeComboBox.getSelectionModel().select(invoiceModel.getInvoiceType());
         invoiceNumberTextField.setText(invoiceModel.getInvoiceNumber());
         issueDatePicker.setValue(LocalDate.parse(invoiceModel.getIssueDate(), formatter));
         invoiceDatePicker.setValue(LocalDate.parse(invoiceModel.getInvoiceDate(), formatter));
-        contractorComboBox.getSelectionModel().select(invoiceModel.getCustomerName());
+        contractorComboBox.getSelectionModel().select(findCustomer(modelList, invoiceModel));
         setInvoiceItems(Integer.parseInt(invoiceModel.getInvoiceId()));
         itemsTable.setItems(itemModels);
         bankAccountComboBox.getSelectionModel().select(BANK_ACCOUNT_NUMBER);
         setPaymentComboBox(Integer.parseInt(invoiceModel.getPaymentId()));
+        calculateTotalValue();
+    }
+
+    private String findCustomer(ObservableList<ContractorModel> modelList, InvoiceModel invoiceModel) {
+        String nameAndNIP = "";
+        for(ContractorModel contractorModel : modelList) {
+            if(contractorModel.getName().equals(invoiceModel.getCustomerName())) {
+                nameAndNIP = contractorModel.getName() + "\t\t" + contractorModel.getNIP();
+            }
+        }
+        return nameAndNIP;
+    }
+
+    public Invoice updateInvoice(int id) {
+        Invoice invoice = new Invoice();
+        invoice.setId(id);
+        invoice.setInvoiceType(typeComboBox.getSelectionModel().getSelectedItem());
+        invoice.setInvoiceNumber(invoiceNumberTextField.getText());
+        invoice.setIssueDate(issueDatePicker.getValue().format(formatter));
+        invoice.setInvoiceDate(dueDatePicker.getValue().format(formatter));
+        invoice.setCustomerId(getContractorId());
+        invoice.setUserId(USER_ID);
+        invoice.setPaymentId(getPaymentId());
+        return invoice;
     }
 
     private void setInvoiceItems(int invoiceId) {
@@ -328,8 +352,8 @@ public class InvoiceDialogController {
     }
 
     private ItemModel setItemModel(Item item) {
-        //*TODO need to set net value and price
         ItemModel itemModel = new ItemModel();
+        itemModel.setId(Integer.toString(item.getId()));
         itemModel.setType(item.getType());
         itemModel.setName(item.getName());
         itemModel.setQuantity(Integer.toString(item.getQuantity()));

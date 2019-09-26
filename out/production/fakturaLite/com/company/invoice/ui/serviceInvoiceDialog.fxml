@@ -60,8 +60,8 @@
                 <Label text="VAT" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
                 <TextField text="1" fx:id="quantityTextField" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="nettoPriceTextField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                <TextField fx:id="bruttoPriceTextField" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="netPriceTextField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <TextField fx:id="grossPriceTextField" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
                 <TextField text="23" fx:id="vatTextField" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
             </GridPane>
         </VBox>
