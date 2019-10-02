@@ -65,7 +65,7 @@ public class Dictionary {
     public static final String COLUMN_PAYMENT_CURRENCY = "currency";
 
     //Invoice
-    public static final String INVOICE = "Faktura";
+    public static final String INVOICE = "Faktura ";
     public static final String NUMBER = "L.p.";
     public static final String NAME = "Nazwa";
     public static final String QUANTITY = "Ilość";

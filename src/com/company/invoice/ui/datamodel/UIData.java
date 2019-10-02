@@ -94,6 +94,10 @@ public class UIData {
         return invoiceUtils.downloadInvoice(getInvoiceLastId());
     }
 
+    public Invoice downloadInvoice (int invoiceId) {
+        return invoiceUtils.downloadInvoice(invoiceId);
+    }
+
     /**
      * Method download and prepare Invoice data to display it in UI
      */
@@ -190,6 +194,10 @@ public class UIData {
 
     public Customer loadNewCustomer() {
         return customerUtils.downloadCustomer(getCustomerLastId());
+    }
+
+    public Customer downloadCustomer(int customerId) {
+        return customerUtils.downloadCustomer(customerId);
     }
 
     public void loadContractorTable() {
@@ -292,6 +300,10 @@ public class UIData {
         userModel.setBankAccount(user.getBankAccount());
 
         userModels.add(userModel);
+    }
+
+    public User downloadUser(int userId) {
+        return userUtils.downloadUser(userId);
     }
 
     public void removeAllItems(int invoiceId) {

@@ -180,7 +180,6 @@
 
                 <Label text="Termin zapłaty" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                 <DatePicker fx:id="dueDatePicker"  GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="100"/>
-                <!--TODO need to check if this dueDate will be use is future-->
                 <Label text="Rachunek" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                 <ComboBox fx:id="bankAccountComboBox" GridPane.rowIndex="4" GridPane.columnIndex="1">
                     <items>

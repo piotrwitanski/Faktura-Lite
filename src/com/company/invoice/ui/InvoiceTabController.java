@@ -1,7 +1,7 @@
 package com.company.invoice.ui;
 
-import com.company.invoice.dto.Invoice;
-import com.company.invoice.dto.Item;
+import com.company.invoice.dto.*;
+import com.company.invoice.tools.PDFCreator;
 import com.company.invoice.ui.datamodel.InvoiceModel;
 import com.company.invoice.ui.datamodel.UIData;
 import javafx.beans.value.ChangeListener;
@@ -11,7 +11,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -26,13 +28,18 @@ public class InvoiceTabController {
     @FXML
     private TableView<InvoiceModel> invoiceTable;
 
+    private FileChooser chooser;
+    private PDFCreator pdfCreator;
 
     public void initialize() {
         UIData.getInstance().loadInvoiceTable();
         UIData.getInstance().loadPaymentList();
         UIData.getInstance().loadBankAccountNumber();
         invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
-
+        chooser = new FileChooser();
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        pdfCreator = new PDFCreator();
     }
 
     @FXML
@@ -53,21 +60,41 @@ public class InvoiceTabController {
 
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        ButtonType buttonSaveInvoice = new ButtonType("Zapisz i drukuj");
+        dialog.getDialogPane().getButtonTypes().add(buttonSaveInvoice);
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            InvoiceDialogController invoiceController = fxmlLoader.getController();
-            Invoice newInvoice = invoiceController.getNewInvoice();
-            UIData.getInstance().saveInvoice(newInvoice);
-            int invoiceId = UIData.getInstance().getInvoiceLastId();
-            List<Item> itemList = invoiceController.getInvoiceItems();
-            saveItems(itemList, invoiceId);
-            UIData.getInstance().addInvoiceModel(UIData.getInstance().loadNewInvoice());
-
-            //*TODO there is lack of scroll when we start program!!!!!!!!!!!!!!!!
-            invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
-            //*TODO save here as pdf, add chooser and pdf method
+            saveNewInvoice(fxmlLoader);
         }
+        else if(result.isPresent() && result.get() == buttonSaveInvoice) {
+            saveNewInvoice(fxmlLoader);
+
+            File file = chooser.showSaveDialog(sellBorderPane.getScene().getWindow());
+            savePDF(UIData.getInstance().getInvoiceLastId(), file.getPath());
+        }
+    }
+
+    private void saveNewInvoice(FXMLLoader fxmlLoader) {
+        InvoiceDialogController invoiceController = fxmlLoader.getController();
+        Invoice newInvoice = invoiceController.getNewInvoice();
+        UIData.getInstance().saveInvoice(newInvoice);
+        int invoiceId = UIData.getInstance().getInvoiceLastId();
+        List<Item> itemList = invoiceController.getInvoiceItems();
+        saveItems(itemList, invoiceId);
+        UIData.getInstance().addInvoiceModel(UIData.getInstance().loadNewInvoice());
+
+        //*TODO there is lack of scroll when we start program!!!!!!!!!!!!!!!!
+        invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
+    }
+
+    private void savePDF(int invoiceId, String filePath) {
+        Invoice invoice = UIData.getInstance().downloadInvoice(invoiceId);
+        Customer customer = UIData.getInstance().downloadCustomer(invoice.getCustomerId());
+        User user = UIData.getInstance().downloadUser(invoice.getUserId());
+        List<Item> items = UIData.getInstance().downloadItems(invoice.getId());
+        Payment payment = UIData.getInstance().downloadPayment(invoice.getPaymentId());
+        pdfCreator.createPdf(filePath, customer, invoice, items, user, payment);
     }
 
     @FXML
@@ -98,21 +125,34 @@ public class InvoiceTabController {
 
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        ButtonType buttonSaveInvoice = new ButtonType("Zapisz i drukuj");
+        dialog.getDialogPane().getButtonTypes().add(buttonSaveInvoice);
 
         InvoiceDialogController invoiceDialogController = fxmlLoader.getController();
         invoiceDialogController.editInvoice(selectedInvoice);
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            Invoice invoice = invoiceDialogController.updateInvoice(Integer.parseInt(selectedInvoice.getInvoiceId()));
-            UIData.getInstance().updateInvoice(invoice);
-
-            List<Item> itemList = invoiceDialogController.getInvoiceItems();
-            updateItems(itemList, invoice.getId());
-            UIData.getInstance().updateInvoiceModel(invoice);
-            invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
-
+            //TODO here we need get invoice id from invoice object for PDF
+            saveEditedInvoice(invoiceDialogController, selectedInvoice);
         }
+        else if(result.isPresent() && result.get() == buttonSaveInvoice) {
+            saveEditedInvoice(invoiceDialogController, selectedInvoice);
+
+            File file = chooser.showSaveDialog(sellBorderPane.getScene().getWindow());
+            savePDF(Integer.parseInt(selectedInvoice.getInvoiceId()), file.getPath());
+        }
+    }
+
+    private void saveEditedInvoice(InvoiceDialogController invoiceDialogController, InvoiceModel selectedInvoice) {
+        Invoice invoice = invoiceDialogController.updateInvoice(Integer.parseInt(selectedInvoice.getInvoiceId()));
+        UIData.getInstance().updateInvoice(invoice);
+
+        List<Item> itemList = invoiceDialogController.getInvoiceItems();
+        updateItems(itemList, invoice.getId());
+        UIData.getInstance().updateInvoiceModel(invoice);
+        invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
+        //TODO here we need get invoice id from invoice object for PDF
     }
 
     public void showDeleteInvoiceDialog() {

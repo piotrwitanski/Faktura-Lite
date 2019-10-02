@@ -66,7 +66,6 @@ public class InvoiceDialogController {
         dueDatePicker.setValue(today);
 
         invoiceNumberTextField.setText(getInvoiceNumber());
-        System.out.println(dueDatePicker.getValue().format(formatter));
         recipientComboBox.setDisable(!recipientCheckBox.isSelected());
         recipientAddButton.setDisable(!recipientCheckBox.isSelected());
         setContractorsAndRecipients();
@@ -79,7 +78,7 @@ public class InvoiceDialogController {
         newInvoice.setInvoiceType(typeComboBox.getSelectionModel().getSelectedItem());
         newInvoice.setInvoiceNumber(invoiceNumberTextField.getText());
         newInvoice.setIssueDate(issueDatePicker.getValue().format(formatter));
-        newInvoice.setInvoiceDate(dueDatePicker.getValue().format(formatter));
+        newInvoice.setInvoiceDate(invoiceDatePicker.getValue().format(formatter));
         newInvoice.setCustomerId(getContractorId());
         //*TODO just for now we use user id 1 but we need add some method that will choose user from the list after log in
         newInvoice.setUserId(USER_ID);
@@ -337,7 +336,8 @@ public class InvoiceDialogController {
         invoice.setInvoiceType(typeComboBox.getSelectionModel().getSelectedItem());
         invoice.setInvoiceNumber(invoiceNumberTextField.getText());
         invoice.setIssueDate(issueDatePicker.getValue().format(formatter));
-        invoice.setInvoiceDate(dueDatePicker.getValue().format(formatter));
+        invoice.setInvoiceDate(invoiceDatePicker.getValue().format(formatter));
+        //TODO why this picker take today date !!!!!
         invoice.setCustomerId(getContractorId());
         invoice.setUserId(USER_ID);
         invoice.setPaymentId(getPaymentId());

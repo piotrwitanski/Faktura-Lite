@@ -97,7 +97,7 @@ public class PDFCreator {
      */
     private void addTitle(Document document) throws DocumentException {
         //*TODO date and invoice number will be added from db. Add position for invoice number to DB
-        document.add(new Paragraph(INVOICE + " 01/11/2018", titleFont));
+        document.add(new Paragraph(INVOICE + invoice.getInvoiceNumber(), titleFont));
     }
 
     /**
@@ -252,14 +252,13 @@ public class PDFCreator {
         BaseFont bf = BaseFont.createFont("arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font fontBold = new Font(bf, 8, Font.BOLD);
         Font font = new Font(bf, 8);
-        //*TODO change John London to user
         addTableCell(table, DOTS, font, 0, -1);
         addTableCell(table, "", font, 0, -1);
         addTableCell(table, DOTS, font, 0, -1);
 
         addTableCell(table, "", font, 0, -1);
         addTableCell(table, "", font, 0, -1);
-        addTableCell(table, "John London", font, 0, 1);
+        addTableCell(table, user.getName(), font, 0, 1);
 
         addTableCell(table, BUYER, fontBold, 0, 1);
         addTableCell(table, "", font, 0, -1);
