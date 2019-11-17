@@ -84,7 +84,6 @@ public class InvoiceTabController {
         saveItems(itemList, invoiceId);
         UIData.getInstance().addInvoiceModel(UIData.getInstance().loadNewInvoice());
 
-        //*TODO there is lack of scroll when we start program!!!!!!!!!!!!!!!!
         invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
     }
 
@@ -133,14 +132,15 @@ public class InvoiceTabController {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            //TODO here we need get invoice id from invoice object for PDF
             saveEditedInvoice(invoiceDialogController, selectedInvoice);
         }
         else if(result.isPresent() && result.get() == buttonSaveInvoice) {
             saveEditedInvoice(invoiceDialogController, selectedInvoice);
 
             File file = chooser.showSaveDialog(sellBorderPane.getScene().getWindow());
-            savePDF(Integer.parseInt(selectedInvoice.getInvoiceId()), file.getPath());
+            if(file != null) {
+                savePDF(Integer.parseInt(selectedInvoice.getInvoiceId()), file.getPath());
+            }
         }
     }
 
@@ -152,7 +152,6 @@ public class InvoiceTabController {
         updateItems(itemList, invoice.getId());
         UIData.getInstance().updateInvoiceModel(invoice);
         invoiceTable.setItems(UIData.getInstance().getInvoiceModels());
-        //TODO here we need get invoice id from invoice object for PDF
     }
 
     public void showDeleteInvoiceDialog() {

@@ -41,7 +41,6 @@
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Faktura"/>
-                        <String fx:value="Faktura korygująca"/>
                     </FXCollections>
                 </items>
                 <value>
@@ -59,18 +58,15 @@
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
-            <!--*TODO think how to add all this position from Invoice class-->
             <columns>
                 <TableColumn text="Typ">
                     <cellValueFactory>
                         <PropertyValueFactory property="invoiceType"/>
-                        <!--*TODO add invoiceType to database-->
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Numer">
                     <cellValueFactory>
                         <PropertyValueFactory property="invoiceNumber"/>
-                        <!--TODO add invoiceNumber to database-->
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Data wystawienia">

@@ -51,8 +51,6 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <!--TODO connect this button with adding contractor dialog-->
-                <!--TODO it's just for test, need to check this solution showNewContractor !!!!!!!!!!-->
                 <Button fx:id="addContractorButton" text="Dodaj" GridPane.rowIndex="2" GridPane.columnIndex="3" onAction="#showNewContractor">
                     <graphic>
                         <ImageView>
@@ -69,7 +67,6 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <!--TODO connect this button with adding contractor dialog-->
                 <Button fx:id="recipientAddButton" text="Dodaj" GridPane.rowIndex="3" GridPane.columnIndex="3">
                     <graphic>
                         <ImageView>
@@ -151,23 +148,22 @@
                 <ComboBox fx:id="paymentComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <!--TODO this should be added to pdf invoice-->
                         </FXCollections>
                     </items>
                     <value>
                     </value>
                 </ComboBox>
-                <Label text="Wystawił" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="3">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Zygmunt Iksiński"/>
-                            <!--TODO here we need download list of names. Not sure now if this will be use in future-->
-                        </FXCollections>
-                    </items>
-                </ComboBox>
-                <Label text="Waluta" GridPane.rowIndex="2" GridPane.columnIndex="4"/>
-                <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="5">
+                <!--<Label text="Wystawił" GridPane.rowIndex="2" GridPane.columnIndex="2"/>-->
+                <!--<ComboBox GridPane.rowIndex="2" GridPane.columnIndex="3">-->
+                    <!--<items>-->
+                        <!--<FXCollections fx:factory="observableArrayList">-->
+                            <!--<String fx:value="Zygmunt Iksiński"/>-->
+                            <!--&lt;!&ndash;TODO here we need download list of names. For future development;-->
+                        <!--</FXCollections>-->
+                    <!--</items>-->
+                <!--</ComboBox>-->
+                <Label text="Waluta" GridPane.rowIndex="2" GridPane.columnIndex="20"/>
+                <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="21">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="PLN"/>
@@ -184,7 +180,7 @@
                 <ComboBox fx:id="bankAccountComboBox" GridPane.rowIndex="4" GridPane.columnIndex="1">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                        <!--TODO download this bank account number from user. Need to add this number to invoice pdf-->
+                        <!--TODO download this bank account number from user. Need to add this number to invoice pdf. For future development-->
                             <String fx:value="1110-3332-33333-3333-333"/>
                         </FXCollections>
                     </items>

@@ -17,14 +17,15 @@
         <VBox>
             <MenuBar>
                 <Menu text="Menu">
+                    <!--<items>-->
+                        <!--<MenuItem text="Dane użytkownika"/>-->
+                    <!--TODO for future development-->
+                    <!--</items>-->
                     <items>
-                        <MenuItem text="Dane użytkownika"/>
+                        <MenuItem text="O programie" onAction="#showAboutProgramDialog"/>
                     </items>
                     <items>
-                        <MenuItem text="O programie"/>
-                    </items>
-                    <items>
-                        <MenuItem text="Pomoc"/>
+                        <MenuItem text="Pomoc" onAction="#showHelpDialog"/>
                     </items>
                 </Menu>
             </MenuBar>

@@ -47,7 +47,6 @@
                 <TableColumn text="Typ">
                     <cellValueFactory>
                         <PropertyValueFactory property="type"/>
-                        <!--TODO add to database-->
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Nazwa">
