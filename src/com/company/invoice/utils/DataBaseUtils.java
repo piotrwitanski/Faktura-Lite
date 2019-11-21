@@ -171,6 +171,15 @@ public class DataBaseUtils {
         return user;
     }
 
+    public void updateUser(User user) {
+
+        dataBase.open();
+
+        dataBase.updateUser(user);
+
+        dataBase.close();
+    }
+
     public List<Product> downloadProducts() {
 
         dataBase.open();

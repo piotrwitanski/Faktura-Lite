@@ -1,0 +1,41 @@
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Text?>
+<DialogPane fx:controller="com.company.invoice.ui.UserDialogController"
+            xmlns:fx="http://javafx.com/fxml">
+    <headerText>
+
+    </headerText>
+    <content>
+        <VBox>
+            <GridPane vgap="10" hgap="10">
+                <Label text="Nazwa" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="userNameTextField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Miejscowość" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="userCityTextField" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Ulica" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="userStreetTextField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Nr domu" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <TextField fx:id="userHouseNumberTextField" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                <Label text="Nr lokalu" GridPane.rowIndex="2" GridPane.columnIndex="4"/>
+                <TextField fx:id="userApartmentNumberTextField" GridPane.rowIndex="2" GridPane.columnIndex="5"/>
+
+                <Label text="Kod pocztowy" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="userPostCodeTextField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="NIP" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                <TextField fx:id="userNIPTextField" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+
+            </GridPane>
+            <GridPane vgap="10" hgap="32">
+                <Label text="Rachunek" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="userBankAccountTextField" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="300"/>
+            </GridPane>
+        </VBox>
+    </content>
+</DialogPane>

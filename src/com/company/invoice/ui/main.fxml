@@ -17,10 +17,9 @@
         <VBox>
             <MenuBar>
                 <Menu text="Menu">
-                    <!--<items>-->
-                        <!--<MenuItem text="Dane użytkownika"/>-->
-                    <!--TODO for future development-->
-                    <!--</items>-->
+                    <items>
+                        <MenuItem text="Dane użytkownika" onAction="#showEditUserDialog"/>
+                    </items>
                     <items>
                         <MenuItem text="O programie" onAction="#showAboutProgramDialog"/>
                     </items>

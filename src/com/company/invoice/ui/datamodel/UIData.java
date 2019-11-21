@@ -37,6 +37,7 @@ public class UIData {
         serviceModels = FXCollections.observableArrayList();
         paymentModels = FXCollections.observableArrayList();
         userModels = FXCollections.observableArrayList();
+
     }
 
     public static UIData getInstance() {
@@ -304,6 +305,26 @@ public class UIData {
 
     public User downloadUser(int userId) {
         return userUtils.downloadUser(userId);
+    }
+
+    public UserModel downloadUserModel(int userId) {
+        UserModel userModel = new UserModel();
+        User user = downloadUser(userId);
+
+        userModel.setName(user.getName());
+        userModel.setCity(user.getCity());
+        userModel.setStreet(user.getStreet());
+        userModel.setHouseNumber(Integer.toString(user.getHouseNumber()));
+        userModel.setApartmentNumber(Integer.toString(user.getApartmentNumber()));
+        userModel.setPostCode(user.getPostCode());
+        userModel.setNIP(user.getNIP());
+        userModel.setBankAccount(user.getBankAccount());
+
+        return userModel;
+    }
+
+    public void updateUser(User user) {
+        userUtils.updateUser(user);
     }
 
     public void removeAllItems(int invoiceId) {

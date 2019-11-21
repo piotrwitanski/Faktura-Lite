@@ -44,4 +44,13 @@ public class UserUtils {
             return null;
         }
     }
+
+    public void updateUser(User user) {
+        try {
+            dataBaseUtils.updateUser(user);
+        }
+        catch(Exception e) {
+            System.out.println(UPDATE_DB_ERROR + e.getMessage());
+        }
+    }
 }

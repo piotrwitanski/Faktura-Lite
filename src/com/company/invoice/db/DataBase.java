@@ -510,6 +510,8 @@ public class DataBase {
                 user.setName(result.getString(COLUMN_USER_NAME));
                 user.setCity(result.getString(COLUMN_USER_CITY));
                 user.setStreet(result.getString(COLUMN_USER_STREET));
+                user.setHouseNumber(result.getInt(COLUMN_USER_HOUSE_NUMBER));
+                user.setApartmentNumber(result.getInt(COLUMN_USER_APARTMENT_NUMBER));
                 user.setPostCode(result.getString(COLUMN_USER_POST_CODE));
                 user.setNIP(result.getString(COLUMN_USER_NIP));
                 user.setBankAccount(result.getString(COLUMN_USER_BANK_ACCOUNT));
@@ -522,6 +524,29 @@ public class DataBase {
             return null;
         }
 
+    }
+
+    /**
+     * Updating user in database
+     * @param user contain user arguments for updating
+     */
+    public void updateUser(User user) {
+        try(Statement statement = conn.createStatement()) {
+
+            statement.execute("UPDATE " + TABLE_USER +
+                    " SET " + COLUMN_USER_NAME + " = '" + user.getName() + "', " +
+                    COLUMN_USER_STREET + " = '" + user.getStreet() + "', " +
+                    COLUMN_USER_HOUSE_NUMBER + " = " + user.getHouseNumber() + ", " +
+                    COLUMN_USER_APARTMENT_NUMBER + " = " + user.getApartmentNumber() + ", " +
+                    COLUMN_USER_POST_CODE + " = '" + user.getPostCode() + "', " +
+                    COLUMN_USER_CITY + " = '" + user.getCity() + "', " +
+                    COLUMN_USER_NIP + " = '" + user.getNIP() + "', " +
+                    COLUMN_USER_BANK_ACCOUNT + " = '" + user.getBankAccount() + "'" +
+                    " WHERE " + COLUMN_USER_ID + " = " + user.getId());
+        }
+        catch(SQLException e) {
+            System.out.println(UPDATE_DB_ERROR + e.getMessage());
+        }
     }
 
     /**
