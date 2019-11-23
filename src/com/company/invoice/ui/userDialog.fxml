@@ -34,7 +34,8 @@
             </GridPane>
             <GridPane vgap="10" hgap="32">
                 <Label text="Rachunek" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="userBankAccountTextField" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="300"/>
+                <TextField fx:id="userBankAccountTextField" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                           prefWidth="300"/>
             </GridPane>
         </VBox>
     </content>

@@ -119,6 +119,6 @@ public class User {
         User user = (User) obj;
 
         return id == user.id && name.equals(user.name) && city.equals(user.city) && street.equals(user.street) && postCode.equals(user.postCode)
-                    && NIP.equals(user.NIP) && houseNumber == user.houseNumber && apartmentNumber == user.apartmentNumber && bankAccount.equals(user.bankAccount);
+                && NIP.equals(user.NIP) && houseNumber == user.houseNumber && apartmentNumber == user.apartmentNumber && bankAccount.equals(user.bankAccount);
     }
 }

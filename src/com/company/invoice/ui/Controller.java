@@ -26,8 +26,9 @@ public class Controller {
 
     @FXML
     private BorderPane mainBorderPane;
+
     @FXML
-    public void showEditUserDialog(){
+    public void showEditUserDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
         dialog.setTitle("Edytowanie użytkownika");
@@ -44,10 +45,10 @@ public class Controller {
 
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-//
+
         UserDialogController userDialogController = fxmlLoader.getController();
         userDialogController.editUser(UIData.getInstance().downloadUserModel(USER_ID));
-//
+
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             User user = userDialogController.updateUser(USER_ID);
@@ -56,14 +57,14 @@ public class Controller {
     }
 
     @FXML
-    public void showAboutProgramDialog(){
+    public void showAboutProgramDialog() {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("O programie");
         alert.setHeaderText("Autor: Piotr Witański");
         alert.setContentText("FakturaLite jest uproszczonym programem przeznaczonym głównie dla osób prowadzących jednoosobową działalność gospodarczą. \n" +
-                            "Program posiada podstawowe funkcje umożliwiające dodanie, edytowanie i usunięcie faktur, wraz z możliwością wydrukowania faktury do PDF'a. \n" +
-                            "Program umożliwia również stworzenie podstawowej bazy klientów oraz usług i towarów.");
+                "Program posiada podstawowe funkcje umożliwiające dodanie, edytowanie i usunięcie faktur, wraz z możliwością wydrukowania faktury do PDF'a. \n" +
+                "Program umożliwia również stworzenie podstawowej bazy klientów oraz usług i towarów.");
         alert.showAndWait();
 
     }

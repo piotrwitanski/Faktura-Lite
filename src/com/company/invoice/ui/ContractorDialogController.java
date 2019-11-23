@@ -9,8 +9,8 @@ public class ContractorDialogController {
 
     @FXML
     private TextField contractorSymbolTextField, contractorNameTextField, contractorStreetTextField, contractorHouseNumberTextField,
-                    contractorApartmentNumberTextField, contractorPostCodeTextField, contractorCityTextField, contractorNIPTextField,
-                    contractorREGONTextField, contractorBankAccountTextField;
+            contractorApartmentNumberTextField, contractorPostCodeTextField, contractorCityTextField, contractorNIPTextField,
+            contractorREGONTextField, contractorBankAccountTextField;
 
 
     public Customer getNewCustomer() {

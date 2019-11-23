@@ -19,6 +19,7 @@ public class ItemUtilsTest {
     public void setup() {
         itemUtils = new ItemUtils();
     }
+
     @Test
     public void addItemToDB() {
     }
@@ -27,7 +28,7 @@ public class ItemUtilsTest {
     public void downloadItems() {
         List<Item> itemsList = itemUtils.downloadItems(5);
         List<Item> expectedItemsList = Arrays.asList(
-            new Item(8, 5, "KOMPUTER1", 1, 500.0, 385.0, 23, "szt.","TOWAR")
+                new Item(8, 5, "KOMPUTER1", 1, 500.0, 385.0, 23, "szt.", "TOWAR")
         );
         assertThat(itemsList, is(expectedItemsList));
     }

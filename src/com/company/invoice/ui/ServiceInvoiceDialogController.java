@@ -53,7 +53,7 @@ public class ServiceInvoiceDialogController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(!newValue) {
-                    calculateBruttoPrice();
+                    calculateGrossPrice();
                 }
             }
         });
@@ -62,7 +62,7 @@ public class ServiceInvoiceDialogController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(!newValue) {
-                    calculateNettoPrice();
+                    calculateNetPrice();
                 }
             }
         });
@@ -71,7 +71,7 @@ public class ServiceInvoiceDialogController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(!newValue) {
-                    calculateBruttoPrice();
+                    calculateGrossPrice();
                 }
             }
         });
@@ -116,30 +116,28 @@ public class ServiceInvoiceDialogController {
     }
 
     @FXML
-    public void calculateBruttoPrice() {
-        grossPriceTextField.setText(getBruttoPrice());
+    public void calculateGrossPrice() {
+        grossPriceTextField.setText(getGrossPrice());
     }
 
     @FXML
-    public void calculateNettoPrice() {
-        netPriceTextField.setText(getNettoPrice());
+    public void calculateNetPrice() {
+        netPriceTextField.setText(getNetPrice());
     }
 
-    private String getBruttoPrice() {
+    private String getGrossPrice() {
         double bruttoPrice = 0;
         NumberFormat formatter = NumberFormat.getInstance(Locale.US);
-        //*TODO how to avoid empty String exception in TextField
         bruttoPrice = (Double.parseDouble(vatTextField.getText()) / 100 + 1) * Double.parseDouble(netPriceTextField.getText());
         return Double.toString(bruttoPrice);
 
     }
 
-    private String getNettoPrice() {
+    private String getNetPrice() {
         double nettoPrice = 0;
         NumberFormat formatter = NumberFormat.getInstance(Locale.US);
         nettoPrice = Double.parseDouble(grossPriceTextField.getText()) - (Double.parseDouble(grossPriceTextField.getText()) *
                 (Double.parseDouble(vatTextField.getText())) / (100 + Double.parseDouble(vatTextField.getText())));
         return Double.toString(nettoPrice);
-        //*TODO add correct formatter to net and gross price
     }
 }

@@ -18,6 +18,7 @@ public class UserUtilsTest {
     public void setup() {
         dataBaseUtils = new DataBaseUtils();
     }
+
     @Test
     public void downloadUsers() {
         List<User> userList = dataBaseUtils.downloadUsers();
@@ -28,7 +29,6 @@ public class UserUtilsTest {
                 new User(4, "Alan Now", "Here", "Something", "445-000", "334-243-234-343", 12, 23, "10-2323-3333-4444-5555-4444"),
                 new User(5, "Alan Now", "Here", "Something", "445-000", "334-243-234-343", 12, 23, "10-2323-3333-4444-5555-4444")
         );
-        //*TODO must check equals method from User class
         assertThat(userList, is(expectedUserList));
     }
 

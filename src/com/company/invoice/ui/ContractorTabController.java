@@ -26,14 +26,8 @@ public class ContractorTabController {
 
     @FXML
     public void initialize() {
-//        System.out.println("Test contractor");
         UIData.getInstance().loadContractorTable();
         contractorTable.setItems(UIData.getInstance().getContractorModels());
-//
-//        ContractorModel contractorModel = new ContractorModel("Jan Ktos", "Tychy", "Ulica", "56-343", "344-4343-4343", "3", "20");
-//        ObservableList<ContractorModel> list = FXCollections.observableArrayList();
-//        list.add(contractorModel);
-//        contractorTable.setItems(list);
     }
 
     @FXML

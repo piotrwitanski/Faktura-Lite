@@ -108,6 +108,6 @@ public class Invoice {
         Invoice invoice = (Invoice) obj;
 
         return id == invoice.id && customerId == invoice.customerId && userId == invoice.userId && invoiceDate.equals(invoice.invoiceDate) && issueDate.equals(invoice.issueDate)
-                    && paymentId == invoice.paymentId && invoiceType.equals(invoice.invoiceType) && invoiceNumber.equals(invoice.invoiceNumber);
+                && paymentId == invoice.paymentId && invoiceType.equals(invoice.invoiceType) && invoiceNumber.equals(invoice.invoiceNumber);
     }
 }

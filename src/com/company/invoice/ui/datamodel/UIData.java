@@ -64,6 +64,11 @@ public class UIData {
         return userModels;
     }
 
+    /**
+     * Method adding Invoice object to the list
+     *
+     * @param invoice represent object that will be added to the list.
+     */
     public void addInvoiceModel(Invoice invoice) {
         InvoiceModel invoiceModel = new InvoiceModel();
         Customer customer = customerUtils.downloadCustomer(invoice.getCustomerId());
@@ -85,6 +90,11 @@ public class UIData {
 
     }
 
+    /**
+     * Method removing Invoice object from database and from the models list
+     *
+     * @param invoiceModel represent object from the list that must be removed
+     */
     public void deleteInvoice(InvoiceModel invoiceModel) {
         invoiceModels.remove(invoiceModel);
         itemUtils.removeItems(Integer.parseInt(invoiceModel.getInvoiceId()));
@@ -95,7 +105,7 @@ public class UIData {
         return invoiceUtils.downloadInvoice(getInvoiceLastId());
     }
 
-    public Invoice downloadInvoice (int invoiceId) {
+    public Invoice downloadInvoice(int invoiceId) {
         return invoiceUtils.downloadInvoice(invoiceId);
     }
 
@@ -293,7 +303,6 @@ public class UIData {
 
     public void loadBankAccountNumber() {
         User user = userUtils.downloadUser(USER_ID);
-        //*TODO just for now we assume that we will have only one user (id 1). Not sure if in future need to add more users
         UserModel userModel = new UserModel();
 
         userModel.setId(Integer.toString(user.getId()));

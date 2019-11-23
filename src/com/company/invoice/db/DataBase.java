@@ -161,6 +161,11 @@ public class DataBase {
         }
     }
 
+    /**
+     * Adding Item to database
+     *
+     * @param item transfer data to table item from database
+     */
     public void addStatement(Item item) {
         try(Statement statement = conn.createStatement()) {
 
@@ -206,6 +211,11 @@ public class DataBase {
         }
     }
 
+    /**
+     * This method enable to modify existing invoice in database
+     *
+     * @param invoice represent object for update
+     */
     public void updateInvoice(Invoice invoice) {
         try(Statement statement = conn.createStatement()) {
 
@@ -244,7 +254,7 @@ public class DataBase {
     /**
      * Method remove single item from database
      *
-     * @param itemId specify which item we want to remove
+     * @param itemId number of the invoice which items we want to remove from db
      */
     public void removeItem(int itemId) {
         try(Statement statement = conn.createStatement()) {
@@ -257,6 +267,11 @@ public class DataBase {
         }
     }
 
+    /**
+     * Method update items in database
+     *
+     * @param item represent object for update
+     */
     public void updateItem(Item item) {
         try(Statement statement = conn.createStatement()) {
 
@@ -293,6 +308,8 @@ public class DataBase {
 
     /**
      * Method downloading invoice max number for validation
+     *
+     * @return invoice maximum number or {@code null} if there is problem with database
      */
     public String downloadInvoiceMaxNumber() {
         try(Statement statement = conn.createStatement();
@@ -315,7 +332,7 @@ public class DataBase {
     /**
      * Method downloading last invoice ID from DB
      *
-     * @return
+     * @return last added invoice in data base or {@code null} if there is a problem with database
      */
     public int downloadInvoiceLastId() {
         try(Statement statement = conn.createStatement();
@@ -528,6 +545,7 @@ public class DataBase {
 
     /**
      * Updating user in database
+     *
      * @param user contain user arguments for updating
      */
     public void updateUser(User user) {

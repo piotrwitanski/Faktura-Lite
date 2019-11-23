@@ -13,11 +13,6 @@ public class DataBaseUtils {
         this.dataBase = new DataBase();
     }
 
-    /**
-     * Adding new Customer to database
-     *
-     * @param customer dto for database
-     */
     public void addCustomerToDB(Customer customer) {
 
         dataBase.open();
@@ -27,11 +22,6 @@ public class DataBaseUtils {
         dataBase.close();
     }
 
-    /**
-     * Adding new User to database
-     *
-     * @param user dto for database
-     */
     public void addUserToDB(User user) {
 
         dataBase.open();
@@ -41,11 +31,6 @@ public class DataBaseUtils {
         dataBase.close();
     }
 
-    /**
-     * Adding new Product to database
-     *
-     * @param product dto for database
-     */
     public void addProductToDB(Product product) {
 
         dataBase.open();
@@ -92,7 +77,7 @@ public class DataBaseUtils {
 
         dataBase.close();
 
-        return  productId;
+        return productId;
     }
 
     public void addInvoiceToDB(Invoice invoice) {
@@ -122,11 +107,6 @@ public class DataBaseUtils {
         dataBase.close();
     }
 
-    /**
-     * Transfer Customer List
-     *
-     * @return customers List
-     */
     public List<Customer> downloadCustomers() {
 
         dataBase.open();

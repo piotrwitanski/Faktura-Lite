@@ -44,11 +44,11 @@ public class Product {
     }
 
     public int getDBPriceNet() {
-        return (int)this.netPrice * 100;
+        return (int) this.netPrice * 100;
     }
 
     public void setDBPriceNet(int netPrice) {
-        this.netPrice = (double)netPrice / 100;
+        this.netPrice = (double) netPrice / 100;
     }
 
     public double getGrossPrice() {
@@ -56,17 +56,17 @@ public class Product {
     }
 
     public int getDBPriceGross() {
-        return (int)this.grossPrice * 100;
+        return (int) this.grossPrice * 100;
     }
 
     public void setGrossPrice(double grossPrice) {
         this.grossPrice = grossPrice;
-        this.netPrice = this.grossPrice - (this.grossPrice * (double)this.vat / (100 + (double)this.vat));
-    //*TODO check precision of this method to calculate net price
+        this.netPrice = this.grossPrice - (this.grossPrice * (double) this.vat / (100 + (double) this.vat));
+        //*TODO check precision of this method to calculate net price
     }
 
     public void setDBPriceGross(int grossPrice) {
-        this.grossPrice = (double)grossPrice / 100;
+        this.grossPrice = (double) grossPrice / 100;
     }
 
     public int getVat() {
@@ -111,6 +111,6 @@ public class Product {
         Product product = (Product) obj;
 
         return id == product.id && name.equals(product.name) && Double.compare(grossPrice, product.grossPrice) == 0 && Double.compare(netPrice, product.netPrice) == 0
-                    && vat == product.vat && unitOfMeasure.equals(product.unitOfMeasure) && type.equals(product.type);
+                && vat == product.vat && unitOfMeasure.equals(product.unitOfMeasure) && type.equals(product.type);
     }
 }

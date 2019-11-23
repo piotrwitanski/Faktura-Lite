@@ -51,7 +51,8 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <Button fx:id="addContractorButton" text="Dodaj" GridPane.rowIndex="2" GridPane.columnIndex="3" onAction="#showNewContractor">
+                <Button fx:id="addContractorButton" text="Dodaj" GridPane.rowIndex="2" GridPane.columnIndex="3"
+                        onAction="#showNewContractor">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/New16.gif"/>
@@ -60,7 +61,8 @@
                 </Button>
 
                 <Label text="Odbiorca faktury" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <CheckBox fx:id="recipientCheckBox" GridPane.rowIndex="3" GridPane.columnIndex="1" onAction="#chooseRecipient"/>
+                <CheckBox fx:id="recipientCheckBox" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                          onAction="#chooseRecipient"/>
                 <ComboBox fx:id="recipientComboBox" GridPane.rowIndex="3" GridPane.columnIndex="2">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -116,8 +118,9 @@
                     </TableColumn>
                 </columns>
             </TableView>
-            <GridPane vgap="5" hgap="10" >
-                <Button text="Dodaj towar/usługę" GridPane.rowIndex="1" GridPane.columnIndex="0" onAction="#showNewItemDialog">
+            <GridPane vgap="5" hgap="10">
+                <Button text="Dodaj towar/usługę" GridPane.rowIndex="1" GridPane.columnIndex="0"
+                        onAction="#showNewItemDialog">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/New16.gif"/>
@@ -138,8 +141,10 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Label fx:id="totalNetValueLabel" text="Razem wartość netto:" GridPane.rowIndex="1" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
-                <Label fx:id="totalGrossValueLabel" text="Razem wartość brutto:" GridPane.rowIndex="2" GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
+                <Label fx:id="totalNetValueLabel" text="Razem wartość netto:" GridPane.rowIndex="1"
+                       GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
+                <Label fx:id="totalGrossValueLabel" text="Razem wartość brutto:" GridPane.rowIndex="2"
+                       GridPane.columnIndex="20" alignment="CENTER_RIGHT"/>
 
             </GridPane>
 
@@ -153,15 +158,6 @@
                     <value>
                     </value>
                 </ComboBox>
-                <!--<Label text="Wystawił" GridPane.rowIndex="2" GridPane.columnIndex="2"/>-->
-                <!--<ComboBox GridPane.rowIndex="2" GridPane.columnIndex="3">-->
-                    <!--<items>-->
-                        <!--<FXCollections fx:factory="observableArrayList">-->
-                            <!--<String fx:value="Zygmunt Iksiński"/>-->
-                            <!--&lt;!&ndash;TODO here we need download list of names. For future development;-->
-                        <!--</FXCollections>-->
-                    <!--</items>-->
-                <!--</ComboBox>-->
                 <Label text="Waluta" GridPane.rowIndex="2" GridPane.columnIndex="20"/>
                 <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="21">
                     <items>
@@ -175,12 +171,12 @@
                 </ComboBox>
 
                 <Label text="Termin zapłaty" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <DatePicker fx:id="dueDatePicker"  GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="100"/>
+                <DatePicker fx:id="dueDatePicker" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="100"/>
                 <Label text="Rachunek" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                 <ComboBox fx:id="bankAccountComboBox" GridPane.rowIndex="4" GridPane.columnIndex="1">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                        <!--TODO download this bank account number from user. Need to add this number to invoice pdf. For future development-->
+                            <!--TODO download this bank account number from user. Need to add this number to invoice pdf. For future development-->
                             <String fx:value="1110-3332-33333-3333-333"/>
                         </FXCollections>
                     </items>

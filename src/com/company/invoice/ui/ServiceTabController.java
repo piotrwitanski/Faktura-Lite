@@ -56,7 +56,7 @@ public class ServiceTabController {
             UIData.getInstance().saveProduct(product);
             UIData.getInstance().addServiceModel(UIData.getInstance().loadNewProduct());
             serviceTable.setItems(UIData.getInstance().getServiceModels());
-            //TODO need to improve gross to net price method -> have strange results!!!!!!!
+            //TODO need to improve gross to net price method
         }
     }
 

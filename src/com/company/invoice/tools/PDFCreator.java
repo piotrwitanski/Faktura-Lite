@@ -29,8 +29,6 @@ public class PDFCreator {
     private Payment payment;
 
     public void createPdf(String filename, Customer customer, Invoice invoice, List<Item> items, User user, Payment payment) {
-        //*TODO add bigger font size
-        //*TODO add Payment table to PDF
         try {
 
             this.customer = customer;
@@ -96,7 +94,6 @@ public class PDFCreator {
      * @throws DocumentException
      */
     private void addTitle(Document document) throws DocumentException {
-        //*TODO date and invoice number will be added from db. Add position for invoice number to DB
         document.add(new Paragraph(INVOICE + invoice.getInvoiceNumber(), titleFont));
     }
 
@@ -152,7 +149,6 @@ public class PDFCreator {
     }
 
     private void addItemTablePositions(PdfPTable table) throws DocumentException {
-        //*TODO download values from DB
 
         for(int i = 0; i < items.size(); i++) {
             addTableCell(table, Integer.toString(i + 1), normalFont, 15, -1);
@@ -170,7 +166,7 @@ public class PDFCreator {
     }
 
     /**
-     * This method is created to add values for specify item table positions.
+     * Method adding values for specify item table positions.
      *
      * @param table      is Item table for invoice
      * @param font       specify which font type want to use

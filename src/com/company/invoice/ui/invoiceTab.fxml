@@ -50,8 +50,6 @@
         </VBox>
 
 
-
-
     </top>
     <center>
         <TableView fx:id="invoiceTable">

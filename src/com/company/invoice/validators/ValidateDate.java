@@ -15,7 +15,6 @@ public class ValidateDate implements Validator {
         return validate(invoiceYear);
     }
 
-    //*TODO check current date with set date by user
     private boolean validate(int invoiceYear) {
         int year = today.getYear();
         if(invoiceYear == year) {

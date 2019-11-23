@@ -20,6 +20,7 @@ public class InvoiceUtilsTest {
     public void setup() {
         invoiceUtils = new InvoiceUtils();
     }
+
     @Test
     public void addInvoiceToDB() {
     }

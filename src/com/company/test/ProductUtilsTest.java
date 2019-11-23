@@ -19,6 +19,7 @@ public class ProductUtilsTest {
     public void setup() {
         productUtils = new ProductUtils();
     }
+
     @Test
     public void downloadProducts() {
         List<Product> products = productUtils.downloadProducts();
